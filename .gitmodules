@@ -1,0 +1,4 @@
+[submodule "public"]
+	path = public
+	url = https://github.com/koji314/koji314.github.io.git
+	branch = master
