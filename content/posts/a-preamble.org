@@ -1,0 +1,39 @@
+#+TITLE: A Preamble.
+#+date: 2020-05-21
+#+DESCRIPTION: Help
+
+* So... What now...
+Alright. I made a blog.
+
+But I have come to the realisation that I don't know what to write... I have a few more technical posts in mind. But a more **general** one? Perhaps.
+
+Roses are red.
+
+Violets are blue.
+
+I'm really tired.
+
+I'm bad at poems...
+
+Maybe lets just play with the bells and whistles in this blog... LaTeX Rendering...
+{{<katex "display">}}
+f(x) = \int_{-\infty}^\infty\hat f(\xi)\,e^{2 \pi i \xi x}\,d\xi
+{{</katex>}}
+And maybe some inline like \(\Gamma(x)\)... How about some code...
+#+BEGIN_SRC c
+/* From Linux Kernel... Thanks Linus.
+ *
+ * The decision whether SMT is supported can only be done after the full
+ * CPU identification. Called from architecture code.
+ */
+void __init cpu_smt_check_topology(void)
+{
+	if (!topology_smt_supported())
+		cpu_smt_control = CPU_SMT_NOT_SUPPORTED;
+}
+#+END_SRC
+Images?
+
+[[file:/img/ohyeah.jpg]]
+
+Heh nice.
