@@ -1,5 +1,6 @@
 #+TITLE: How I exist - A cultivated system
 #+date: 2020-05-29
+#+TAGS: draft
 #+description: A handy system cultivated through the years of academic study.
 As a student of Mathematics and Computer Science, I find myself on the computer *quite alot*, so I have customized a few little neat things that make it easier for me to go through my day.
 
