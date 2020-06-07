@@ -1,8 +1,6 @@
-#+TITLE: About Me!
-My name is Ismael Khan, I am a undergraduate Mathematics and Computer Science student currently studying at [[https://www.uq.edu.au][The University of Queensland.]]
+#+TITLE: About
 
-My main passions and interests lie within a lot of interesting fields within the very vast fields Mathematics and Computer Science. Yes sentence. I also like to tinker with stuff occasionally. Software and Hardware alike. So a built a blog!
+*Ismael Khan* - Undergraduate Student in Mathematics and Computer Science. Tinkerer. Avid LaTeX User.
 
-And I will put some cool stuff in it. Eventually...
-
+Thinking about Terminal Fonts
 - [[https://github.com/koji314][Github]]
