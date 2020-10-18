@@ -35,5 +35,4 @@ void __init cpu_smt_check_topology(void)
 Images?
 
 [[file:/img/ohyeah.jpg]]
-
 Heh nice.

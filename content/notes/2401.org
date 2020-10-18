@@ -1,5 +1,4 @@
 #+TITLE: *MATH2401 - Mathematical Analysis and Advanced Topics*
-#+OPTIONS: tex:imagemagick
 #+LATEX_HEADER: \usepackage{parskip}
 #+LATEX_HEADER: \usepackage{tikz}
 #+LATEX_HEADER: \newcommand{\abs}[1]{\left| #1 \right|}
@@ -11,23 +10,22 @@
 #+LATEX_HEADER:     \def\svgwidth{\columnwidth}
 #+LATEX_HEADER:     \import{./}{#1.pdf_tex}
 #+LATEX_HEADER: }
-* Preamble - Review
-*Please review the notions of groups, rings, and fields by, e.g, looking at the Wikipedia entries.*
-** Groups
-** Rings
-** Fields
 
+# Sacrifice somewhat functional inbuilt latex fragments for some web functionality?
+* Tests of some Tikz Diagrams in SVG
+[[file:/img/tikz/city.svg]]
+[[file:/img/tikz/circumscribe.svg]]
+[[file:/img/tikz/perpendicular-bissector.svg]]
 * Continued Fractions
+   {{<katex "display">}}
+  
+   {{</katex>}}
    What the hell is this chapter notes?!?
    For instance,
-{{<katex "display">}}
    \[
    1 + \frac{1}{1+\frac{1}{1+\frac{1}{1+\frac{1}{1+ \cdots}}}}
    \]
-{{</katex>}}
 
-
-  
   *Reformation:* There are bounded subsets of \(\mathbb{Q}\) which have no least upper bound (suprememum)
 
   Example: \(A = \{x \in \mathbb{Q} | x^2 < 2\}\), bounded but has no (rational) supremum.
@@ -37,10 +35,7 @@
   2. Dedekind Method
 
 * Dedekind Construction of Real Numbers
-#+html: <div style="text-align: center;">
-[[file:/img/test.svg]]
-#+html: </div>
-Construction uses a notion of "cuts".
+    Construction uses a notion of "cuts".
 
    *Definition*: A cut in \(\mathbb{Q}\) is a pair of subsets \(A,B \subset \mathbb{Q}\) such that
      (a). \(A \cup B = \mathbb{Q}, \; A \cap B = \phi\), therefore \(A \neq \phi \neq B\)
@@ -127,7 +122,7 @@ continuous on \([a,b]\) and \(f(a) < 0 < f(b)\), out goal is to show that there 
 \[
 A = \left \{x \in [a,b] \mid f \text{ is negative on the interval } [a,x] \right\}
 \]
-Note that \(a \in A \implies \(A \neq \phi\) (non-empty). Moreover \(A \subseteq [a,b] \implies\) that \(A\) is bounded. By the least upper bound property we then have \(\alpha = \text{sup}(A)\).
+Note that \(a \in A \implies A \neq \phi\) (non-empty). Moreover \(A \subseteq [a,b] \implies\) that \(A\) is bounded. By the least upper bound property we then have \(\alpha = \text{sup}(A)\).
 
 *Claim*: \(\alpha \in (a,b)\) and \(f(\alpha) = 0\).
 
@@ -204,7 +199,6 @@ Given \(E \subseteq X\), define the closure of \(E\), denoted by \(\overline{E}\
 	\draw (0,-1) node {$x=0$};
 	\draw (4,-1) node {$x=l$};
 \end{tikzpicture}
-
 * Continuous Functions
 Recall that \(f:(X,d) \to (X',d')\) is continuous at \(x\) if \(\forall \varepsilon > 0\), \(\exist \delta > 0\) such that \(d(x,y) < \delta \implies d(f(x), f(y)) < \varepsilon\), we that \(f\) being continuous at \(x\) by this definition \(\iff\) \(x_n \to x \implies f(x_n) \to f(x)\), and also that \(f\) is continuous on \(X\) if and only if an inverse image of every open set is open. (Inverse image of nbhd is a nbhd). I proved this vaguely in Assignment 3 of MATH2401.
 
