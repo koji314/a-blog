@@ -1,0 +1,798 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2020-10-18 Sun 21:22 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title><b>MATH2401 - Mathematical Analysis and Advanced Topics</b></title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="koji" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<script type="text/javascript">
+// @license magnet:?xt=urn:btih:1f739d935676111cfff4b4693e3816e664797050&amp;dn=gpl-3.0.txt GPL-v3-or-Later
+<!--/*--><![CDATA[/*><!--*/
+     function CodeHighlightOn(elem, id)
+     {
+       var target = document.getElementById(id);
+       if(null != target) {
+         elem.cacheClassElem = elem.className;
+         elem.cacheClassTarget = target.className;
+         target.className = "code-highlighted";
+         elem.className   = "code-highlighted";
+       }
+     }
+     function CodeHighlightOff(elem, id)
+     {
+       var target = document.getElementById(id);
+       if(elem.cacheClassElem)
+         elem.className = elem.cacheClassElem;
+       if(elem.cacheClassTarget)
+         target.className = elem.cacheClassTarget;
+     }
+    /*]]>*///-->
+// @license-end
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
+
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
+</script>
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body>
+<div id="content">
+<h1 class="title"><b>MATH2401 - Mathematical Analysis and Advanced Topics</b></h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org17b2da6">1. Preamble - Review</a>
+<ul>
+<li><a href="#orga13d7b1">1.1. Groups</a></li>
+<li><a href="#org82d9ef1">1.2. Rings</a></li>
+<li><a href="#orga4bbfcd">1.3. Fields</a></li>
+</ul>
+</li>
+<li><a href="#orgb5643da">2. Continued Fractions</a></li>
+<li><a href="#org7132495">3. Dedekind Construction of Real Numbers</a></li>
+<li><a href="#org6711401">4. Cauchy Construction of \(\mathbb{R}\)</a></li>
+<li><a href="#org0d34872">5. Intermediate Value Theorem</a></li>
+<li><a href="#orgd5d1743">6. Sequential Continuity Criteria</a></li>
+<li><a href="#orge74e7ea">7. Uniform Convergence with Integration and Differentiation</a></li>
+<li><a href="#org117b1e0">8. Uniform Convergence of Function Series</a>
+<ul>
+<li><a href="#org71ca93d">8.1. Weistrass M-Test</a></li>
+</ul>
+</li>
+<li><a href="#org344a999">9. Metric Spaces and Balls</a></li>
+<li><a href="#org41c1192">10. Continuous Functions</a></li>
+<li><a href="#org3e00ce7">11. Generalisation of Multivariate Differentiation</a></li>
+<li><a href="#orgec79454">12. Observation: Implicit Function Theorem</a></li>
+<li><a href="#org5a09a42">13. Inverse Function Theorem!</a></li>
+<li><a href="#orga2ca671">14. Diffeomorphisms and Homeomorphisms</a></li>
+<li><a href="#org2bc6505">15. Hypersurfaces (sounds so cool)</a></li>
+<li><a href="#org736ce32">16. Manifold</a></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org17b2da6" class="outline-2">
+<h2 id="org17b2da6"><span class="section-number-2">1</span> Preamble - Review</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+<b>Please review the notions of groups, rings, and fields by, e.g, looking at the Wikipedia entries.</b>
+</p>
+</div>
+<div id="outline-container-orga13d7b1" class="outline-3">
+<h3 id="orga13d7b1"><span class="section-number-3">1.1</span> Groups</h3>
+</div>
+<div id="outline-container-org82d9ef1" class="outline-3">
+<h3 id="org82d9ef1"><span class="section-number-3">1.2</span> Rings</h3>
+</div>
+<div id="outline-container-orga4bbfcd" class="outline-3">
+<h3 id="orga4bbfcd"><span class="section-number-3">1.3</span> Fields</h3>
+</div>
+</div>
+
+<div id="outline-container-orgb5643da" class="outline-2">
+<h2 id="orgb5643da"><span class="section-number-2">2</span> Continued Fractions</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+   What the hell is this chapter notes?!?
+   For instance,
+{{&lt;katex &ldquo;display&rdquo;&gt;}}
+   \[
+   1 + \frac{1}{1+\frac{1}{1+\frac{1}{1+\frac{1}{1+ \cdots}}}}
+   \]
+{{&lt;/katex&gt;}}
+</p>
+
+
+
+<p>
+<b>Reformation:</b> There are bounded subsets of \(\mathbb{Q}\) which have no least upper bound (suprememum)
+</p>
+
+<p>
+Example: \(A = \{x \in \mathbb{Q} | x^2 < 2\}\), bounded but has no (rational) supremum.
+</p>
+
+<p>
+Our goal is to enlarge \(\mathbb{Q}\) to &ldquo;fill the holes&rdquo; while at the same time keep all the nice properties (an ordered field). There are two methods to do this.
+</p>
+<ol class="org-ol">
+<li>Cauchy Method</li>
+<li>Dedekind Method</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org7132495" class="outline-2">
+<h2 id="org7132495"><span class="section-number-2">3</span> Dedekind Construction of Real Numbers</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+Construction uses a notion of &ldquo;cuts&rdquo;.
+</p>
+
+<p>
+<b>Definition</b>: A cut in \(\mathbb{Q}\) is a pair of subsets \(A,B \subset \mathbb{Q}\) such that
+  (a). \(A \cup B = \mathbb{Q}, \; A \cap B = \phi\), therefore \(A \neq \phi \neq B\)
+  (b). If \(a \in A\) and \(b \in B\), then \(a \leq b\)
+  (c). \(A\) contains no largest element.
+</p>
+
+
+<p>
+<b>Example</b>:
+(i). \(A | B = \mathbb{Q}_{< 0} | \mathbb{Q}_{\geq 0}\), the latter is called the <b>zero cut</b>. Replacing zero with any rational number you have the cut corresponding to that number, i.e \(\mathbb{Q}_{\geq x}\) where \(x \in \mathbb{Q}\) (thats recursive)
+  (ii). \(A | B = \{x \in \mathbb{Q} : x \leq 0 \text{ or } x^2 < 2\} | \{x \in \mathbb{Q} : x > 0 \text{ or } x^2 \geq 2\}\)
+</p>
+
+<p>
+<b>Defintion</b> (Key Definition): A real number is a <b>cut</b> in \(\mathbb{Q}\).
+Let \(\mathbb{R}\) be the set of real numbers. Note that \(Q \subseteq \mathbb{R}\),
+</p>
+
+<p>
+If \(\alpha \in \mathbb{Q}\), then define a cut \(\mathbb{Q}_\alpha\) by \(A | B = \mathbB{Q}_{< \alpha} | \mathbb{Q}_{\geq \alpha}\)
+</p>
+
+<p>
+<b>Definition</b> Suppose \(x = A | B\) and \(y = C | D\) are two cuts. We say \(x \leq y\) if \(A \subseteq C\) and \(x < y\) if \(A \subsetneq C\).
+</p>
+
+<p>
+<b>Example</b> \(\mathbb{Q}_{< 0} \mid \mathbb{Q}_{\geq 0} \leq \mathbb{Q}_{< 1} \mid \mathbb{Q}_{\geq 1}\) and \(\mathbb{Q}_{\sqrt{2}} < \mathbb{Q}_{1.5} = \mathbb{Q}_{1.5} \mid \mathbb{Q}_{\geq 1.5}\)
+</p>
+
+<p>
+<b>EXERCISE</b>: I forgot to write it down lol.
+</p>
+
+<p>
+<b>Definition</b>: An element \(M \in \mathbb{R}\) is called an <b>upper bound</b> for \(S \subseteq \mathbb{Q}\) if \(\forall s \in S\), \(s \leq M\).
+</p>
+
+<p>
+<b>Example</b>: Let \(S\) be the set of all cuts less than the zero cut. Then clearly \(\mathbb{Q}_0\) is an upper bound for \(S\).
+</p>
+
+<p>
+<b>Definition</b>: An element \(M \in \mathbb{R}\) is called a least upper bound for \(S \subseteq \mathbb{R}\) if
+  (i). M is an upper bound.
+  (ii). If \(M'\) is another upper bound for \(S\), then \(M \leq M'\).
+</p>
+
+<p>
+<b>Example</b>: \(\mathbb{Q}_\sqrt{2}\) is a LUB for \(S =\{x \in \mathbb{Q} | x^2 < \sqrt{2} \}\)
+</p>
+
+<p>
+<b>Theorem</b>: \(\mathbb{R}\) is Dedekind Complete; i.e every bounded subset has a least upper bound (aka supremum).
+</p>
+
+<p>
+<b>Proof</b>: Let 
+\[C = \{a \in \mathbb{Q} \mid \text{ for some cut } A \mid B \in S, \text{ we have } a \in A = \displaystyle \bigcup_{A \mid B} \in S A\]
+with \(D = \mathbb{Q} - C\).
+</p>
+
+<p>
+<b>Exercise</b>: \(\mathbb{Z} = C \mid D\) is actually a cut. Clearly \(\mathbb{Z}\) is an upper bound for \(S\). We claim it is actually a <b>least upper bound</b>. Let \(Z' = C' \mid D'\) be any other upper bound for \(S\). By assumption, we have that for \(A \mid B \leq C' \mid D', \; \forall A \mid B \in S\),
+this implies that \(A \subseteq C' \forall A \mid B \in S\) and thus 
+\[
+   \bigcup_{A \mid B \in S} = C \subseteq C' \implies Z \leq Z'
+   \]
+</p>
+</div>
+</div>
+
+<div id="outline-container-org6711401" class="outline-2">
+<h2 id="org6711401"><span class="section-number-2">4</span> Cauchy Construction of \(\mathbb{R}\)</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+<b>Definition:</b> Recall that a sequence \((x_n)_{n=1}^\infty\), \(x_n \in \mathbb{Q}\) is Cauchy if \(\forall \varepsilon \in \mathbb{Q}_{> 0}\), there exists \(N = N_\varepsilon\), such that \(|x_n - x_m| < \varepsilon\), \(\forall n,m > N\). (Note the emphasis that \(N\) depends on \(\varepsilon\)).
+<b>Example</b>: 
+</p>
+<ol class="org-ol">
+<li>Let \(x_n\) be any sequence \(\in \mathbb{Q}\), whose limit is also \(\in \mathbb{Q}\), e.g \(x_n = \frac{1}{n}\), 
+\[
+      \lim_{n\to \infty} x_n = 0
+      \]</li>
+<li>Take the partial sum sequence
+\[
+      x_n = 1 - \frac{1}{2} + \frac{1}{3} - \cdots + (-1)^{n+1} \frac{1}{n} = \sum_{k = 1}^n \frac{(-1)^{k+1}}{k}
+      \]
+Then \(x_n\) does not converge in \(\mathbb{Q}\), but it <b>is Cauchy</b>, (Exercise - PROVE).</li>
+</ol>
+
+
+<p>
+Let \(\ell\) be the <b>set of all Cauchy sequence of \(\mathbb{Q}\)</b>
+</p>
+
+<p>
+<span class="underline">GOOD NEWS</span>: \(\ell\) is closed under addition and multiplication, thus \(\ell\) is a ring.
+</p>
+
+<p>
+<span class="underline">BAD NEWS</span>: \(\exists\) non-zero Cauchy seq. which have no inverse, e.g no sequence satisfies
+\[
+   (1,0,\cdots, 0) \cdot (x_1, x_2, \cdots, x_n, \cdots) = (1,1,1, \cdots, )
+   \]
+<b>Key Definition</b>: 
+</p>
+<ol class="org-ol">
+<li>A cauchy seq is equivalent to zero if \(\lim_{n\to\infty} |x_n| = 0\)</li>
+<li>Two cauchy seqs \((x_n)\) and \((y_n)\) are equivalent if \(x_n - y_n\) is equivalent to 0.</li>
+</ol>
+
+<p>
+<b>Exercise</b> - Showing this is an equivalence relation (defines one atleast), i.e show reflexibility, symmetry and transitivity.
+</p>
+
+<p>
+<b>Defn</b>. Define \(\mathbb{R}\) to be the set of equivalence claimes(?) of Cauchy sequences of rationals, i.e
+\[
+   \mathbb{R} := \frac{C}{n}
+   \]
+</p>
+</div>
+</div>
+
+<div id="outline-container-org0d34872" class="outline-2">
+<h2 id="org0d34872"><span class="section-number-2">5</span> Intermediate Value Theorem</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+<b>Thm</b>: Let \(f\) be a cts. function on a closed interval \([a,b]\). Let \(c \in \mathbb{R}\) be a number between \(f(a)\) and \(f(b)\). Then there exists an \(x \in [a,b]\) such that \(f(x) = c\).
+</p>
+
+<p>
+To prove IVT, it is sufficient to prove the following special case: \(f(a) < 0\), \(f(b) > 0\), then \(\exists x \in (a,b)\) such that \(f(x) = 0\). Suppose \(f\) is
+continuous on \([a,b]\) and \(f(a) < 0 < f(b)\), out goal is to show that there exists some \(\alpha \in (a,b)\) with \(f(\alpha) = 0\). Let
+</p>
+
+<p>
+\[
+A = \left \{x \in [a,b] \mid f \text{ is negative on the interval } [a,x] \right\}
+\]
+Note that \(a \in A \implies \(A \neq \phi\) (non-empty). Moreover \(A \subseteq [a,b] \implies\) that \(A\) is bounded. By the least upper bound property we then have \(\alpha = \text{sup}(A)\).
+</p>
+
+<p>
+<b>Claim</b>: \(\alpha \in (a,b)\) and \(f(\alpha) = 0\).
+</p>
+
+<p>
+To prove this, we recall a result obtained in a previous course (MATH1071)
+Let \(f\) be a cts. function at \(x\) and \(f(x) > 0\). Then \(\exists \delta > 0\) such that \(f(y) > 0\) forall \(y \in [x-\delta, x+\delta]\). Since \(f(a) < 0 \implies f(x) < 0\), on \([a, a+ \delta]\) for some \(\delta > 0\), then furthermore this means that \(\delta \geq a + \delta > \alpha\). Similarly, we can show that \(\alpha < b\). (Key thing being to show that \(f(\alpha) = 0\)).
+</p>
+
+<p>
+Suppose for the sake of contradiction, we have \(f(\alpha) < 0\). Then by the fact in the result above, \(f\) is negative on the interval \([\alpha - \delta, \alpha + \delta]\) for some \(\delta > 0\). But this implies that \(f\) is negative on
+\([a, \alpha + \delta] = [a, \alpha - \delta] \cup [\alpha - \delta, \alpha + \delta]\)
+And if \(f\) wasn&rsquo;t negative, then \([a,\alpha - \delta]\) would mean that \(\alpha - \delta \leq \alpha - \delta\), which is obviously a contradiction, as \(\alpha\) is the supremum among these numbers.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgd5d1743" class="outline-2">
+<h2 id="orgd5d1743"><span class="section-number-2">6</span> Sequential Continuity Criteria</h2>
+</div>
+<div id="outline-container-orge74e7ea" class="outline-2">
+<h2 id="orge74e7ea"><span class="section-number-2">7</span> Uniform Convergence with Integration and Differentiation</h2>
+</div>
+<div id="outline-container-org117b1e0" class="outline-2">
+<h2 id="org117b1e0"><span class="section-number-2">8</span> Uniform Convergence of Function Series</h2>
+<div class="outline-text-2" id="text-8">
+</div>
+<div id="outline-container-org71ca93d" class="outline-3">
+<h3 id="org71ca93d"><span class="section-number-3">8.1</span> Weistrass M-Test</h3>
+<div class="outline-text-3" id="text-8-1">
+<p>
+<b>Thm</b>: Let \(\{f_n\}\) be a sequence on functions defined on \(A\) and suppose \(\{M_n\}\) is a sequence of numbers, such that
+\[
+\abs{f_n(x)} \leq M_n
+\]
+forall \(x \in A\) and forall \(n \in \mathbb{N}\), Suppose that \(\sum_{n=1}^{\infty} M_n\) converges, then for each \(x \in A\), then \(\sum_{n=0}^{\infty} f_n(x)\), converges (absolutely), and \(\sum_{n=0}^{\infty} f_n\) converges uniformly to \(f(x) = \sum_{n=0}^{\infty} f_n(x)
+\) on \(A\).
+</p>
+
+<p>
+<i>Proof:</i>
+For each \(x \in A\), the sum \(\sum_{n=0}^{\infty} \abs{f_n(x)}\), converges by comparison test, next for all \(x \in A\) we have
+</p>
+\begin{align*}
+&\abs{f(x) - (f_0(x) + \dots + f_N(x))}\\
+&= \abs{ \sum_{n=N+1}^{\infty} f_n(x)}\\
+&\leq \sum_{n=N+1}^{\infty} \abs{f_n(x)}\\
+&\leq \sum_{n=N+1}^{\infty} M_n < \varepsilon
+\end{align*}
+<p>
+As \(\sum_{n=0}^{\infty} M_n\) converges, given \(\varepsilon > 0\), we can choose \(N\) so that \(\sum_{n = N+1}^{\infty} M_n < \varepsilon\). Thus, \(\sum_{n=0}^{\infty} f_n\) converges uniformly to \(f\) on \(A\).
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org344a999" class="outline-2">
+<h2 id="org344a999"><span class="section-number-2">9</span> Metric Spaces and Balls</h2>
+<div class="outline-text-2" id="text-9">
+<p>
+<b>Definition</b>: Let \(x_0 \in X\) and \(r > 0\), then we define the <b>open ball</b> to be
+\[
+B_r(x_0) = \{x \in X \mid d(x,x_0) < r\}
+\]
+Similarly the <b>closed ball</b>
+\[
+\overline{B_r(x_0)} = \{x \in X \mid d(x, x_0) \leq r\}}
+\]
+</p>
+
+<p>
+<b>Definition:</b> Let \(E\) be a subset of a metric space \(X\), we say \(x \in E\) is in the <span class="underline">interior</span> of \(E\) if \(\exists r > 0\) such that \(B_r(x) \subseteq E\). Similarly we say that \(x \in X - E\) is in the <span class="underline">exterior</span> of \(E\) if \(B_r(x) \subseteq X - E\). If \(x\) is in neither of these, then we say \(x\) is in the boundary.
+</p>
+
+<p>
+Denoting them as follows
+\[\text{int}(E) = \overset{\circ}{E} \leftarrow \text{interior}\]
+\[\text{ext}(E)\leftarrow \text{exterior}\]
+\[\delta(E) \leftarrow \text{boundary}\]
+</p>
+
+<p>
+<b>Example</b>: \(X = (\mathbb{R}, | . |)\)
+Then we have the
+\[
+\text{int}(E) = (a,b)
+\]
+\[
+\text{ext}(E) = \mathbb{R} - [a,b] = (-\infty, a) \cup (b,\infty)
+\]
+\[
+\delta(E) = \{a,b\}
+\]
+</p>
+
+<p>
+Given \(E \subseteq X\), define the closure of \(E\), denoted by \(\overline{E}\), to be the set of all limit points of \(E\), Obviously \(E \subseteq \overline{E}\).
+</p>
+
+<p>
+<b>Exercise</b>: \(E\) is closed \(\iff\) \(E = \overline{E}\)
+</p>
+\begin{tikzpicture}
+	\draw[dashed,color=gray] (0,0) arc (-90:90:0.5 and 1.5);% right half of the left ellipse
+	\draw[semithick] (0,0) -- (4,1);% bottom line
+	\draw[semithick] (0,3) -- (4,2);% top line
+	\draw[semithick] (0,0) arc (270:90:0.5 and 1.5);% left half of the left ellipse
+	\draw[semithick] (4,1.5) ellipse (0.166 and 0.5);% right ellipse
+	\draw (-1,1.5) node {$\varnothing d_1$};
+	\draw (3.3,1.5) node {$\varnothing d_2$};
+	\draw[|-,semithick] (0,-0.5) -- (4,-0.5);
+	\draw[|->,semithick] (4,-0.5) -- (4.5,-0.5);
+	\draw (0,-1) node {$x=0$};
+	\draw (4,-1) node {$x=l$};
+\end{tikzpicture}
+</div>
+</div>
+
+<div id="outline-container-org41c1192" class="outline-2">
+<h2 id="org41c1192"><span class="section-number-2">10</span> Continuous Functions</h2>
+<div class="outline-text-2" id="text-10">
+<p>
+Recall that \(f:(X,d) \to (X',d')\) is continuous at \(x\) if \(\forall \varepsilon > 0\), \(\exist \delta > 0\) such that \(d(x,y) < \delta \implies d(f(x), f(y)) < \varepsilon\), we that \(f\) being continuous at \(x\) by this definition \(\iff\) \(x_n \to x \implies f(x_n) \to f(x)\), and also that \(f\) is continuous on \(X\) if and only if an inverse image of every open set is open. (Inverse image of nbhd is a nbhd). I proved this vaguely in Assignment 3 of MATH2401.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org3e00ce7" class="outline-2">
+<h2 id="org3e00ce7"><span class="section-number-2">11</span> Generalisation of Multivariate Differentiation</h2>
+<div class="outline-text-2" id="text-11">
+<p>
+Recalling the definition from single variables we have
+\[
+f'(x_0) := \lim_{x\to x_0} \frac{f(x) - f(x_0)}{x- x_0}
+\]
+Now take \(f: \mathbb{R}^n \to \mathbb{R}^m\), then we obviously have a problem, as \(f'(x_0)\) could be in either \(\mathbb{R}^n\) or \(\mathbb{R}^m\),
+</p>
+
+<p>
+<b>Def</b>: A linear map \(L : \mathbb{R}^{n} \to \mathbb{R}^{m} \) is the derivitave of \(f : \mathbb{R}^{n} \to \mathbb{R}^{m}\) at \(x_0 \in \mathbb{R}^{n}\) if
+\[
+\lim_{x \to x_0} \frac{\|f(x) - f(x_0) + L(x-x_0)) \| }{\|(x-x_0)\|} = 0
+\]
+Such that \(\| \cdot \|\) denotes the standard Euclidean norm.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgec79454" class="outline-2">
+<h2 id="orgec79454"><span class="section-number-2">12</span> Observation: Implicit Function Theorem</h2>
+<div class="outline-text-2" id="text-12">
+<p>
+Applies as long as matrix of all partial derivatives (gradient \(\nabla f\)) does not equal the 0 matrix.
+</p>
+
+<p>
+So if \(\nabla f(x_1, \cdots, x_n) \neq 0\), then locally near \(f\), \(V(f)\) is a graph of a function.
+</p>
+
+<p>
+E.g to keep in mind:
+\[
+f(x,y) = x^2 + y^2 - 1
+\]
+</p>
+
+<p>
+\(\nabla(f) = (2x 2y) \implies\)  \(V(f)\) is always locally a graph of a function.
+</p>
+
+<p>
+<b>Notes on manifold in written notebook - To put back into this</b>
+</p>
+</div>
+</div>
+
+<div id="outline-container-org5a09a42" class="outline-2">
+<h2 id="org5a09a42"><span class="section-number-2">13</span> Inverse Function Theorem!</h2>
+<div class="outline-text-2" id="text-13">
+<p>
+<b>Thm (Inverse Function Theorem)</b>: Let \(f : \mathbb{R}^{n} \to \mathbb{R}^{m}\), be a function and suppose \(f'(x_0)\) is invertible (i.e \(\text{det}(f'(x_0)) \neq 0\)).
+</p>
+
+<p>
+Then \(f\) is locally invertible near \(x_0\) and
+</p>
+
+<p>
+\[
+(f^{-1})'(f(x_0)) = (f'(x_0))^{-1}
+\]
+</p>
+
+<p>
+Derivative of inverse = inverse of derivative.
+</p>
+
+<p>
+To prove the inverse function theorem, another major theorem is required, called the <b>Contraction mapping Theorem</b>.
+</p>
+
+<p>
+This can be formulated in a general matrix space not just \(\mathbb{R}^{n}\).
+</p>
+
+<p>
+Let \(f:(X_1, d_1) \to (X_2, d_2)\), \(f\) is called a contraction if \(\exists c \in (0,1)\) such that \(d_2(f(x), f(y)) < c d_1(x,y)\).
+</p>
+
+<p>
+<b>Thm (Contraction Mapping Theorem)</b>: Let \(f : (X,d) \to (X,d)\) be a contraction. Then \(f\) has exactly one fixed point, \(\exists ! x_0\) (exists a unique \(x_0 \)) such that \(f(x_0) = x_0\)
+</p>
+</div>
+</div>
+<div id="outline-container-orga2ca671" class="outline-2">
+<h2 id="orga2ca671"><span class="section-number-2">14</span> Diffeomorphisms and Homeomorphisms</h2>
+<div class="outline-text-2" id="text-14">
+<p>
+Given \(U \subseteq \mathbb{R}^n\) and \(V \subseteq \mathbb{R}^m\), we say some \(U\) is a homeomorphic to \(V\) if there exists some continuous function \(f : U \to V\) such that it also has a continuous inverse.
+</p>
+
+<p>
+Similarly we say \(U\) is diffeomorphic to \(V\) if there exists some <b>continuous differentiable</b> function \(f:U \to V\) with a <b>continuous differentiable</b> inverse.
+</p>
+
+<p>
+Note by this definition, if \(f\) is a bijection, then it has an inverse, and vice versa (by definition of bijectivity). Furthermore if \(f\) is a homeomorphism, then it is a bijective (cts) \(f\) with a continuous inverse. They are slightly different but a connection can be made.
+</p>
+
+<p>
+This gives us a little neat relation of
+\[
+\text{Diffeom.} \subseteq \text{Homeo.} \subseteq \text{Bijection}
+\]
+</p>
+
+<p>
+For example, \((0,1)\) is homemorphic to \(\mathbb{R}\), suppose we define
+</p>
+\begin{align*}
+f : &(0,1) \to \mathbb{R}\\
+&x \mapsto \tan\left(\frac{\pi}{2} + x\pi\right)
+\end{align*}
+<p>
+(Exercise, show that this is also diffeomorphic).
+</p>
+
+
+<p>
+<b>Thm</b>: If \(n \neq m\), then \(\mathbb{R}^n\) is not diffeomorphic to \(R^m\) (even when \(\mathbb{R}^n\) and \(\mathbb{R}^m\) are in bijection??)
+</p>
+
+<p>
+<i>Proof</i>: Let \(f:\mathbb{R}^{n} \to \mathbb{R}^{m}\) be a diff. function with a diff. inverse \(g\). Then we have
+</p>
+\begin{align*}
+f' \circ g' &= Id_m\\
+g' \circ f' &= Id_n
+\end{align*}
+<p>
+The derivative matrix of \(f\) and \(g\) are inverses to each other. Taking a fact from linear algebra, for an \(m \times n\) matrix being invertible \(\implies\) \(m=n\). Box.
+</p>
+
+<p>
+Similarly, we have a theorem like it with homemorphism.
+</p>
+
+<p>
+<b>Thm</b>: If \(n \neq m\), then \(\mathbb{R}^{n}\) is not homeomorphi to \(\mathbb{R}^{m}\).
+</p>
+
+<p>
+This theorem is much harder to prove, and beyond the scope of the course.
+</p>
+
+<p>
+<b>Remark</b>: The inverse function theorem states that if \(f'(x_0)\) is invertible then \(f\) is locally a diffeomorphism near \(x_0\).
+</p>
+</div>
+</div>
+<div id="outline-container-org2bc6505" class="outline-2">
+<h2 id="org2bc6505"><span class="section-number-2">15</span> Hypersurfaces (sounds so cool)</h2>
+<div class="outline-text-2" id="text-15">
+<p>
+<b>Def</b>: Let \(f : \mathbb{R}^{} \to \mathbb{R}^{}\) be a function. Then the graph of \(f\) is
+</p>
+
+<p>
+\[
+G(f) = \{(x,f(x)) \mid x \in \mathbb{R}^{}\}
+\]
+</p>
+
+<p>
+Trivially (atleast I think it is), a graph of a function gives a curve in \(\mathbb{R}^{2}\). However, not every curve is a graph of some function. For example, consider the equation \(x^2 + y^2 = 1\), i.e the Unit Circle. \(S^1\) is not globally a graph of a function, but comprised of \(y = \sqrt{1-x}\) and \(y = -\sqrt{1-x}\). Locally however, we say it is a graph of some function near each point.
+</p>
+
+<p>
+<b>Def (Hypersurfaces)</b>: Let \(f: \mathbb{R}^{n} \to \mathbb{R}^{}\). Then the hypersurface associated with \(f\) is
+\[
+V(f) = \{x \in \mathbb{R}^{n} \mid f(x) = 0\} \subseteq \mathbb{R}^{n}\}
+\]
+Example being the unit circle above, \(f(x,y) = x^2 + y^2 - 1\), \(V(f) = S^1\)
+</p>
+</div>
+</div>
+
+<div id="outline-container-org736ce32" class="outline-2">
+<h2 id="org736ce32"><span class="section-number-2">16</span> Manifold</h2>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: koji</p>
+<p class="date">Created: 2020-10-18 Sun 21:22</p>
+</div>
+</body>
+</html>
