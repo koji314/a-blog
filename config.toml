@@ -7,7 +7,7 @@ theme = "terminal"
   contentTypeName = "posts"
 
   # ["orange", "blue", "red", "green", "pink"]
-  themeColor = "orange"
+  themeColor = "pink"
 
   # if you set this to 0, only submenu trigger will be visible
   showMenuItems = 2
@@ -60,3 +60,8 @@ theme = "terminal"
         identifier = "showcase"
         name = "Showcase"
         url = "/showcase"
+
+      [[languages.en.menu.main]]
+	identifier = "notes"
+	name = "Notes"
+	url = "/notes_menu"
