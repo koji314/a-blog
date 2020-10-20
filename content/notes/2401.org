@@ -13,6 +13,7 @@
 
 # Sacrifice somewhat functional inbuilt latex fragments for some web functionality?
 * Tests of some Tikz Diagrams in SVG
+# These probably cant be viewed in base notebook directory, simply because they are designed to be viewed from the webpage
 [[file:/img/tikz/city.svg]]
 [[file:/img/tikz/circumscribe.svg]]
 [[file:/img/tikz/perpendicular-bissector.svg]]
@@ -131,8 +132,13 @@ Let \(f\) be a cts. function at \(x\) and \(f(x) > 0\). Then \(\exists \delta > 
 
 Suppose for the sake of contradiction, we have \(f(\alpha) < 0\). Then by the fact in the result above, \(f\) is negative on the interval \([\alpha - \delta, \alpha + \delta]\) for some \(\delta > 0\). But this implies that \(f\) is negative on
 \([a, \alpha + \delta] = [a, \alpha - \delta] \cup [\alpha - \delta, \alpha + \delta]\)
-And if \(f\) wasn't negative, then \([a,\alpha - \delta]\) would mean that \(\alpha - \delta \leq \alpha - \delta\), which is obviously a contradiction, as \(\alpha\) is the supremum among these numbers.
+And if \(f\) wasn't negative, then \([a,\alpha - \delta]\) would mean that \(\alpha - \delta \leq \alpha - \delta\), which is obviously a contradiction, as
+\(\alpha\) is the supremum among these numbers.
 
+** Example Problem with IVT
+Let \(f:(0,1] \to [0,1]\) be a bijection, show that \(f\) is not continuous. (2019 Final Exam)
+
+Suppose \(f\) is continuous, then \(f\) is a monotone function as it is also bijective (injective). Let \(\zeta \in (0,1)\) such that \(\alpha \in (0,\zeta)\), then we have \(f(\alpha) \in (0,1)\). For the sake of the argument, lets denote \(c = f(\alpha)\), then by IVT, we have that, \(\exists p \in (\zeta, 1)\) such that \(f(p) = c = f(y)\), however as \(p \neq y\), \(f(p) \neq f(y)\) by injectivity, this is a contradiction. So \(f\) cannot be continuous.
 * Sequential Continuity Criteria
 * Uniform Convergence with Integration and Differentiation
 * Uniform Convergence of Function Series
@@ -186,19 +192,10 @@ Then we have the
 Given \(E \subseteq X\), define the closure of \(E\), denoted by \(\overline{E}\), to be the set of all limit points of \(E\), Obviously \(E \subseteq \overline{E}\).
 
 *Exercise*: \(E\) is closed \(\iff\) \(E = \overline{E}\)
-\begin{tikzpicture}
-	\draw[dashed,color=gray] (0,0) arc (-90:90:0.5 and 1.5);% right half of the left ellipse
-	\draw[semithick] (0,0) -- (4,1);% bottom line
-	\draw[semithick] (0,3) -- (4,2);% top line
-	\draw[semithick] (0,0) arc (270:90:0.5 and 1.5);% left half of the left ellipse
-	\draw[semithick] (4,1.5) ellipse (0.166 and 0.5);% right ellipse
-	\draw (-1,1.5) node {$\varnothing d_1$};
-	\draw (3.3,1.5) node {$\varnothing d_2$};
-	\draw[|-,semithick] (0,-0.5) -- (4,-0.5);
-	\draw[|->,semithick] (4,-0.5) -- (4.5,-0.5);
-	\draw (0,-1) node {$x=0$};
-	\draw (4,-1) node {$x=l$};
-\end{tikzpicture}
+
+\begin{center}
+\includegraphics{./img/tikz/pdf/city.pdf}
+\end{center}
 * Continuous Functions
 Recall that \(f:(X,d) \to (X',d')\) is continuous at \(x\) if \(\forall \varepsilon > 0\), \(\exist \delta > 0\) such that \(d(x,y) < \delta \implies d(f(x), f(y)) < \varepsilon\), we that \(f\) being continuous at \(x\) by this definition \(\iff\) \(x_n \to x \implies f(x_n) \to f(x)\), and also that \(f\) is continuous on \(X\) if and only if an inverse image of every open set is open. (Inverse image of nbhd is a nbhd). I proved this vaguely in Assignment 3 of MATH2401.
 
@@ -214,6 +211,53 @@ Now take \(f: \mathbb{R}^n \to \mathbb{R}^m\), then we obviously have a problem,
 \lim_{x \to x_0} \frac{\|f(x) - f(x_0) + L(x-x_0)) \| }{\|(x-x_0)\|} = 0
 \]
 Such that \(\| \cdot \|\) denotes the standard Euclidean norm.
+
+We saw previously that the limit existing through each line is not enough to show that the multivariate limit exists. However for derivatives its not the case.
+
+If \(\frac{\partial{f}}{\partial{x}}, \frac{\partial{f}}{\partial{y}}\) exists, and are continuous, *then the derivative of \(f\) exists*.
+** Jacobi Matrix (Matrix of Partial Derivatives)
+Let \(f:\mathbb{R}^{n} \to \mathbb{R}^{m}\) be a function. We can write \(f = (f_1, \dots, f_m)\) such that \(f_i : \mathbb{R}^{n} \to \mathbb{R}^{}\). For example,
+\[
+\begin{aligned}
+f &: \mathbb{R}^{2} - \{y = 0\} \to \mathbb{R}^{2}\\
+&(x,y) \mapsto \left(x^2 + y, \frac{x}{y}\right)
+\end{aligned}
+\]
+Then \(f_1(x,y) = x^2 + y\) and \(f_2(x,y) = \frac{x}{y}\), then
+\[
+\begin{aligned}
+\frac{\partial{f_1}}{\partial{x}} = 2x &\;\;\; \frac{\partial{f_1}}{\partial{y}} = 1\\
+\frac{\partial{f_2}}{\partial{x}} = \frac{1}{y} &\;\;\; \frac{\partial{f}}{\partial{y}} = -\frac{x}{y^2}
+\end{aligned}
+\]
+So the Jacobi Matrix is then
+\[
+Jf = \begin{bmatrix}
+\frac{\partial{f_1}}{\partial{x}} & \frac{\partial{f_1}}{\partial{y}}\\
+\frac{\partial{f_2}}{\partial{x}} & \frac{\partial{f_2}}{\partial{y}}
+\end{bmatrix} = \begin{bmatrix}
+2x & 1 \\ \frac{1}{y} & \frac{-x}{y^2}
+\end{bmatrix}
+\]
+
+*Definition*: The Jacobi Matrix of \(f: \mathbb{R}^{n} \to \mathbb{R}^{m}\) where \(f = (f_1, \dots, f_m)\) is defined by
+\[
+Jf = \begin{bmatrix}
+\frac{\partial{f_1}}{\partial{x_1}} & \cdots & \frac{\partial{f_1}}{\partial{x_n}}\\
+\vdots & & \vdots\\
+\frac{\partial{f_m}}{\partial{x_1}} & \cdots & \frac{\partial{f_m}}{\partial{x_n}}
+\end{bmatrix}_{m\times n}
+\]
+So \(Jf\) is a map \(\mathbb{R}^{n} \to m \times n\) matrix (of which the matrix is a linear map \(\mathbb{R}^{n} \to \mathbb{R}^{m}\))
+
+
+*Theorem*: If all partial derivatives exist, and are continuous at \(x_0\), then \(f\) is differentiable at \(x_0\) and
+\[
+f'(x_0) = (Jf)(x_0)
+\]
+That is, the derivative is equivalent to the Jacobi Matrix.
+
+
 
 * Observation: Implicit Function Theorem
 Applies as long as matrix of all partial derivatives (gradient \(\nabla f\)) does not equal the 0 matrix.
@@ -247,6 +291,15 @@ This can be formulated in a general matrix space not just \(\mathbb{R}^{n}\).
 Let \(f:(X_1, d_1) \to (X_2, d_2)\), \(f\) is called a contraction if \(\exists c \in (0,1)\) such that \(d_2(f(x), f(y)) < c d_1(x,y)\).
 
 *Thm (Contraction Mapping Theorem)*: Let \(f : (X,d) \to (X,d)\) be a contraction. Then \(f\) has exactly one fixed point, \(\exists ! x_0\) (exists a unique \(x_0 \)) such that \(f(x_0) = x_0\)
+
+
+Furthermore, another representation of the Inverse Function Theorem (just going by the notes I guess)
+
+*Theorem (Inverse Function Theorem)*: Let \(f: \mathbb{R}^{n} \to \mathbb{R}^{n}\). Suppose \(f\) is continuous differentiable (\(\iff\) all partials are continuous) and \(f'(x_0) = J_f(x_0)\) is invertible. Then there exists neighbourhoods \(U \ni x_0\) and \(V \ni f(x_0)\) such that \(f\) is a bijection from \(U\) to \(V\). Moreover then, the inverse function \(f^{-1}: V\to U\) is differentiable at \(y_0 = f(x_0)\) and
+\[
+(f^{-1}) (y_0) = (f'(x_0))^{-1}
+\]
+
 * Diffeomorphisms and Homeomorphisms
 Given \(U \subseteq \mathbb{R}^n\) and \(V \subseteq \mathbb{R}^m\), we say some \(U\) is a homeomorphic to \(V\) if there exists some continuous function \(f : U \to V\) such that it also has a continuous inverse.
 
