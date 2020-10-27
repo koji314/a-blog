@@ -150,9 +150,9 @@ forall \(x \in A\) and forall \(n \in \mathbb{N}\), Suppose that \(\sum_{n=1}^{\
 For each \(x \in A\), the sum \(\sum_{n=0}^{\infty} \abs{f_n(x)}\), converges by comparison test, next for all \(x \in A\) we have
 \[
 \begin{aligned}
-&\abs{f(x) - (f_0(x) + \dots + f_N(x))}\\
-&= \abs{ \sum_{n=N+1}^{\infty} f_n(x)}\\
-&\leq \sum_{n=N+1}^{\infty} \abs{f_n(x)}\\
+& |f(x) - (f_0(x) + \dots + f_N(x))|}\\
+&= |\sum_{n=N+1}^{\infty} f_n(x)|\\
+&\leq \sum_{n=N+1}^{\infty} |f_n(x)|\\
 &\leq \sum_{n=N+1}^{\infty} M_n < \varepsilon
 \end{aligned}
 \]
