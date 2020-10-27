@@ -140,7 +140,7 @@ Suppose \(f\) is continuous, then \(f\) is a monotone function as it is also bij
 * Uniform Convergence of Function Series
 **  Weistrass M-Test
 *Thm*: Let \(\{f_n\}\) be a sequence on functions defined on \(A\) and suppose \(\{M_n\}\) is a sequence of numbers, such that
-\[ | f_n(x) | \leq M_n | \]
+\[ | f_n(x) | \leq M_n \]
 forall \(x \in A\) and forall \(n \in \mathbb{N}\), Suppose that \(\sum_{n=1}^{\infty} M_n\) converges, then for each \(x \in A\), then \(\sum_{n=0}^{\infty} f_n(x)\), converges (absolutely), and \(\sum_{n=0}^{\infty} f_n\) converges uniformly to \(f(x) = \sum_{n=0}^{\infty} f_n(x)
 \) on \(A\).
 
@@ -254,20 +254,6 @@ f'(x_0) = (Jf)(x_0)
 \]
 That is, the derivative is equivalent to the Jacobi Matrix.
 
-* Observation: Implicit Function Theorem
-Applies as long as matrix of all partial derivatives (gradient \(\nabla f\)) does not equal the 0 matrix.
-
-So if \(\nabla f(x_1, \cdots, x_n) \neq 0\), then locally near \(f\), \(V(f)\) is a graph of a function.
-
-E.g to keep in mind:
-\[
-f(x,y) = x^2 + y^2 - 1
-\]
-
-\(\nabla(f) = (2x 2y) \implies\)  \(V(f)\) is always locally a graph of a function.
-
-*Notes on manifold in written notebook - To put back into this*
-
 * Inverse Function Theorem!
 *Thm (Inverse Function Theorem)*: Let \(f : \mathbb{R}^{n} \to \mathbb{R}^{m}\), be a function and suppose \(f'(x_0)\) is invertible (i.e \(\text{det}(f'(x_0)) \neq 0\)).
 
@@ -348,6 +334,13 @@ V(f) = \{x \in \mathbb{R}^{n} \mid f(x) = 0\} \subseteq \mathbb{R}^{n}\}
 \]
 Example being the unit circle above, \(f(x,y) = x^2 + y^2 - 1\), \(V(f) = S^1\)
 
+* Implicit Function Theorem
+** Graphs
+We say for a function \(g\), the graph of \(g\), denoted \(G(g)\) is defined as
+\[
+G(g) := \{(x,g(x)) \mid x \in \mathbb{R}^{n-1}\} \subseteq \mathbb{R}^{n}
+\]
+An obvious fact to note is that \(G(g)\) is a hypersurface, so we can generalise the notion of a graph to be a special kind of hypersurface. Graphs \(\subseteq\) Hypersurfaces
 * Manifold
 *Definition (rough)*: A manifold is a subset \(M \subseteq \mathbb{R}^{m }\) such that every point \(x \in M \) has an open neighbourhood \(U \in x\) such that \(U \cap M \) is diffeomorphic to an open subset of \(\mathbb{R}^{n}\) (for some \(r \leq m\)).
 
@@ -356,6 +349,5 @@ In other words, for all points in the subset \(M\), we can find a point such tha
 - Every line \(\mathbb{R}^{2}\) is a manifold.
 - A hyperbola \(M = \{(x,y) \in \mathbb{R}^{2}_{> 0} \mid xy = 1\}\) is a manifold.
 
-  *Claim*: \(M \) is a manifold
+  *Claim*: \(M\) is a manifold
   *Proof*: Define \(f: M \to \mathbb{R}_{>0}\), \((x,y) \mapsto x\), then \(g : \mathbb{R}_{> 0} \to M\) has \(x \mapsto (x, \frac{1}{x}\). Then \(g\) is an inverse of \(f\) and are both differential (a diffeomorphism).
-
