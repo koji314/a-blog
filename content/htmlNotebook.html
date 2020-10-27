@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>notebook</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <script src="/usr/lib/nodejs/katex/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+    var mathElements = document.getElementsByClassName("math");
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") { katex.render(texText.data, mathElements[i], { displayMode: mathElements[i].classList.contains("display"), throwOnError: false } );
+    }}});</script>
+  <link rel="stylesheet" href="/usr/lib/nodejs/katex/dist/katex.min.css" />
+</head>
+<body>
+<h1 id="tests-of-some-tikz-diagrams-in-svg">Tests of some Tikz Diagrams in SVG</h1>
+<p><img src="/img/tikz/city.svg" alt="image" /> <img src="/img/tikz/circumscribe.svg" alt="image" /> <img src="/img/tikz/perpendicular-bissector.svg" alt="image" /></p>
+<h1 id="continued-fractions">Continued Fractions</h1>
+<p>{{&lt;katex "display"&gt;}} {{&lt;/katex&gt;}} For instance, <span class="math display">1 + \frac{1}{1+\frac{1}{1+\frac{1}{1+\frac{1}{1+ \cdots}}}}</span> <strong>Reformation:</strong> There are bounded subsets of <span class="math inline">\mathbb{Q}</span> which have no least upper bound (suprememum)</p>
+<p>Example: <span class="math inline">A = \{x \in \mathbb{Q} | x^2 &lt; 2\}</span>, bounded but has no (rational) supremum.</p>
+<p>Our goal is to enlarge <span class="math inline">\mathbb{Q}</span> to "fill the holes" while at the same time keep all the nice properties (an ordered field). There are two methods to do this.</p>
+<ol>
+<li><p>Cauchy Method</p></li>
+<li><p>Dedekind Method</p></li>
+</ol>
+<h1 id="dedekind-construction-of-real-numbers">Dedekind Construction of Real Numbers</h1>
+<p>Construction uses a notion of "cuts".</p>
+<p><strong>Definition</strong>: A cut in <span class="math inline">\mathbb{Q}</span> is a pair of subsets <span class="math inline">A,B \subset \mathbb{Q}</span> such that (a). <span class="math inline">A \cup B = \mathbb{Q}, \; A \cap B = \phi</span>, therefore <span class="math inline">A \neq \phi \neq B</span> (b). If <span class="math inline">a \in A</span> and <span class="math inline">b \in B</span>, then <span class="math inline">a \leq b</span> (c). <span class="math inline">A</span> contains no largest element.</p>
+<p><strong>Example</strong>: (i). <span class="math inline">A | B = \mathbb{Q}_{&lt; 0} | \mathbb{Q}_{\geq 0}</span>, the latter is called the <strong>zero cut</strong>. Replacing zero with any rational number you have the cut corresponding to that number, i.e <span class="math inline">\mathbb{Q}_{\geq x}</span> where <span class="math inline">x \in \mathbb{Q}</span> (thats recursive) (ii). <span class="math inline">A | B = \{x \in \mathbb{Q} : x \leq 0 \text{ or } x^2 &lt; 2\} | \{x \in \mathbb{Q} : x &gt; 0 \text{ or } x^2 \geq 2\}</span></p>
+<p><strong>Defintion</strong> (Key Definition): A real number is a <strong>cut</strong> in <span class="math inline">\mathbb{Q}</span>. Let <span class="math inline">\mathbb{R}</span> be the set of real numbers. Note that <span class="math inline">Q \subseteq \mathbb{R}</span>,</p>
+<p>If <span class="math inline">\alpha \in \mathbb{Q}</span>, then define a cut <span class="math inline">\mathbb{Q}_\alpha</span> by <span class="math inline">A | B = \mathbB{Q}_{&lt; \alpha} | \mathbb{Q}_{\geq \alpha}</span></p>
+<p><strong>Definition</strong> Suppose <span class="math inline">x = A | B</span> and <span class="math inline">y = C | D</span> are two cuts. We say <span class="math inline">x \leq y</span> if <span class="math inline">A \subseteq C</span> and <span class="math inline">x &lt; y</span> if <span class="math inline">A \subsetneq C</span>.</p>
+<p><strong>Example</strong> <span class="math inline">\mathbb{Q}_{&lt; 0} \mid \mathbb{Q}_{\geq 0} \leq \mathbb{Q}_{&lt; 1} \mid \mathbb{Q}_{\geq 1}</span> and <span class="math inline">\mathbb{Q}_{\sqrt{2}} &lt; \mathbb{Q}_{1.5} = \mathbb{Q}_{1.5} \mid \mathbb{Q}_{\geq 1.5}</span></p>
+<p><strong>EXERCISE</strong>: I forgot to write it down lol.</p>
+<p><strong>Definition</strong>: An element <span class="math inline">M \in \mathbb{R}</span> is called an <strong>upper bound</strong> for <span class="math inline">S \subseteq \mathbb{Q}</span> if <span class="math inline">\forall s \in S</span>, <span class="math inline">s \leq M</span>.</p>
+<p><strong>Example</strong>: Let <span class="math inline">S</span> be the set of all cuts less than the zero cut. Then clearly <span class="math inline">\mathbb{Q}_0</span> is an upper bound for <span class="math inline">S</span>.</p>
+<p><strong>Definition</strong>: An element <span class="math inline">M \in \mathbb{R}</span> is called a least upper bound for <span class="math inline">S \subseteq \mathbb{R}</span> if (i). M is an upper bound. (ii). If <span class="math inline">M&#39;</span> is another upper bound for <span class="math inline">S</span>, then <span class="math inline">M \leq M&#39;</span>.</p>
+<p><strong>Example</strong>: <span class="math inline">\mathbb{Q}_\sqrt{2}</span> is a LUB for <span class="math inline">S =\{x \in \mathbb{Q} | x^2 &lt; \sqrt{2} \}</span></p>
+<p><strong>Theorem</strong>: <span class="math inline">\mathbb{R}</span> is Dedekind Complete; i.e every bounded subset has a least upper bound (aka supremum).</p>
+<p><strong>Proof</strong>: Let <span class="math display">C = \{a \in \mathbb{Q} \mid \text{ for some cut } A \mid B \in S, \text{ we have } a \in A = \displaystyle \bigcup_{A \mid B} \in S A</span> with <span class="math inline">D = \mathbb{Q} - C</span>.</p>
+<p><strong>Exercise</strong>: <span class="math inline">\mathbb{Z} = C \mid D</span> is actually a cut. Clearly <span class="math inline">\mathbb{Z}</span> is an upper bound for <span class="math inline">S</span>. We claim it is actually a <strong>least upper bound</strong>. Let <span class="math inline">Z&#39; = C&#39; \mid D&#39;</span> be any other upper bound for <span class="math inline">S</span>. By assumption, we have that for <span class="math inline">A \mid B \leq C&#39; \mid D&#39;, \; \forall A \mid B \in S</span>, this implies that <span class="math inline">A \subseteq C&#39; \forall A \mid B \in S</span> and thus <span class="math display">\bigcup_{A \mid B \in S} = C \subseteq C&#39; \implies Z \leq Z&#39;</span></p>
+<h1 id="cauchy-construction-of-mathbbr">Cauchy Construction of <span class="math inline">\mathbb{R}</span></h1>
+<p><strong>Definition:</strong> Recall that a sequence <span class="math inline">(x_n)_{n=1}^\infty</span>, <span class="math inline">x_n \in \mathbb{Q}</span> is Cauchy if <span class="math inline">\forall \varepsilon \in \mathbb{Q}_{&gt; 0}</span>, there exists <span class="math inline">N = N_\varepsilon</span>, such that <span class="math inline">|x_n - x_m| &lt; \varepsilon</span>, <span class="math inline">\forall n,m &gt; N</span>. (Note the emphasis that <span class="math inline">N</span> depends on <span class="math inline">\varepsilon</span>). <strong>Example</strong>:</p>
+<ol>
+<li><p>Let <span class="math inline">x_n</span> be any sequence <span class="math inline">\in \mathbb{Q}</span>, whose limit is also <span class="math inline">\in \mathbb{Q}</span>, e.g <span class="math inline">x_n = \frac{1}{n}</span>, <span class="math display">\lim_{n\to \infty} x_n = 0</span></p></li>
+<li><p>Take the partial sum sequence <span class="math display">x_n = 1 - \frac{1}{2} + \frac{1}{3} - \cdots + (-1)^{n+1} \frac{1}{n} = \sum_{k = 1}^n \frac{(-1)^{k+1}}{k}</span> Then <span class="math inline">x_n</span> does not converge in <span class="math inline">\mathbb{Q}</span>, but it <strong>is Cauchy</strong>, (Exercise - PROVE).</p></li>
+</ol>
+<p>Let <span class="math inline">\ell</span> be the <strong>set of all Cauchy sequence of <span class="math inline">\mathbb{Q}</span></strong></p>
+<p><span>GOOD NEWS</span>: <span class="math inline">\ell</span> is closed under addition and multiplication, thus <span class="math inline">\ell</span> is a ring.</p>
+<p><span>BAD NEWS</span>: <span class="math inline">\exists</span> non-zero Cauchy seq. which have no inverse, e.g no sequence satisfies <span class="math display">(1,0,\cdots, 0) \cdot (x_1, x_2, \cdots, x_n, \cdots) = (1,1,1, \cdots, )</span> <strong>Key Definition</strong>:</p>
+<ol>
+<li><p>A cauchy seq is equivalent to zero if <span class="math inline">\lim_{n\to\infty} |x_n| = 0</span></p></li>
+<li><p>Two cauchy seqs <span class="math inline">(x_n)</span> and <span class="math inline">(y_n)</span> are equivalent if <span class="math inline">x_n - y_n</span> is equivalent to 0.</p></li>
+</ol>
+<p><strong>Exercise</strong> - Showing this is an equivalence relation (defines one atleast), i.e show reflexibility, symmetry and transitivity.</p>
+<p><strong>Defn</strong>. Define <span class="math inline">\mathbb{R}</span> to be the set of equivalence claimes(?) of Cauchy sequences of rationals, i.e <span class="math display">\mathbb{R} := \frac{C}{n}</span></p>
+<h1 id="intermediate-value-theorem">Intermediate Value Theorem</h1>
+<p><strong>Thm</strong>: Let <span class="math inline">f</span> be a cts. function on a closed interval <span class="math inline">[a,b]</span>. Let <span class="math inline">c \in \mathbb{R}</span> be a number between <span class="math inline">f(a)</span> and <span class="math inline">f(b)</span>. Then there exists an <span class="math inline">x \in [a,b]</span> such that <span class="math inline">f(x) = c</span>.</p>
+<p>To prove IVT, it is sufficient to prove the following special case: <span class="math inline">f(a) &lt; 0</span>, <span class="math inline">f(b) &gt; 0</span>, then <span class="math inline">\exists x \in (a,b)</span> such that <span class="math inline">f(x) = 0</span>. Suppose <span class="math inline">f</span> is continuous on <span class="math inline">[a,b]</span> and <span class="math inline">f(a) &lt; 0 &lt; f(b)</span>, out goal is to show that there exists some <span class="math inline">\alpha \in (a,b)</span> with <span class="math inline">f(\alpha) = 0</span>. Let</p>
+<p><span class="math display">A = \left \{x \in [a,b] \mid f \text{ is negative on the interval } [a,x] \right\}</span> Note that <span class="math inline">a \in A \implies A \neq \phi</span> (non-empty). Moreover <span class="math inline">A \subseteq [a,b] \implies</span> that <span class="math inline">A</span> is bounded. By the least upper bound property we then have <span class="math inline">\alpha = \text{sup}(A)</span>.</p>
+<p><strong>Claim</strong>: <span class="math inline">\alpha \in (a,b)</span> and <span class="math inline">f(\alpha) = 0</span>.</p>
+<p>To prove this, we recall a result obtained in a previous course (MATH1071) Let <span class="math inline">f</span> be a cts. function at <span class="math inline">x</span> and <span class="math inline">f(x) &gt; 0</span>. Then <span class="math inline">\exists \delta &gt; 0</span> such that <span class="math inline">f(y) &gt; 0</span> forall <span class="math inline">y \in [x-\delta, x+\delta]</span>. Since <span class="math inline">f(a) &lt; 0 \implies f(x) &lt; 0</span>, on <span class="math inline">[a, a+ \delta]</span> for some <span class="math inline">\delta &gt; 0</span>, then furthermore this means that <span class="math inline">\delta \geq a + \delta &gt; \alpha</span>. Similarly, we can show that <span class="math inline">\alpha &lt; b</span>. (Key thing being to show that <span class="math inline">f(\alpha) = 0</span>).</p>
+<p>Suppose for the sake of contradiction, we have <span class="math inline">f(\alpha) &lt; 0</span>. Then by the fact in the result above, <span class="math inline">f</span> is negative on the interval <span class="math inline">[\alpha - \delta, \alpha + \delta]</span> for some <span class="math inline">\delta &gt; 0</span>. But this implies that <span class="math inline">f</span> is negative on <span class="math inline">[a, \alpha + \delta] = [a, \alpha - \delta] \cup [\alpha - \delta, \alpha + \delta]</span> And if <span class="math inline">f</span> wasn’t negative, then <span class="math inline">[a,\alpha - \delta]</span> would mean that <span class="math inline">\alpha - \delta \leq \alpha - \delta</span>, which is obviously a contradiction, as <span class="math inline">\alpha</span> is the supremum among these numbers.</p>
+<div id="example-problem-with-ivt">
+<h2 id="example-problem-with-ivt">Example Problem with IVT</h2>
+</div>
+<p>Let <span class="math inline">f:(0,1] \to [0,1]</span> be a bijection, show that <span class="math inline">f</span> is not continuous. (2019 Final Exam)</p>
+<p>Suppose <span class="math inline">f</span> is continuous, then <span class="math inline">f</span> is a monotone function as it is also bijective (injective). Let <span class="math inline">\zeta \in (0,1)</span> such that <span class="math inline">\alpha \in (0,\zeta)</span>, then we have <span class="math inline">f(\alpha) \in (0,1)</span>. For the sake of the argument, lets denote <span class="math inline">c = f(\alpha)</span>, then by IVT, we have that, <span class="math inline">\exists p \in (\zeta, 1)</span> such that <span class="math inline">f(p) = c = f(y)</span>, however as <span class="math inline">p \neq y</span>, <span class="math inline">f(p) \neq f(y)</span> by injectivity, this is a contradiction. So <span class="math inline">f</span> cannot be continuous.</p>
+<h1 id="sequential-continuity-criteria">Sequential Continuity Criteria</h1>
+<h1 id="uniform-convergence-with-integration-and-differentiation">Uniform Convergence with Integration and Differentiation</h1>
+<h1 id="uniform-convergence-of-function-series">Uniform Convergence of Function Series</h1>
+<div id="weistrass-m-test">
+<h2 id="weistrass-m-test">Weistrass M-Test</h2>
+</div>
+<p><strong>Thm</strong>: Let <span class="math inline">\{f_n\}</span> be a sequence on functions defined on <span class="math inline">A</span> and suppose <span class="math inline">\{M_n\}</span> is a sequence of numbers, such that <span class="math display">| f_n(x) | \leq M_n</span> forall <span class="math inline">x \in A</span> and forall <span class="math inline">n \in \mathbb{N}</span>, Suppose that <span class="math inline">\sum_{n=1}^{\infty} M_n</span> converges, then for each <span class="math inline">x \in A</span>, then <span class="math inline">\sum_{n=0}^{\infty} f_n(x)</span>, converges (absolutely), and <span class="math inline">\sum_{n=0}^{\infty} f_n</span> converges uniformly to <span class="math inline">f(x) = \sum_{n=0}^{\infty} f_n(x)</span> on <span class="math inline">A</span>.</p>
+<p><em>Proof:</em> For each <span class="math inline">x \in A</span>, the sum <span class="math inline">\sum_{n=0}^{\infty} \abs{f_n(x)}</span>, converges by comparison test, next for all <span class="math inline">x \in A</span> we have</p>
+<p><span class="math display">\begin{aligned}
+&amp; |f(x) - (f_0(x) + \dots + f_N(x))|\\
+&amp;= |\sum_{n=N+1}^{\infty} f_n(x)|\\
+&amp;\leq \sum_{n=N+1}^{\infty} |f_n(x)|\\
+&amp;\leq \sum_{n=N+1}^{\infty} M_n &lt; \varepsilon
+\end{aligned}</span> As <span class="math inline">\sum_{n=0}^{\infty} M_n</span> converges, given <span class="math inline">\varepsilon &gt; 0</span>, we can choose <span class="math inline">N</span> so that <span class="math inline">\sum_{n = N+1}^{\infty} M_n &lt; \varepsilon</span>. Thus, <span class="math inline">\sum_{n=0}^{\infty} f_n</span> converges uniformly to <span class="math inline">f</span> on <span class="math inline">A</span>.</p>
+<h1 id="metric-spaces-and-balls">Metric Spaces and Balls</h1>
+<p><strong>Definition</strong>: Let <span class="math inline">x_0 \in X</span> and <span class="math inline">r &gt; 0</span>, then we define the <strong>open ball</strong> to be <span class="math display">B_r(x_0) = \{x \in X \mid d(x,x_0) &lt; r\}</span> Similarly the <strong>closed ball</strong> <span class="math display">\overline{B_r(x_0)} = \{x \in X \mid d(x, x_0) \leq r\}}</span></p>
+<p><strong>Definition:</strong> Let <span class="math inline">E</span> be a subset of a metric space <span class="math inline">X</span>, we say <span class="math inline">x \in E</span> is in the <span>interior</span> of <span class="math inline">E</span> if <span class="math inline">\exists r &gt; 0</span> such that <span class="math inline">B_r(x) \subseteq E</span>. Similarly we say that <span class="math inline">x \in X - E</span> is in the <span>exterior</span> of <span class="math inline">E</span> if <span class="math inline">B_r(x) \subseteq X - E</span>. If <span class="math inline">x</span> is in neither of these, then we say <span class="math inline">x</span> is in the boundary.</p>
+<p>Denoting them as follows <span class="math display">\text{int}(E) = \overset{\circ}{E} \leftarrow \text{interior}</span> <span class="math display">\text{ext}(E)\leftarrow \text{exterior}</span> <span class="math display">\delta(E) \leftarrow \text{boundary}</span></p>
+<p><strong>Example</strong>: <span class="math inline">X = (\mathbb{R}, | . |)</span> Then we have the <span class="math display">\text{int}(E) = (a,b)</span> <span class="math display">\text{ext}(E) = \mathbb{R} - [a,b] = (-\infty, a) \cup (b,\infty)</span> <span class="math display">\delta(E) = \{a,b\}</span></p>
+<p>Given <span class="math inline">E \subseteq X</span>, define the closure of <span class="math inline">E</span>, denoted by <span class="math inline">\overline{E}</span>, to be the set of all limit points of <span class="math inline">E</span>, Obviously <span class="math inline">E \subseteq \overline{E}</span>.</p>
+<p><strong>Exercise</strong>: <span class="math inline">E</span> is closed <span class="math inline">\iff</span> <span class="math inline">E = \overline{E}</span></p>
+<p><embed src="./img/tikz/pdf/city.pdf" /></p>
+<h1 id="continuous-functions">Continuous Functions</h1>
+<p>Recall that <span class="math inline">f:(X,d) \to (X&#39;,d&#39;)</span> is continuous at <span class="math inline">x</span> if <span class="math inline">\forall \varepsilon &gt; 0</span>, <span class="math inline">\exist \delta &gt; 0</span> such that <span class="math inline">d(x,y) &lt; \delta \implies d(f(x), f(y)) &lt; \varepsilon</span>, we that <span class="math inline">f</span> being continuous at <span class="math inline">x</span> by this definition <span class="math inline">\iff</span> <span class="math inline">x_n \to x \implies f(x_n) \to f(x)</span>, and also that <span class="math inline">f</span> is continuous on <span class="math inline">X</span> if and only if an inverse image of every open set is open. (Inverse image of nbhd is a nbhd). I proved this vaguely in Assignment 3 of MATH2401.</p>
+<h1 id="generalisation-of-multivariate-differentiation">Generalisation of Multivariate Differentiation</h1>
+<p>Recalling the definition from single variables we have <span class="math display">f&#39;(x_0) := \lim_{x\to x_0} \frac{f(x) - f(x_0)}{x- x_0}</span> Now take <span class="math inline">f: \mathbb{R}^n \to \mathbb{R}^m</span>, then we obviously have a problem, as <span class="math inline">f&#39;(x_0)</span> could be in either <span class="math inline">\mathbb{R}^n</span> or <span class="math inline">\mathbb{R}^m</span>,</p>
+<p><strong>Def</strong>: A linear map <span class="math inline">L : \mathbb{R}^{n} \to \mathbb{R}^{m}</span> is the derivitave of <span class="math inline">f : \mathbb{R}^{n} \to \mathbb{R}^{m}</span> at <span class="math inline">x_0 \in \mathbb{R}^{n}</span> if <span class="math display">\lim_{x \to x_0} \frac{\|f(x) - f(x_0) + L(x-x_0)) \| }{\|(x-x_0)\|} = 0</span> Such that <span class="math inline">\| \cdot \|</span> denotes the standard Euclidean norm.</p>
+<p>We saw previously that the limit existing through each line is not enough to show that the multivariate limit exists. However for derivatives its not the case.</p>
+<p>If <span class="math inline">\frac{\partial{f}}{\partial{x}}, \frac{\partial{f}}{\partial{y}}</span> exists, and are continuous, <strong>then the derivative of <span class="math inline">f</span> exists</strong>.</p>
+<div id="jacobi-matrix-matrix-of-partial-derivatives">
+<h2 id="jacobi-matrix-matrix-of-partial-derivatives">Jacobi Matrix (Matrix of Partial Derivatives)</h2>
+</div>
+<p>Let <span class="math inline">f:\mathbb{R}^{n} \to \mathbb{R}^{m}</span> be a function. We can write <span class="math inline">f = (f_1, \dots, f_m)</span> such that <span class="math inline">f_i : \mathbb{R}^{n} \to \mathbb{R}^{}</span>. For example, <span class="math display">\begin{aligned}
+f &amp;: \mathbb{R}^{2} - \{y = 0\} \to \mathbb{R}^{2}\\
+&amp;(x,y) \mapsto \left(x^2 + y, \frac{x}{y}\right)
+\end{aligned}</span> Then <span class="math inline">f_1(x,y) = x^2 + y</span> and <span class="math inline">f_2(x,y) = \frac{x}{y}</span>, then <span class="math display">\begin{aligned}
+\frac{\partial{f_1}}{\partial{x}} = 2x &amp;\;\;\; \frac{\partial{f_1}}{\partial{y}} = 1\\
+\frac{\partial{f_2}}{\partial{x}} = \frac{1}{y} &amp;\;\;\; \frac{\partial{f}}{\partial{y}} = -\frac{x}{y^2}
+\end{aligned}</span> So the Jacobi Matrix is then <span class="math display">Jf = \begin{bmatrix}
+\frac{\partial{f_1}}{\partial{x}} &amp; \frac{\partial{f_1}}{\partial{y}}\\
+\frac{\partial{f_2}}{\partial{x}} &amp; \frac{\partial{f_2}}{\partial{y}}
+\end{bmatrix} = \begin{bmatrix}
+2x &amp; 1 \\ \frac{1}{y} &amp; \frac{-x}{y^2}
+\end{bmatrix}</span></p>
+<p><strong>Definition</strong>: The Jacobi Matrix of <span class="math inline">f: \mathbb{R}^{n} \to \mathbb{R}^{m}</span> where <span class="math inline">f = (f_1, \dots, f_m)</span> is defined by <span class="math display">Jf = \begin{bmatrix}
+\frac{\partial{f_1}}{\partial{x_1}} &amp; \cdots &amp; \frac{\partial{f_1}}{\partial{x_n}}\\
+\vdots &amp; &amp; \vdots\\
+\frac{\partial{f_m}}{\partial{x_1}} &amp; \cdots &amp; \frac{\partial{f_m}}{\partial{x_n}}
+\end{bmatrix}_{m\times n}</span> So <span class="math inline">Jf</span> is a map <span class="math inline">\mathbb{R}^{n} \to m \times n</span> matrix (of which the matrix is a linear map <span class="math inline">\mathbb{R}^{n} \to \mathbb{R}^{m}</span>)</p>
+<p><strong>Theorem</strong>: If all partial derivatives exist, and are continuous at <span class="math inline">x_0</span>, then <span class="math inline">f</span> is differentiable at <span class="math inline">x_0</span> and <span class="math display">f&#39;(x_0) = (Jf)(x_0)</span> That is, the derivative is equivalent to the Jacobi Matrix.</p>
+<h1 id="observation-implicit-function-theorem">Observation: Implicit Function Theorem</h1>
+<p>Applies as long as matrix of all partial derivatives (gradient <span class="math inline">\nabla f</span>) does not equal the 0 matrix.</p>
+<p>So if <span class="math inline">\nabla f(x_1, \cdots, x_n) \neq 0</span>, then locally near <span class="math inline">f</span>, <span class="math inline">V(f)</span> is a graph of a function.</p>
+<p>E.g to keep in mind: <span class="math display">f(x,y) = x^2 + y^2 - 1</span></p>
+<p><span class="math inline">\nabla(f) = (2x 2y) \implies</span> <span class="math inline">V(f)</span> is always locally a graph of a function.</p>
+<p><strong>Notes on manifold in written notebook - To put back into this</strong></p>
+<h1 id="inverse-function-theorem">Inverse Function Theorem!</h1>
+<p><strong>Thm (Inverse Function Theorem)</strong>: Let <span class="math inline">f : \mathbb{R}^{n} \to \mathbb{R}^{m}</span>, be a function and suppose <span class="math inline">f&#39;(x_0)</span> is invertible (i.e <span class="math inline">\text{det}(f&#39;(x_0)) \neq 0</span>).</p>
+<p>Then <span class="math inline">f</span> is locally invertible near <span class="math inline">x_0</span> and</p>
+<p><span class="math display">(f^{-1})&#39;(f(x_0)) = (f&#39;(x_0))^{-1}</span></p>
+<p>Derivative of inverse = inverse of derivative.</p>
+<p>To prove the inverse function theorem, another major theorem is required, called the <strong>Contraction mapping Theorem</strong>.</p>
+<p>This can be formulated in a general matrix space not just <span class="math inline">\mathbb{R}^{n}</span>.</p>
+<p>Let <span class="math inline">f:(X_1, d_1) \to (X_2, d_2)</span>, <span class="math inline">f</span> is called a contraction if <span class="math inline">\exists c \in (0,1)</span> such that <span class="math inline">d_2(f(x), f(y)) &lt; c d_1(x,y)</span>.</p>
+<p><strong>Thm (Contraction Mapping Theorem)</strong>: Let <span class="math inline">f : (X,d) \to (X,d)</span> be a contraction. Then <span class="math inline">f</span> has exactly one fixed point, <span class="math inline">\exists ! x_0</span> (exists a unique <span class="math inline">x_0</span>) such that <span class="math inline">f(x_0) = x_0</span></p>
+<p>Furthermore, another representation of the Inverse Function Theorem (just going by the notes I guess)</p>
+<p><strong>Theorem (Inverse Function Theorem)</strong>: Let <span class="math inline">f: \mathbb{R}^{n} \to \mathbb{R}^{n}</span>. Suppose <span class="math inline">f</span> is continuous differentiable (<span class="math inline">\iff</span> all partials are continuous) and <span class="math inline">f&#39;(x_0) = J_f(x_0)</span> is invertible. Then there exists neighbourhoods <span class="math inline">U \ni x_0</span> and <span class="math inline">V \ni f(x_0)</span> such that <span class="math inline">f</span> is a bijection from <span class="math inline">U</span> to <span class="math inline">V</span>. Moreover then, the inverse function <span class="math inline">f^{-1}: V\to U</span> is differentiable at <span class="math inline">y_0 = f(x_0)</span> and <span class="math display">(f^{-1}) (y_0) = (f&#39;(x_0))^{-1}</span></p>
+<h1 id="diffeomorphisms-and-homeomorphisms">Diffeomorphisms and Homeomorphisms</h1>
+<p>Given <span class="math inline">U \subseteq \mathbb{R}^n</span> and <span class="math inline">V \subseteq \mathbb{R}^m</span>, we say some <span class="math inline">U</span> is a homeomorphic to <span class="math inline">V</span> if there exists some continuous function <span class="math inline">f : U \to V</span> such that it also has a continuous inverse.</p>
+<p>Similarly we say <span class="math inline">U</span> is diffeomorphic to <span class="math inline">V</span> if there exists some <strong>continuous differentiable</strong> function <span class="math inline">f:U \to V</span> with a <strong>continuous differentiable</strong> inverse.</p>
+<p>Note by this definition, if <span class="math inline">f</span> is a bijection, then it has an inverse, and vice versa (by definition of bijectivity). Furthermore if <span class="math inline">f</span> is a homeomorphism, then it is a bijective (cts) <span class="math inline">f</span> with a continuous inverse. They are slightly different but a connection can be made.</p>
+<p>This gives us a little neat relation of <span class="math display">\text{Diffeom.} \subseteq \text{Homeo.} \subseteq \text{Bijection}</span></p>
+<p>For example, <span class="math inline">(0,1)</span> is homemorphic to <span class="math inline">\mathbb{R}</span>, suppose we define <span class="math display">\begin{aligned}
+f : &amp;(0,1) \to \mathbb{R}\\
+&amp;x \mapsto \tan\left(\frac{\pi}{2} + x\pi\right)
+\end{aligned}</span> (Exercise, show that this is also diffeomorphic).</p>
+<p><strong>Thm</strong>: If <span class="math inline">n \neq m</span>, then <span class="math inline">\mathbb{R}^n</span> is not diffeomorphic to <span class="math inline">R^m</span> (even when <span class="math inline">\mathbb{R}^n</span> and <span class="math inline">\mathbb{R}^m</span> are in bijection??)</p>
+<p><em>Proof</em>: Let <span class="math inline">f:\mathbb{R}^{n} \to \mathbb{R}^{m}</span> be a diff. function with a diff. inverse <span class="math inline">g</span>. Then we have</p>
+<p><span class="math display">\begin{aligned}
+f&#39; \circ g&#39; &amp;= Id_m\\
+g&#39; \circ f&#39; &amp;= Id_n\end{aligned}</span></p>
+<p>The derivative matrix of <span class="math inline">f</span> and <span class="math inline">g</span> are inverses to each other. Taking a fact from linear algebra, for an <span class="math inline">m \times n</span> matrix being invertible <span class="math inline">\implies</span> <span class="math inline">m=n</span>. Box.</p>
+<p>Similarly, we have a theorem like it with homemorphism.</p>
+<p><strong>Thm</strong>: If <span class="math inline">n \neq m</span>, then <span class="math inline">\mathbb{R}^{n}</span> is not homeomorphi to <span class="math inline">\mathbb{R}^{m}</span>.</p>
+<p>This theorem is much harder to prove, and beyond the scope of the course.</p>
+<p><strong>Remark</strong>: The inverse function theorem states that if <span class="math inline">f&#39;(x_0)</span> is invertible then <span class="math inline">f</span> is locally a diffeomorphism near <span class="math inline">x_0</span>.</p>
+<h1 id="hypersurfaces-sounds-so-cool">Hypersurfaces (sounds so cool)</h1>
+<p><strong>Def</strong>: Let <span class="math inline">f : \mathbb{R}^{} \to \mathbb{R}^{}</span> be a function. Then the graph of <span class="math inline">f</span> is</p>
+<p><span class="math display">G(f) = \{(x,f(x)) \mid x \in \mathbb{R}^{}\}</span></p>
+<p>Trivially (atleast I think it is), a graph of a function gives a curve in <span class="math inline">\mathbb{R}^{2}</span>. However, not every curve is a graph of some function. For example, consider the equation <span class="math inline">x^2 + y^2 = 1</span>, i.e the Unit Circle. <span class="math inline">S^1</span> is not globally a graph of a function, but comprised of <span class="math inline">y = \sqrt{1-x}</span> and <span class="math inline">y = -\sqrt{1-x}</span>. Locally however, we say it is a graph of some function near each point.</p>
+<p><strong>Def (Hypersurfaces)</strong>: Let <span class="math inline">f: \mathbb{R}^{n} \to \mathbb{R}^{}</span>. Then the hypersurface associated with <span class="math inline">f</span> is <span class="math display">V(f) = \{x \in \mathbb{R}^{n} \mid f(x) = 0\} \subseteq \mathbb{R}^{n}\}</span> Example being the unit circle above, <span class="math inline">f(x,y) = x^2 + y^2 - 1</span>, <span class="math inline">V(f) = S^1</span></p>
+<h1 id="manifold">Manifold</h1>
+<p><strong>Definition (rough)</strong>: A manifold is a subset <span class="math inline">M \subseteq \mathbb{R}^{m }</span> such that every point <span class="math inline">x \in M</span> has an open neighbourhood <span class="math inline">U \in x</span> such that <span class="math inline">U \cap M</span> is diffeomorphic to an open subset of <span class="math inline">\mathbb{R}^{n}</span> (for some <span class="math inline">r \leq m</span>).</p>
+<p>In other words, for all points in the subset <span class="math inline">M</span>, we can find a point such that it is locally diffeomorphic to the a Euclidean space in <span class="math inline">n</span>’th dimension. Some examples</p>
+<ul>
+<li><p><span class="math inline">\mathbb{R}^{0}</span> (a point) is a manifold</p></li>
+<li><p>Every line <span class="math inline">\mathbb{R}^{2}</span> is a manifold.</p></li>
+<li><p>A hyperbola <span class="math inline">M = \{(x,y) \in \mathbb{R}^{2}_{&gt; 0} \mid xy = 1\}</span> is a manifold.</p>
+<p><strong>Claim</strong>: <span class="math inline">M</span> is a manifold <strong>Proof</strong>: Define <span class="math inline">f: M \to \mathbb{R}_{&gt;0}</span>, <span class="math inline">(x,y) \mapsto x</span>, then <span class="math inline">g : \mathbb{R}_{&gt; 0} \to M</span> has <span class="math inline">x \mapsto (x, \frac{1}{x}</span>. Then <span class="math inline">g</span> is an inverse of <span class="math inline">f</span> and are both differential (a diffeomorphism).</p></li>
+</ul>
+</body>
+</html>

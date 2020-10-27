@@ -140,9 +140,7 @@ Suppose \(f\) is continuous, then \(f\) is a monotone function as it is also bij
 * Uniform Convergence of Function Series
 **  Weistrass M-Test
 *Thm*: Let \(\{f_n\}\) be a sequence on functions defined on \(A\) and suppose \(\{M_n\}\) is a sequence of numbers, such that
-\[
- | f_n(x) | \leq M_n
-\]
+\[ | f_n(x) | \leq M_n | \]
 forall \(x \in A\) and forall \(n \in \mathbb{N}\), Suppose that \(\sum_{n=1}^{\infty} M_n\) converges, then for each \(x \in A\), then \(\sum_{n=0}^{\infty} f_n(x)\), converges (absolutely), and \(\sum_{n=0}^{\infty} f_n\) converges uniformly to \(f(x) = \sum_{n=0}^{\infty} f_n(x)
 \) on \(A\).
 
