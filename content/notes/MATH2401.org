@@ -340,7 +340,19 @@ We say for a function \(g\), the graph of \(g\), denoted \(G(g)\) is defined as
 \[
 G(g) := \{(x,g(x)) \mid x \in \mathbb{R}^{n-1}\} \subseteq \mathbb{R}^{n}
 \]
-An obvious fact to note is that \(G(g)\) is a hypersurface, so we can generalise the notion of a graph to be a special kind of hypersurface. Graphs \(\subseteq\) Hypersurfaces
+An obvious fact to note is that \(G(g)\) is a hypersurface, so we can generalise the notion of a graph to be a special kind of hypersurface. Graphs \(\subseteq\) Hypersurfaces.
+
+Taking some Examples:
+- \(f(x,y) = x^2 - y^2\), then \(V(f) = y = \pm x\). We can see this by showing that
+  \[
+  \begin{aligned}
+V(f) &= \{(x,y) \in \mathbb{R}^{2} \mid x^2 - y^2 = 0\}\\
+&\to x^2 - y^2 = 0\\
+&\iff x^2 = y^2\\
+&\iff x = y \text{ or } x = -y
+  \end{aligned}
+\]
+
 * Manifold
 *Definition (rough)*: A manifold is a subset \(M \subseteq \mathbb{R}^{m }\) such that every point \(x \in M \) has an open neighbourhood \(U \in x\) such that \(U \cap M \) is diffeomorphic to an open subset of \(\mathbb{R}^{n}\) (for some \(r \leq m\)).
 
