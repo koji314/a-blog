@@ -309,10 +309,12 @@ This gives us a little neat relation of
 \]
 
 For example, \((0,1)\) is homemorphic to \(\mathbb{R}\), suppose we define
-\begin{align*}
+\[
+\begin{aligned}
 f : &(0,1) \to \mathbb{R}\\
 &x \mapsto \tan\left(\frac{\pi}{2} + x\pi\right)
-\end{align*}
+\end{aligned}
+\]
 (Exercise, show that this is also diffeomorphic).
 
 
