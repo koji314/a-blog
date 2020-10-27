@@ -11,7 +11,6 @@
 #+LATEX_HEADER:     \import{./}{#1.pdf_tex}
 #+LATEX_HEADER: }
 
-# Sacrifice somewhat functional inbuilt latex fragments for some web functionality?
 * Tests of some Tikz Diagrams in SVG
 # These probably cant be viewed in base notebook directory, simply because they are designed to be viewed from the webpage
 [[file:/img/tikz/city.svg]]
@@ -19,14 +18,11 @@
 [[file:/img/tikz/perpendicular-bissector.svg]]
 * Continued Fractions
    {{<katex "display">}}
-  
    {{</katex>}}
-   What the hell is this chapter notes?!?
    For instance,
    \[
    1 + \frac{1}{1+\frac{1}{1+\frac{1}{1+\frac{1}{1+ \cdots}}}}
    \]
-
   *Reformation:* There are bounded subsets of \(\mathbb{Q}\) which have no least upper bound (suprememum)
 
   Example: \(A = \{x \in \mathbb{Q} | x^2 < 2\}\), bounded but has no (rational) supremum.
@@ -257,8 +253,6 @@ f'(x_0) = (Jf)(x_0)
 \]
 That is, the derivative is equivalent to the Jacobi Matrix.
 
-
-
 * Observation: Implicit Function Theorem
 Applies as long as matrix of all partial derivatives (gradient \(\nabla f\)) does not equal the 0 matrix.
 
@@ -352,3 +346,13 @@ V(f) = \{x \in \mathbb{R}^{n} \mid f(x) = 0\} \subseteq \mathbb{R}^{n}\}
 Example being the unit circle above, \(f(x,y) = x^2 + y^2 - 1\), \(V(f) = S^1\)
 
 * Manifold
+*Definition (rough)*: A manifold is a subset \(M \subseteq \mathbb{R}^{m }\) such that every point \(x \in M \) has an open neighbourhood \(U \in x\) such that \(U \cap M \) is diffeomorphic to an open subset of \(\mathbb{R}^{n}\) (for some \(r \leq m\)).
+
+In other words, for all points in the subset \(M\), we can find a point such that it is locally diffeomorphic to the a Euclidean space in \(n\)'th dimension. Some examples
+- \(\mathbb{R}^{0}\) (a point) is a manifold
+- Every line \(\mathbb{R}^{2}\) is a manifold.
+- A hyperbola \(M = \{(x,y) \in \mathbb{R}^{2}_{> 0} \mid xy = 1\}\) is a manifold.
+
+  *Claim*: \(M \) is a manifold
+  *Proof*: Define \(f: M \to \mathbb{R}_{>0}\), \((x,y) \mapsto x\), then \(g : \mathbb{R}_{> 0} \to M\) has \(x \mapsto (x, \frac{1}{x}\). Then \(g\) is an inverse of \(f\) and are both differential (a diffeomorphism).
+
