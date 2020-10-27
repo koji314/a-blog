@@ -41,13 +41,13 @@
 
    
    *Example*:
-   (i). \(A | B = \mathbb{Q}_{< 0} | \mathbb{Q}_{\geq 0}\), the latter is called the *zero cut*. Replacing zero with any rational number you have the cut corresponding to that number, i.e \(\mathbb{Q}_{\geq x}\) where \(x \in \mathbb{Q}\) (thats recursive)
-     (ii). \(A | B = \{x \in \mathbb{Q} : x \leq 0 \text{ or } x^2 < 2\} | \{x \in \mathbb{Q} : x > 0 \text{ or } x^2 \geq 2\}\)
+   - \(A | B = \mathbb{Q}_{< 0} | \mathbb{Q}_{\geq 0}\), the latter is called the *zero cut*. Replacing zero with any rational number you have the cut corresponding to that number, i.e \(\mathbb{Q}_{\geq x}\) where \(x \in \mathbb{Q}\) (thats recursive)
+   - \(A | B = \{x \in \mathbb{Q} : x \leq 0 \text{ or } x^2 < 2\} | \{x \in \mathbb{Q} : x > 0 \text{ or } x^2 \geq 2\}\)
 
    *Defintion* (Key Definition): A real number is a *cut* in \(\mathbb{Q}\).
    Let \(\mathbb{R}\) be the set of real numbers. Note that \(Q \subseteq \mathbb{R}\),
 
-   If \(\alpha \in \mathbb{Q}\), then define a cut \(\mathbb{Q}_\alpha\) by \(A | B = \mathbB{Q}_{< \alpha} | \mathbb{Q}_{\geq \alpha}\)
+   If \(\alpha \in \mathbb{Q}\), then define a cut \(\mathbb{Q}_\alpha\) by \(A | B = \mathbb{Q}_{< \alpha} | \mathbb{Q}_{\geq \alpha}\)
 
    *Definition* Suppose \(x = A | B\) and \(y = C | D\) are two cuts. We say \(x \leq y\) if \(A \subseteq C\) and \(x < y\) if \(A \subsetneq C\).
 
@@ -63,7 +63,7 @@
      (i). M is an upper bound.
      (ii). If \(M'\) is another upper bound for \(S\), then \(M \leq M'\).
 
-   *Example*: \(\mathbb{Q}_\sqrt{2}\) is a LUB for \(S =\{x \in \mathbb{Q} | x^2 < \sqrt{2} \}\)
+   *Example*: \(\mathbb{Q}_{\sqrt{2}}\) is a LUB for \(S =\{x \in \mathbb{Q} | x^2 < \sqrt{2} \}\)
 
    *Theorem*: \(\mathbb{R}\) is Dedekind Complete; i.e every bounded subset has a least upper bound (aka supremum).
 
@@ -145,7 +145,7 @@ forall \(x \in A\) and forall \(n \in \mathbb{N}\), Suppose that \(\sum_{n=1}^{\
 \) on \(A\).
 
 /Proof:/
-For each \(x \in A\), the sum \(\sum_{n=0}^{\infty} \abs{f_n(x)}\), converges by comparison test, next for all \(x \in A\) we have
+For each \(x \in A\), the sum \(\sum_{n=0}^{\infty} |f_n(x)|\), converges by comparison test, next for all \(x \in A\) we have
 
 \[
 \begin{aligned}
@@ -164,7 +164,7 @@ B_r(x_0) = \{x \in X \mid d(x,x_0) < r\}
 \]
 Similarly the *closed ball*
 \[
-\overline{B_r(x_0)} = \{x \in X \mid d(x, x_0) \leq r\}}
+\overline{B_r(x_0)} = \{x \in X \mid d(x, x_0) \leq r\}
 \]
 
 *Definition:* Let \(E\) be a subset of a metric space \(X\), we say \(x \in E\) is in the _interior_ of \(E\) if \(\exists r > 0\) such that \(B_r(x) \subseteq E\). Similarly we say that \(x \in X - E\) is in the _exterior_ of \(E\) if \(B_r(x) \subseteq X - E\). If \(x\) is in neither of these, then we say \(x\) is in the boundary.
@@ -189,10 +189,6 @@ Then we have the
 Given \(E \subseteq X\), define the closure of \(E\), denoted by \(\overline{E}\), to be the set of all limit points of \(E\), Obviously \(E \subseteq \overline{E}\).
 
 *Exercise*: \(E\) is closed \(\iff\) \(E = \overline{E}\)
-
-\begin{center}
-\includegraphics{./img/tikz/pdf/city.pdf}
-\end{center}
 * Continuous Functions
 Recall that \(f:(X,d) \to (X',d')\) is continuous at \(x\) if \(\forall \varepsilon > 0\), \(\exist \delta > 0\) such that \(d(x,y) < \delta \implies d(f(x), f(y)) < \varepsilon\), we that \(f\) being continuous at \(x\) by this definition \(\iff\) \(x_n \to x \implies f(x_n) \to f(x)\), and also that \(f\) is continuous on \(X\) if and only if an inverse image of every open set is open. (Inverse image of nbhd is a nbhd). I proved this vaguely in Assignment 3 of MATH2401.
 
@@ -306,10 +302,11 @@ f : &(0,1) \to \mathbb{R}\\
 *Thm*: If \(n \neq m\), then \(\mathbb{R}^n\) is not diffeomorphic to \(R^m\) (even when \(\mathbb{R}^n\) and \(\mathbb{R}^m\) are in bijection??)
 
 /Proof/: Let \(f:\mathbb{R}^{n} \to \mathbb{R}^{m}\) be a diff. function with a diff. inverse \(g\). Then we have
-\begin{align*}
+\[
+\begin{aligned}
 f' \circ g' &= Id_m\\
 g' \circ f' &= Id_n
-\end{align*}
+\end{aligned}\]
 The derivative matrix of \(f\) and \(g\) are inverses to each other. Taking a fact from linear algebra, for an \(m \times n\) matrix being invertible \(\implies\) \(m=n\). Box.
 
 Similarly, we have a theorem like it with homemorphism.
@@ -344,14 +341,31 @@ An obvious fact to note is that \(G(g)\) is a hypersurface, so we can generalise
 
 Taking some Examples:
 - \(f(x,y) = x^2 - y^2\), then \(V(f) = y = \pm x\). We can see this by showing that
-  \[
-  \begin{aligned}
-V(f) &= \{(x,y) \in \mathbb{R}^{2} \mid x^2 - y^2 = 0\}\\
-&\to x^2 - y^2 = 0\\
-&\iff x^2 = y^2\\
-&\iff x = y \text{ or } x = -y
-  \end{aligned}
+    \[
+    V(f) = \{(x,y) \in \mathbb{R}^{2} \mid x^2 - y^2 = 0\}
+    \]
+
+    \[
+    \begin{aligned}
+            x^2 - y^2 = 0
+            &\iff x^2 = y^2\\
+            &\iff x = y \text{ or } x = -y
+    \end{aligned}
+    \]
+    However, as this fails at the vertical line test, this is *not* a graph for any function.
+
+*Theorem*: Let \(f:\mathbb{R}^{n} \to \mathbb{R}^{}\) be a continuously differentiable function, and let \(\textbf{y} = (y_1, \dots, y_n) \in  \mathbb{R}^{n}\) such that \(f(y) = 0\), (in otherwords, \(f(y) \in V(f)\)). Suppose \(\frac{\partial{f}}{\partial{x_n}}(y) \neq 0\), then there exists some neighbourhood \(\mathbb{R}^{n-1} \supseteq U \supseteq (y_1, \dots, y_{n-1})\) and some neighbourhood \(\mathbb{R}^{n} \supseteq W \supseteq (y_1, \dots, y_n)\) and a function \(g:U \to \mathbb{R}^{}\) such that the graph of \(g|_w\) is all \(x \in W\) such that \(f(x) = 0\)
+\[
+G(g_{|V}) = V(f_{|W})
 \]
+Moreover then, \(g\) is differentiable at \((y_1, \dots, y_n)\) with \(\frac{\partial{g}}{\partial{x_j}}(y) = - \frac{\partial{f}}{\partial{x_j}}(y) / \frac{\partial{f}}{\partial{x_n}}(y)\)
+
+*Examples:*
+1. \(f(x,y) = x^2 - y^2\), consider near the point \((x,y) = (0,0)\), then
+   \[
+   \frac{\partial{f}}{\partial{y}} = 2y \implies \frac{\partial{f}}{\partial{y}}(0,0) = 0
+    \]
+
 
 * Manifold
 *Definition (rough)*: A manifold is a subset \(M \subseteq \mathbb{R}^{m }\) such that every point \(x \in M \) has an open neighbourhood \(U \in x\) such that \(U \cap M \) is diffeomorphic to an open subset of \(\mathbb{R}^{n}\) (for some \(r \leq m\)).
@@ -362,4 +376,5 @@ In other words, for all points in the subset \(M\), we can find a point such tha
 - A hyperbola \(M = \{(x,y) \in \mathbb{R}^{2}_{> 0} \mid xy = 1\}\) is a manifold.
 
   *Claim*: \(M\) is a manifold
+ 
   *Proof*: Define \(f: M \to \mathbb{R}_{>0}\), \((x,y) \mapsto x\), then \(g : \mathbb{R}_{> 0} \to M\) has \(x \mapsto (x, \frac{1}{x}\). Then \(g\) is an inverse of \(f\) and are both differential (a diffeomorphism).
