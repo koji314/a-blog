@@ -148,12 +148,14 @@ forall \(x \in A\) and forall \(n \in \mathbb{N}\), Suppose that \(\sum_{n=1}^{\
 
 /Proof:/
 For each \(x \in A\), the sum \(\sum_{n=0}^{\infty} \abs{f_n(x)}\), converges by comparison test, next for all \(x \in A\) we have
-\begin{align*}
+\[
+\begin{aligned}
 &\abs{f(x) - (f_0(x) + \dots + f_N(x))}\\
 &= \abs{ \sum_{n=N+1}^{\infty} f_n(x)}\\
 &\leq \sum_{n=N+1}^{\infty} \abs{f_n(x)}\\
 &\leq \sum_{n=N+1}^{\infty} M_n < \varepsilon
-\end{align*}
+\end{aligned}
+\]
 As \(\sum_{n=0}^{\infty} M_n\) converges, given \(\varepsilon > 0\), we can choose \(N\) so that \(\sum_{n = N+1}^{\infty} M_n < \varepsilon\). Thus, \(\sum_{n=0}^{\infty} f_n\) converges uniformly to \(f\) on \(A\).
 
 * Metric Spaces and Balls
