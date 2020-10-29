@@ -1,0 +1,26 @@
+#+TITLE: Classification of Surfaces
+* Euler Charactistic
+{{<katex "display">}}
+{{</katex>}}
+* Orientability
+  :PROPERTIES:
+  :CUSTOM_ID: sec:org5711377
+  :END:
+
+Extra invariant introduced to help deduce something like a Torus and
+Klein Bottle apart (both have \(\chi (S) = 0\)).
+
+We say a surface is orientable if it is *not* possible for a
+2-dimensional object to go across it without mirroring. Examples being a
+sphere or torus, there are orientable surfaces.
+
+A non-orientable surface is a Klein Bottle.
+
+Comparing how many vertices removed vs how many components left.
+
+* Word Representations
+  :PROPERTIES:
+  :CUSTOM_ID: sec:orgba9a6ce
+  :END:
+
+  Gotta do these notes now

@@ -1,0 +1,398 @@
+* Tests of some Tikz Diagrams in SVG
+  :PROPERTIES:
+  :CUSTOM_ID: sec:org0a8e6a3
+  :END:
+
+* Continued Fractions
+  :PROPERTIES:
+  :CUSTOM_ID: sec:orgac8de95
+  :END:
+
+{{<katex "display">}}
+
+{{</katex>}} What the hell is this chapter notes?!? For instance,
+$$1 + \frac{1}{1+\frac{1}{1+\frac{1}{1+\frac{1}{1+ \cdots}}}}$$
+
+*Reformation:* There are bounded subsets of $\mathbb{Q}$ which have no
+least upper bound (suprememum)
+
+Example: $A = \{x \in \mathbb{Q} | x^2 < 2\}$, bounded but has no
+(rational) supremum.
+
+Our goal is to enlarge $\mathbb{Q}$ to "fill the holes" while at the
+same time keep all the nice properties (an ordered field). There are two
+methods to do this.
+
+1. Cauchy Method
+
+2. Dedekind Method
+
+* Dedekind Construction of Real Numbers
+  :PROPERTIES:
+  :CUSTOM_ID: sec:orgbccecff
+  :END:
+
+Construction uses a notion of "cuts".
+
+*Definition*: A cut in $\mathbb{Q}$ is a pair of subsets
+$A,B \subset \mathbb{Q}$ such that (a).
+$A \cup B = \mathbb{Q}, \; A \cap B = \phi$, therefore
+$A \neq \phi \neq B$ (b). If $a \in A$ and $b \in B$, then $a \leq b$
+(c). $A$ contains no largest element.
+
+*Example*: (i). $A | B = \mathbb{Q}_{< 0} | \mathbb{Q}_{\geq 0}$, the
+latter is called the *zero cut*. Replacing zero with any rational number
+you have the cut corresponding to that number, i.e $\mathbb{Q}_{\geq x}$
+where $x \in \mathbb{Q}$ (thats recursive) (ii).
+$A | B = \{x \in \mathbb{Q} : x \leq 0 \text{ or } x^2 < 2\} | \{x \in \mathbb{Q} : x > 0 \text{ or } x^2 \geq 2\}$
+
+*Defintion* (Key Definition): A real number is a *cut* in $\mathbb{Q}$.
+Let $\mathbb{R}$ be the set of real numbers. Note that
+$Q \subseteq \mathbb{R}$,
+
+If $\alpha \in \mathbb{Q}$, then define a cut $\mathbb{Q}_\alpha$ by
+$A | B = \mathbB{Q}_{< \alpha} | \mathbb{Q}_{\geq \alpha}$
+
+*Definition* Suppose $x = A | B$ and $y = C | D$ are two cuts. We say
+$x \leq y$ if $A \subseteq C$ and $x < y$ if $A \subsetneq C$.
+
+*Example*
+$\mathbb{Q}_{< 0} \mid \mathbb{Q}_{\geq 0} \leq \mathbb{Q}_{< 1} \mid \mathbb{Q}_{\geq 1}$
+and
+$\mathbb{Q}_{\sqrt{2}} < \mathbb{Q}_{1.5} = \mathbb{Q}_{1.5} \mid \mathbb{Q}_{\geq 1.5}$
+
+*EXERCISE*: I forgot to write it down lol.
+
+*Definition*: An element $M \in \mathbb{R}$ is called an *upper bound*
+for $S \subseteq \mathbb{Q}$ if $\forall s \in S$, $s \leq M$.
+
+*Example*: Let $S$ be the set of all cuts less than the zero cut. Then
+clearly $\mathbb{Q}_0$ is an upper bound for $S$.
+
+*Definition*: An element $M \in \mathbb{R}$ is called a least upper
+bound for $S \subseteq \mathbb{R}$ if (i). M is an upper bound. (ii). If
+$M'$ is another upper bound for $S$, then $M \leq M'$.
+
+*Example*: $\mathbb{Q}_\sqrt{2}$ is a LUB for
+$S =\{x \in \mathbb{Q} | x^2 < \sqrt{2} \}$
+
+*Theorem*: $\mathbb{R}$ is Dedekind Complete; i.e every bounded subset
+has a least upper bound (aka supremum).
+
+*Proof*: Let
+$$C = \{a \in \mathbb{Q} \mid \text{ for some cut } A \mid B \in S, \text{ we have } a \in A = \displaystyle \bigcup_{A \mid B} \in S A$$
+with $D = \mathbb{Q} - C$.
+
+*Exercise*: $\mathbb{Z} = C \mid D$ is actually a cut. Clearly
+$\mathbb{Z}$ is an upper bound for $S$. We claim it is actually a *least
+upper bound*. Let $Z' = C' \mid D'$ be any other upper bound for $S$. By
+assumption, we have that for
+$A \mid B \leq C' \mid D', \; \forall A \mid B \in S$, this implies that
+$A \subseteq C' \forall A \mid B \in S$ and thus
+$$\bigcup_{A \mid B \in S} = C \subseteq C' \implies Z \leq Z'$$
+
+* Cauchy Construction of $\mathbb{R}$
+  :PROPERTIES:
+  :CUSTOM_ID: sec:orgbdda2f4
+  :END:
+
+*Definition:* Recall that a sequence $(x_n)_{n=1}^\infty$,
+$x_n \in \mathbb{Q}$ is Cauchy if
+$\forall \varepsilon \in \mathbb{Q}_{> 0}$, there exists
+$N = N_\varepsilon$, such that $|x_n - x_m| < \varepsilon$,
+$\forall n,m > N$. (Note the emphasis that $N$ depends on
+$\varepsilon$). *Example*:
+
+1. Let $x_n$ be any sequence $\in \mathbb{Q}$, whose limit is also
+   $\in \mathbb{Q}$, e.g $x_n = \frac{1}{n}$,
+   $$\lim_{n\to \infty} x_n = 0$$
+
+2. Take the partial sum sequence
+   $$x_n = 1 - \frac{1}{2} + \frac{1}{3} - \cdots + (-1)^{n+1} \frac{1}{n} = \sum_{k = 1}^n \frac{(-1)^{k+1}}{k}$$
+   Then $x_n$ does not converge in $\mathbb{Q}$, but it *is Cauchy*,
+   (Exercise - PROVE).
+
+Let $\ell$ be the *set of all Cauchy sequence of $\mathbb{Q}$*
+
+: $\ell$ is closed under addition and multiplication, thus $\ell$ is a
+ring.
+
+: $\exists$ non-zero Cauchy seq. which have no inverse, e.g no sequence
+satisfies
+$$(1,0,\cdots, 0) \cdot (x_1, x_2, \cdots, x_n, \cdots) = (1,1,1, \cdots, )$$
+*Key Definition*:
+
+1. A cauchy seq is equivalent to zero if $\lim_{n\to\infty} |x_n| = 0$
+
+2. Two cauchy seqs $(x_n)$ and $(y_n)$ are equivalent if $x_n - y_n$ is
+   equivalent to 0.
+
+*Exercise* - Showing this is an equivalence relation (defines one
+atleast), i.e show reflexibility, symmetry and transitivity.
+
+*Defn*. Define $\mathbb{R}$ to be the set of equivalence claimes(?) of
+Cauchy sequences of rationals, i.e $$\mathbb{R} := \frac{C}{n}$$
+
+* Intermediate Value Theorem
+  :PROPERTIES:
+  :CUSTOM_ID: sec:org83a53fe
+  :END:
+
+*Thm*: Let $f$ be a cts. function on a closed interval $[a,b]$. Let
+$c \in \mathbb{R}$ be a number between $f(a)$ and $f(b)$. Then there
+exists an $x \in [a,b]$ such that $f(x) = c$.
+
+To prove IVT, it is sufficient to prove the following special case:
+$f(a) < 0$, $f(b) > 0$, then $\exists x \in (a,b)$ such that $f(x) = 0$.
+Suppose $f$ is continuous on $[a,b]$ and $f(a) < 0 < f(b)$, out goal is
+to show that there exists some $\alpha \in (a,b)$ with $f(\alpha) = 0$.
+Let
+
+$$A = \left \{x \in [a,b] \mid f \text{ is negative on the interval } [a,x] \right\}$$
+Note that $a \in A \implies A \neq \phi$ (non-empty). Moreover
+$A \subseteq [a,b] \implies$ that $A$ is bounded. By the least upper
+bound property we then have $\alpha = \text{sup}(A)$.
+
+*Claim*: $\alpha \in (a,b)$ and $f(\alpha) = 0$.
+
+To prove this, we recall a result obtained in a previous course
+(MATH1071) Let $f$ be a cts. function at $x$ and $f(x) > 0$. Then
+$\exists \delta > 0$ such that $f(y) > 0$ forall
+$y \in [x-\delta, x+\delta]$. Since $f(a) < 0 \implies f(x) < 0$, on
+$[a, a+ \delta]$ for some $\delta > 0$, then furthermore this means that
+$\delta \geq a + \delta > \alpha$. Similarly, we can show that
+$\alpha < b$. (Key thing being to show that $f(\alpha) = 0$).
+
+Suppose for the sake of contradiction, we have $f(\alpha) < 0$. Then by
+the fact in the result above, $f$ is negative on the interval
+$[\alpha - \delta, \alpha + \delta]$ for some $\delta > 0$. But this
+implies that $f$ is negative on
+$[a, \alpha + \delta] = [a, \alpha - \delta] \cup [\alpha - \delta, \alpha + \delta]$
+And if $f$ wasn't negative, then $[a,\alpha - \delta]$ would mean that
+$\alpha - \delta \leq \alpha - \delta$, which is obviously a
+contradiction, as $\alpha$ is the supremum among these numbers.
+
+* Sequential Continuity Criteria
+  :PROPERTIES:
+  :CUSTOM_ID: sec:org3fda98e
+  :END:
+
+* Uniform Convergence with Integration and Differentiation
+  :PROPERTIES:
+  :CUSTOM_ID: sec:org42578a6
+  :END:
+
+* Uniform Convergence of Function Series
+  :PROPERTIES:
+  :CUSTOM_ID: sec:orga360045
+  :END:
+
+** Weistrass M-Test
+   :PROPERTIES:
+   :CUSTOM_ID: sec:org158e328
+   :END:
+
+*Thm*: Let $\{f_n\}$ be a sequence on functions defined on $A$ and
+suppose $\{M_n\}$ is a sequence of numbers, such that
+$$\left| f_n(x) \right| \leq M_n$$ forall $x \in A$ and forall
+$n \in \mathbb{N}$, Suppose that $\sum_{n=1}^{\infty} M_n$ converges,
+then for each $x \in A$, then $\sum_{n=0}^{\infty} f_n(x)$, converges
+(absolutely), and $\sum_{n=0}^{\infty} f_n$ converges uniformly to
+$f(x) = \sum_{n=0}^{\infty} f_n(x)$ on $A$.
+
+/Proof:/ For each $x \in A$, the sum
+$\sum_{n=0}^{\infty} \left| f_n(x) \right|$, converges by comparison
+test, next for all $x \in A$ we have $$\begin{aligned}
+&\left| f(x) - (f_0(x) + \dots + f_N(x)) \right|\\
+&= \left|  \sum_{n=N+1}^{\infty} f_n(x) \right|\\
+&\leq \sum_{n=N+1}^{\infty} \left| f_n(x) \right|\\
+&\leq \sum_{n=N+1}^{\infty} M_n < \varepsilon\end{aligned}$$ As
+$\sum_{n=0}^{\infty} M_n$ converges, given $\varepsilon > 0$, we can
+choose $N$ so that $\sum_{n = N+1}^{\infty} M_n < \varepsilon$. Thus,
+$\sum_{n=0}^{\infty} f_n$ converges uniformly to $f$ on $A$.
+
+* Metric Spaces and Balls
+  :PROPERTIES:
+  :CUSTOM_ID: sec:orga58278c
+  :END:
+
+*Definition*: Let $x_0 \in X$ and $r > 0$, then we define the *open
+ball* to be $$B_r(x_0) = \{x \in X \mid d(x,x_0) < r\}$$ Similarly the
+*closed ball*
+$$\overline{B_r(x_0)} = \{x \in X \mid d(x, x_0) \leq r\}}$$
+
+*Definition:* Let $E$ be a subset of a metric space $X$, we say
+$x \in E$ is in the of $E$ if $\exists r > 0$ such that
+$B_r(x) \subseteq E$. Similarly we say that $x \in X - E$ is in the of
+$E$ if $B_r(x) \subseteq X - E$. If $x$ is in neither of these, then we
+say $x$ is in the boundary.
+
+Denoting them as follows
+$$\text{int}(E) = \overset{\circ}{E} \leftarrow \text{interior}$$
+$$\text{ext}(E)\leftarrow \text{exterior}$$
+$$\delta(E) \leftarrow \text{boundary}$$
+
+*Example*: $X = (\mathbb{R}, | . |)$ Then we have the
+$$\text{int}(E) = (a,b)$$
+$$\text{ext}(E) = \mathbb{R} - [a,b] = (-\infty, a) \cup (b,\infty)$$
+$$\delta(E) = \{a,b\}$$
+
+Given $E \subseteq X$, define the closure of $E$, denoted by
+$\overline{E}$, to be the set of all limit points of $E$, Obviously
+$E \subseteq \overline{E}$.
+
+*Exercise*: $E$ is closed $\iff$ $E = \overline{E}$
+
+[[./img/tikz/pdf/city.pdf]]
+
+* Continuous Functions
+  :PROPERTIES:
+  :CUSTOM_ID: sec:org0db3072
+  :END:
+
+Recall that $f:(X,d) \to (X',d')$ is continuous at $x$ if
+$\forall \varepsilon > 0$, $\exist \delta > 0$ such that
+$d(x,y) < \delta \implies d(f(x), f(y)) < \varepsilon$, we that $f$
+being continuous at $x$ by this definition $\iff$
+$x_n \to x \implies f(x_n) \to f(x)$, and also that $f$ is continuous on
+$X$ if and only if an inverse image of every open set is open. (Inverse
+image of nbhd is a nbhd). I proved this vaguely in Assignment 3 of
+MATH2401.
+
+* Generalisation of Multivariate Differentiation
+  :PROPERTIES:
+  :CUSTOM_ID: sec:org5cc4eec
+  :END:
+
+Recalling the definition from single variables we have
+$$f'(x_0) := \lim_{x\to x_0} \frac{f(x) - f(x_0)}{x- x_0}$$ Now take
+$f: \mathbb{R}^n \to \mathbb{R}^m$, then we obviously have a problem, as
+$f'(x_0)$ could be in either $\mathbb{R}^n$ or $\mathbb{R}^m$,
+
+*Def*: A linear map $L : \mathbb{R}^{n} \to \mathbb{R}^{m}$ is the
+derivitave of $f : \mathbb{R}^{n} \to \mathbb{R}^{m}$ at
+$x_0 \in \mathbb{R}^{n}$ if
+$$\lim_{x \to x_0} \frac{\|f(x) - f(x_0) + L(x-x_0)) \| }{\|(x-x_0)\|} = 0$$
+Such that $\| \cdot \|$ denotes the standard Euclidean norm.
+
+* Observation: Implicit Function Theorem
+  :PROPERTIES:
+  :CUSTOM_ID: sec:org309afe4
+  :END:
+
+Applies as long as matrix of all partial derivatives (gradient
+$\nabla f$) does not equal the 0 matrix.
+
+So if $\nabla f(x_1, \cdots, x_n) \neq 0$, then locally near $f$, $V(f)$
+is a graph of a function.
+
+E.g to keep in mind: $$f(x,y) = x^2 + y^2 - 1$$
+
+$\nabla(f) = (2x 2y) \implies$ $V(f)$ is always locally a graph of a
+function.
+
+*Notes on manifold in written notebook - To put back into this*
+
+* Inverse Function Theorem!
+  :PROPERTIES:
+  :CUSTOM_ID: sec:orge322d6e
+  :END:
+
+*Thm (Inverse Function Theorem)*: Let
+$f : \mathbb{R}^{n} \to \mathbb{R}^{m}$, be a function and suppose
+$f'(x_0)$ is invertible (i.e $\text{det}(f'(x_0)) \neq 0$).
+
+Then $f$ is locally invertible near $x_0$ and
+
+$$(f^{-1})'(f(x_0)) = (f'(x_0))^{-1}$$
+
+Derivative of inverse = inverse of derivative.
+
+To prove the inverse function theorem, another major theorem is
+required, called the *Contraction mapping Theorem*.
+
+This can be formulated in a general matrix space not just
+$\mathbb{R}^{n}$.
+
+Let $f:(X_1, d_1) \to (X_2, d_2)$, $f$ is called a contraction if
+$\exists c \in (0,1)$ such that $d_2(f(x), f(y)) < c d_1(x,y)$.
+
+*Thm (Contraction Mapping Theorem)*: Let $f : (X,d) \to (X,d)$ be a
+contraction. Then $f$ has exactly one fixed point, $\exists ! x_0$
+(exists a unique $x_0$) such that $f(x_0) = x_0$
+
+* Diffeomorphisms and Homeomorphisms
+  :PROPERTIES:
+  :CUSTOM_ID: sec:org050f0f0
+  :END:
+
+Given $U \subseteq \mathbb{R}^n$ and $V \subseteq \mathbb{R}^m$, we say
+some $U$ is a homeomorphic to $V$ if there exists some continuous
+function $f : U \to V$ such that it also has a continuous inverse.
+
+Similarly we say $U$ is diffeomorphic to $V$ if there exists some
+*continuous differentiable* function $f:U \to V$ with a *continuous
+differentiable* inverse.
+
+Note by this definition, if $f$ is a bijection, then it has an inverse,
+and vice versa (by definition of bijectivity). Furthermore if $f$ is a
+homeomorphism, then it is a bijective (cts) $f$ with a continuous
+inverse. They are slightly different but a connection can be made.
+
+This gives us a little neat relation of
+$$\text{Diffeom.} \subseteq \text{Homeo.} \subseteq \text{Bijection}$$
+
+For example, $(0,1)$ is homemorphic to $\mathbb{R}$, suppose we define
+$$\begin{aligned}
+f : &(0,1) \to \mathbb{R}\\
+&x \mapsto \tan\left(\frac{\pi}{2} + x\pi\right)\end{aligned}$$
+(Exercise, show that this is also diffeomorphic).
+
+*Thm*: If $n \neq m$, then $\mathbb{R}^n$ is not diffeomorphic to $R^m$
+(even when $\mathbb{R}^n$ and $\mathbb{R}^m$ are in bijection??)
+
+/Proof/: Let $f:\mathbb{R}^{n} \to \mathbb{R}^{m}$ be a diff. function
+with a diff. inverse $g$. Then we have $$\begin{aligned}
+f' \circ g' &= Id_m\\
+g' \circ f' &= Id_n\end{aligned}$$ The derivative matrix of $f$ and $g$
+are inverses to each other. Taking a fact from linear algebra, for an
+$m \times n$ matrix being invertible $\implies$ $m=n$. Box.
+
+Similarly, we have a theorem like it with homemorphism.
+
+*Thm*: If $n \neq m$, then $\mathbb{R}^{n}$ is not homeomorphi to
+$\mathbb{R}^{m}$.
+
+This theorem is much harder to prove, and beyond the scope of the
+course.
+
+*Remark*: The inverse function theorem states that if $f'(x_0)$ is
+invertible then $f$ is locally a diffeomorphism near $x_0$.
+
+* Hypersurfaces (sounds so cool)
+  :PROPERTIES:
+  :CUSTOM_ID: sec:orgb486733
+  :END:
+
+*Def*: Let $f : \mathbb{R}^{} \to \mathbb{R}^{}$ be a function. Then the
+graph of $f$ is
+
+$$G(f) = \{(x,f(x)) \mid x \in \mathbb{R}^{}\}$$
+
+Trivially (atleast I think it is), a graph of a function gives a curve
+in $\mathbb{R}^{2}$. However, not every curve is a graph of some
+function. For example, consider the equation $x^2 + y^2 = 1$, i.e the
+Unit Circle. $S^1$ is not globally a graph of a function, but comprised
+of $y = \sqrt{1-x}$ and $y = -\sqrt{1-x}$. Locally however, we say it is
+a graph of some function near each point.
+
+*Def (Hypersurfaces)*: Let $f: \mathbb{R}^{n} \to \mathbb{R}^{}$. Then
+the hypersurface associated with $f$ is
+$$V(f) = \{x \in \mathbb{R}^{n} \mid f(x) = 0\} \subseteq \mathbb{R}^{n}\}$$
+Example being the unit circle above, $f(x,y) = x^2 + y^2 - 1$,
+$V(f) = S^1$
+
+* Manifold
+  :PROPERTIES:
+  :CUSTOM_ID: sec:org608c9fb
+  :END:

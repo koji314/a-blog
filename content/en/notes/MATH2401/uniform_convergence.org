@@ -1,0 +1,23 @@
+#+TITLE: Uniform Convergence
+{{<katex "display">}}
+{{</katex>}}
+* Uniform Convergence with Integration and Differentiation
+* Uniform Convergence of Function Series
+**  Weistrass M-Test
+*Thm*: Let \(\{f_n\}\) be a sequence on functions defined on \(A\) and suppose \(\{M_n\}\) is a sequence of numbers, such that
+\[ | f_n(x) | \leq M_n \]
+forall \(x \in A\) and forall \(n \in \mathbb{N}\), Suppose that \(\sum_{n=1}^{\infty} M_n\) converges, then for each \(x \in A\), then \(\sum_{n=0}^{\infty} f_n(x)\), converges (absolutely), and \(\sum_{n=0}^{\infty} f_n\) converges uniformly to \(f(x) = \sum_{n=0}^{\infty} f_n(x)
+\) on \(A\).
+
+/Proof:/
+For each \(x \in A\), the sum \(\sum_{n=0}^{\infty} \abs{f_n(x)}\), converges by comparison test, next for all \(x \in A\) we have
+
+\[
+\begin{aligned}
+& |f(x) - (f_0(x) + \dots + f_N(x))|\\
+&= |\sum_{n=N+1}^{\infty} f_n(x)|\\
+&\leq \sum_{n=N+1}^{\infty} |f_n(x)|\\
+&\leq \sum_{n=N+1}^{\infty} M_n < \varepsilon
+\end{aligned}
+\]
+As \(\sum_{n=0}^{\infty} M_n\) converges, given \(\varepsilon > 0\), we can choose \(N\) so that \(\sum_{n = N+1}^{\infty} M_n < \varepsilon\). Thus, \(\sum_{n=0}^{\infty} f_n\) converges uniformly to \(f\) on \(A\).

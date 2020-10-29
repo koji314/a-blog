@@ -1,0 +1,172 @@
+#+TITLE: Multivariate Analysis
+{{<katex "display">}}
+{{</katex>}}
+* Generalisation of Multivariate Differentiation
+Recalling the definition from single variables we have
+\[
+f'(x_0) := \lim_{x\to x_0} \frac{f(x) - f(x_0)}{x- x_0}
+\]
+Now take \(f: \mathbb{R}^n \to \mathbb{R}^m\), then we obviously have a problem, as \(f'(x_0)\) could be in either \(\mathbb{R}^n\) or \(\mathbb{R}^m\),
+
+*Def*: A linear map \(L : \mathbb{R}^{n} \to \mathbb{R}^{m} \) is the derivitave of \(f : \mathbb{R}^{n} \to \mathbb{R}^{m}\) at \(x_0 \in \mathbb{R}^{n}\) if
+\[
+\lim_{x \to x_0} \frac{\|f(x) - f(x_0) + L(x-x_0)) \| }{\|(x-x_0)\|} = 0
+\]
+Such that \(\| \cdot \|\) denotes the standard Euclidean norm.
+
+We saw previously that the limit existing through each line is not enough to show that the multivariate limit exists. However for derivatives its not the case.
+
+If \(\frac{\partial{f}}{\partial{x}}, \frac{\partial{f}}{\partial{y}}\) exists, and are continuous, *then the derivative of \(f\) exists*.
+** Jacobi Matrix (Matrix of Partial Derivatives)
+Let \(f:\mathbb{R}^{n} \to \mathbb{R}^{m}\) be a function. We can write \(f = (f_1, \dots, f_m)\) such that \(f_i : \mathbb{R}^{n} \to \mathbb{R}^{}\). For example,
+\[
+\begin{aligned}
+f &: \mathbb{R}^{2} - \{y = 0\} \to \mathbb{R}^{2}\\
+&(x,y) \mapsto \left(x^2 + y, \frac{x}{y}\right)
+\end{aligned}
+\]
+Then \(f_1(x,y) = x^2 + y\) and \(f_2(x,y) = \frac{x}{y}\), then
+\[
+\begin{aligned}
+\frac{\partial{f_1}}{\partial{x}} = 2x &\;\;\; \frac{\partial{f_1}}{\partial{y}} = 1\\
+\frac{\partial{f_2}}{\partial{x}} = \frac{1}{y} &\;\;\; \frac{\partial{f}}{\partial{y}} = -\frac{x}{y^2}
+\end{aligned}
+\]
+So the Jacobi Matrix is then
+\[
+Jf = \begin{bmatrix}
+\frac{\partial{f_1}}{\partial{x}} & \frac{\partial{f_1}}{\partial{y}}\\
+\frac{\partial{f_2}}{\partial{x}} & \frac{\partial{f_2}}{\partial{y}}
+\end{bmatrix} = \begin{bmatrix}
+2x & 1 \\ \frac{1}{y} & \frac{-x}{y^2}
+\end{bmatrix}
+\]
+
+*Definition*: The Jacobi Matrix of \(f: \mathbb{R}^{n} \to \mathbb{R}^{m}\) where \(f = (f_1, \dots, f_m)\) is defined by
+\[
+Jf = \begin{bmatrix}
+\frac{\partial{f_1}}{\partial{x_1}} & \cdots & \frac{\partial{f_1}}{\partial{x_n}}\\
+\vdots & & \vdots\\
+\frac{\partial{f_m}}{\partial{x_1}} & \cdots & \frac{\partial{f_m}}{\partial{x_n}}
+\end{bmatrix}_{m\times n}
+\]
+So \(Jf\) is a map \(\mathbb{R}^{n} \to m \times n\) matrix (of which the matrix is a linear map \(\mathbb{R}^{n} \to \mathbb{R}^{m}\))
+
+
+*Theorem*: If all partial derivatives exist, and are continuous at \(x_0\), then \(f\) is differentiable at \(x_0\) and
+\[
+f'(x_0) = (Jf)(x_0)
+\]
+That is, the derivative is equivalent to the Jacobi Matrix.
+
+* Inverse Function Theorem!
+*Thm (Inverse Function Theorem)*: Let \(f : \mathbb{R}^{n} \to \mathbb{R}^{m}\), be a function and suppose \(f'(x_0)\) is invertible (i.e \(\text{det}(f'(x_0)) \neq 0\)).
+
+Then \(f\) is locally invertible near \(x_0\) and
+
+\[
+(f^{-1})'(f(x_0)) = (f'(x_0))^{-1}
+\]
+
+Derivative of inverse = inverse of derivative.
+
+To prove the inverse function theorem, another major theorem is required, called the *Contraction mapping Theorem*.
+
+This can be formulated in a general matrix space not just \(\mathbb{R}^{n}\).
+
+Let \(f:(X_1, d_1) \to (X_2, d_2)\), \(f\) is called a contraction if \(\exists c \in (0,1)\) such that \(d_2(f(x), f(y)) < c d_1(x,y)\).
+
+*Thm (Contraction Mapping Theorem)*: Let \(f : (X,d) \to (X,d)\) be a contraction. Then \(f\) has exactly one fixed point, \(\exists ! x_0\) (exists a unique \(x_0 \)) such that \(f(x_0) = x_0\)
+
+
+Furthermore, another representation of the Inverse Function Theorem (just going by the notes I guess)
+
+*Theorem (Inverse Function Theorem)*: Let \(f: \mathbb{R}^{n} \to \mathbb{R}^{n}\). Suppose \(f\) is continuous differentiable (\(\iff\) all partials are continuous) and \(f'(x_0) = J_f(x_0)\) is invertible. Then there exists neighbourhoods \(U \ni x_0\) and \(V \ni f(x_0)\) such that \(f\) is a bijection from \(U\) to \(V\). Moreover then, the inverse function \(f^{-1}: V\to U\) is differentiable at \(y_0 = f(x_0)\) and
+\[
+(f^{-1}) (y_0) = (f'(x_0))^{-1}
+\]
+
+* Diffeomorphisms and Homeomorphisms
+Given \(U \subseteq \mathbb{R}^n\) and \(V \subseteq \mathbb{R}^m\), we say some \(U\) is a homeomorphic to \(V\) if there exists some continuous function \(f : U \to V\) such that it also has a continuous inverse.
+
+Similarly we say \(U\) is diffeomorphic to \(V\) if there exists some *continuous differentiable* function \(f:U \to V\) with a *continuous differentiable* inverse.
+
+Note by this definition, if \(f\) is a bijection, then it has an inverse, and vice versa (by definition of bijectivity). Furthermore if \(f\) is a homeomorphism, then it is a bijective (cts) \(f\) with a continuous inverse. They are slightly different but a connection can be made.
+
+This gives us a little neat relation of
+\[
+\text{Diffeom.} \subseteq \text{Homeo.} \subseteq \text{Bijection}
+\]
+
+For example, \((0,1)\) is homemorphic to \(\mathbb{R}\), suppose we define
+\[
+\begin{aligned}
+f : &(0,1) \to \mathbb{R}\\
+&x \mapsto \tan\left(\frac{\pi}{2} + x\pi\right)
+\end{aligned}
+\]
+(Exercise, show that this is also diffeomorphic).
+
+
+*Thm*: If \(n \neq m\), then \(\mathbb{R}^n\) is not diffeomorphic to \(R^m\) (even when \(\mathbb{R}^n\) and \(\mathbb{R}^m\) are in bijection??)
+
+/Proof/: Let \(f:\mathbb{R}^{n} \to \mathbb{R}^{m}\) be a diff. function with a diff. inverse \(g\). Then we have
+\[
+\begin{aligned}
+f' \circ g' &= Id_m\\
+g' \circ f' &= Id_n
+\end{aligned}
+\]
+The derivative matrix of \(f\) and \(g\) are inverses to each other. Taking a fact from linear algebra, for an \(m \times n\) matrix being invertible \(\implies\) \(m=n\). Box.
+
+Similarly, we have a theorem like it with homemorphism.
+
+*Thm*: If \(n \neq m\), then \(\mathbb{R}^{n}\) is not homeomorphi to \(\mathbb{R}^{m}\).
+
+This theorem is much harder to prove, and beyond the scope of the course.
+
+*Remark*: The inverse function theorem states that if \(f'(x_0)\) is invertible then \(f\) is locally a diffeomorphism near \(x_0\).
+* Hypersurfaces (sounds so cool)
+*Def*: Let \(f : \mathbb{R}^{} \to \mathbb{R}^{}\) be a function. Then the graph of \(f\) is
+
+\[
+G(f) = \{(x,f(x)) \mid x \in \mathbb{R}^{}\}
+\]
+
+Trivially (atleast I think it is), a graph of a function gives a curve in \(\mathbb{R}^{2}\). However, not every curve is a graph of some function. For example, consider the equation \(x^2 + y^2 = 1\), i.e the Unit Circle. \(S^1\) is not globally a graph of a function, but comprised of \(y = \sqrt{1-x}\) and \(y = -\sqrt{1-x}\). Locally however, we say it is a graph of some function near each point.
+
+*Def (Hypersurfaces)*: Let \(f: \mathbb{R}^{n} \to \mathbb{R}^{}\). Then the hypersurface associated with \(f\) is
+\[
+V(f) = \{x \in \mathbb{R}^{n} \mid f(x) = 0\} \subseteq \mathbb{R}^{n}\}
+\]
+Example being the unit circle above, \(f(x,y) = x^2 + y^2 - 1\), \(V(f) = S^1\)
+
+* Implicit Function Theorem
+** Graphs
+We say for a function \(g\), the graph of \(g\), denoted \(G(g)\) is defined as
+\[
+G(g) := \{(x,g(x)) \mid x \in \mathbb{R}^{n-1}\} \subseteq \mathbb{R}^{n}
+\]
+An obvious fact to note is that \(G(g)\) is a hypersurface, so we can generalise the notion of a graph to be a special kind of hypersurface. Graphs \(\subseteq\) Hypersurfaces.
+
+Taking some Examples:
+- \(f(x,y) = x^2 - y^2\), then \(V(f) = y = \pm x\). We can see this by showing that
+  \[
+    \begin{aligned}
+    V(f) &= \{(x,y) \in \mathbb{R}^{2} \mid x^2 - y^2 = 0\}\\
+    &\to x^2 - y^2 = 0\\
+    &\iff x^2 = y^2\\
+    &\iff x = y \text{ or } x = -y
+    \end{aligned}
+    \]
+
+* Manifold
+*Definition (rough)*: A manifold is a subset \(M \subseteq \mathbb{R}^{m }\) such that every point \(x \in M \) has an open neighbourhood \(U \in x\) such that \(U \cap M \) is diffeomorphic to an open subset of \(\mathbb{R}^{n}\) (for some \(r \leq m\)).
+
+In other words, for all points in the subset \(M\), we can find a point such that it is locally diffeomorphic to the a Euclidean space in \(n\)'th dimension. Some examples
+- \(\mathbb{R}^{0}\) (a point) is a manifold
+- Every line \(\mathbb{R}^{2}\) is a manifold.
+- A hyperbola \(M = \{(x,y) \in \mathbb{R}^{2}_{> 0} \mid xy = 1\}\) is a manifold.
+
+  *Claim*: \(M\) is a manifold
+  *Proof*: Define \(f: M \to \mathbb{R}_{>0}\), \((x,y) \mapsto x\), then \(g : \mathbb{R}_{> 0} \to M\) has \(x \mapsto (x, \frac{1}{x}\). Then \(g\) is an inverse of \(f\) and are both differential (a diffeomorphism).
