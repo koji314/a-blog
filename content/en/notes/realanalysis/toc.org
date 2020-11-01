@@ -1,0 +1,25 @@
+#+TITLE: Real Analysis
+#+AUTHOR: Ismael Khan
+#+date: 2020-10-30
+#+LATEX_HEADER: \usepackage{parskip}
+#+LATEX_HEADER: \usepackage{tikz}
+#+LATEX_HEADER: \newcommand{\abs}[1]{\left| #1 \right|}
+#+LATEX_HEADER: \usepackage{import}
+#+LATEX_HEADER: \usepackage{xifthen}
+#+LATEX_HEADER: \usepackage{pdfpages}
+#+LATEX_HEADER: \usepackage{transparent}
+#+LATEX_HEADER: \newcommand{\incfig}[1]{%
+#+LATEX_HEADER:     \def\svgwidth{\columnwidth}
+#+LATEX_HEADER:     \import{./}{#1.pdf_tex}
+#+LATEX_HEADER: }
+
+* Table of Contents
+[[file:../numbers][Construction of the Reals]]
+
+[[file:../singlevar][Single Variable Analysis]]
+
+[[file:../uniform_convergence][Uniform Convergence of Functions and Function Series]]
+
+[[file:../multivariate][Multivariate Analysis]]
+
+[[file:../testchapter][Test Chapter]]

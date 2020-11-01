@@ -1,0 +1,6 @@
+#+TITLE: Test of Tikz Diagarms thru SVG
+* Tests of some Tikz Diagrams in SVG
+# These probably cant be viewed in base notebook directory, simply because they are designed to be viewed from the webpage
+[[file:/img/tikz/city.svg]]
+[[file:/img/tikz/circumscribe.svg]]
+[[file:/img/tikz/perpendicular-bissector.svg]]

@@ -7,7 +7,7 @@
 [[main]]
   identifier = "notes"
   name = "Notes"
-  url = "notes_menu"
+  url = "notes/collection"
   weight = 2
 
 [[main]]

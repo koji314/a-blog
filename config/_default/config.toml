@@ -1,5 +1,5 @@
 baseURL = "http://kojisegfault.xyz"
-title = "Hugo Zzo Theme"
+title = "blog"
 theme = "zzok"
 
 defaultContentLanguage = "en"

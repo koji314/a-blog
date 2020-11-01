@@ -1,0 +1,67 @@
+#+TITLE: Analysis on Single Variable Functions
+{{<katex "display">}}
+{{</katex>}}
+* Intermediate Value Theorem
+*Thm*: Let \(f\) be a cts. function on a closed interval \([a,b]\). Let \(c \in \mathbb{R}\) be a number between \(f(a)\) and \(f(b)\). Then there exists an \(x \in [a,b]\) such that \(f(x) = c\).
+
+To prove IVT, it is sufficient to prove the following special case: \(f(a) < 0\), \(f(b) > 0\), then \(\exists x \in (a,b)\) such that \(f(x) = 0\). Suppose \(f\) is
+continuous on \([a,b]\) and \(f(a) < 0 < f(b)\), out goal is to show that there exists some \(\alpha \in (a,b)\) with \(f(\alpha) = 0\). Let
+
+\[
+A = \left \{x \in [a,b] \mid f \text{ is negative on the interval } [a,x] \right\}
+\]
+Note that \(a \in A \implies A \neq \phi\) (non-empty). Moreover \(A \subseteq [a,b] \implies\) that \(A\) is bounded. By the least upper bound property we then have \(\alpha = \text{sup}(A)\).
+
+*Claim*: \(\alpha \in (a,b)\) and \(f(\alpha) = 0\).
+
+To prove this, we recall a result obtained in a previous course (MATH1071)
+Let \(f\) be a cts. function at \(x\) and \(f(x) > 0\). Then \(\exists \delta > 0\) such that \(f(y) > 0\) forall \(y \in [x-\delta, x+\delta]\). Since \(f(a) < 0 \implies f(x) < 0\), on \([a, a+ \delta]\) for some \(\delta > 0\), then furthermore this means that \(\delta \geq a + \delta > \alpha\). Similarly, we can show that \(\alpha < b\). (Key thing being to show that \(f(\alpha) = 0\)).
+
+Suppose for the sake of contradiction, we have \(f(\alpha) < 0\). Then by the fact in the result above, \(f\) is negative on the interval \([\alpha - \delta, \alpha + \delta]\) for some \(\delta > 0\). But this implies that \(f\) is negative on
+\([a, \alpha + \delta] = [a, \alpha - \delta] \cup [\alpha - \delta, \alpha + \delta]\)
+And if \(f\) wasn't negative, then \([a,\alpha - \delta]\) would mean that \(\alpha - \delta \leq \alpha - \delta\), which is obviously a contradiction, as
+\(\alpha\) is the supremum among these numbers.
+
+** Example Problem with IVT
+Let \(f:(0,1] \to [0,1]\) be a bijection, show that \(f\) is not continuous. (2019 Final Exam)
+
+Suppose \(f\) is continuous, then \(f\) is a monotone function as it is also bijective (injective). Let \(\zeta \in (0,1)\) such that \(\alpha \in (0,\zeta)\), then we have \(f(\alpha) \in (0,1)\). For the sake of the argument, lets denote \(c = f(\alpha)\), then by IVT, we have that, \(\exists p \in (\zeta, 1)\) such that \(f(p) = c = f(y)\), however as \(p \neq y\), \(f(p) \neq f(y)\) by injectivity, this is a contradiction. So \(f\) cannot be continuous.
+* Sequential Continuity Criteria
+* Metric Spaces and Balls
+*Definition*: Let \(x_0 \in X\) and \(r > 0\), then we define the *open ball* to be
+\[
+B_r(x_0) = \{x \in X \mid d(x,x_0) < r\}
+\]
+Similarly the *closed ball*
+\[
+\overline{B_r(x_0)} = \{x \in X \mid d(x, x_0) \leq r\}}
+\]
+
+*Definition:* Let \(E\) be a subset of a metric space \(X\), we say \(x \in E\) is in the _interior_ of \(E\) if \(\exists r > 0\) such that \(B_r(x) \subseteq E\). Similarly we say that \(x \in X - E\) is in the _exterior_ of \(E\) if \(B_r(x) \subseteq X - E\). If \(x\) is in neither of these, then we say \(x\) is in the boundary.
+
+Denoting them as follows
+\[\text{int}(E) = \overset{\circ}{E} \leftarrow \text{interior}\]
+\[\text{ext}(E)\leftarrow \text{exterior}\]
+\[\delta(E) \leftarrow \text{boundary}\]
+
+*Example*: \(X = (\mathbb{R}, | . |)\)
+Then we have the
+\[
+\text{int}(E) = (a,b)
+\]
+\[
+\text{ext}(E) = \mathbb{R} - [a,b] = (-\infty, a) \cup (b,\infty)
+\]
+\[
+\delta(E) = \{a,b\}
+\]
+
+Given \(E \subseteq X\), define the closure of \(E\), denoted by \(\overline{E}\), to be the set of all limit points of \(E\), Obviously \(E \subseteq \overline{E}\).
+
+*Exercise*: \(E\) is closed \(\iff\) \(E = \overline{E}\)
+
+\begin{center}
+\includegraphics{./img/tikz/pdf/city.pdf}
+\end{center}
+* Continuous Functions
+Recall that \(f:(X,d) \to (X',d')\) is continuous at \(x\) if \(\forall \varepsilon > 0\), \(\exist \delta > 0\) such that \(d(x,y) < \delta \implies d(f(x), f(y)) < \varepsilon\), we that \(f\) being continuous at \(x\) by this definition \(\iff\) \(x_n \to x \implies f(x_n) \to f(x)\), and also that \(f\) is continuous on \(X\) if and only if an inverse image of every open set is open. (Inverse image of nbhd is a nbhd). I proved this vaguely in Assignment 3 of MATH2401.

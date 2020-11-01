@@ -1,0 +1,218 @@
+#+TITLE: Test
+** Marking
+   :PROPERTIES:
+   :CUSTOM_ID: marking
+   :CLASS: unnumbered
+   :END:
+
+{{<katex "display">}}
+{{</katex>}}
+Each question is worth 20 marks for a total of 100.
+
+** Submission
+   :PROPERTIES:
+   :CUSTOM_ID: submission
+   :CLASS: unnumbered
+   :END:
+
+Please submit online via blackboard.
+
+** Help
+   :PROPERTIES:
+   :CUSTOM_ID: help
+   :CLASS: unnumbered
+   :END:
+
+You can get help for doing the questions but solutions must be written
+in your own words. Copying from any source constitute cheating and will
+be detrimental to your studies at UQ. You can look up the definitions
+you don't know from Wikipedia.\\
+
+** Problems
+   :PROPERTIES:
+   :CUSTOM_ID: problems
+   :CLASS: unnumbered
+   :END:
+
+1. Let \((X_i, d_i)\), \(i=1,2,...\), be metric spaces such that there
+   exists $M$ with $d_i(x_i,y_i)<M$ for all $x_i, y_i\in X_i$ and
+   $i\in \mathbb{N}$. Let $X=\prod\limits_{i=1}^\infty X_i$. Define
+   $d:X\times X\rightarrow \mathbb{R}$ by
+   $$d(\mathbf{x}, \mathbf{y}) = \sum_{n=1}^\infty d_n(x_n,y_n)/2^n$$
+   where $$\mathbf{x}=(x_1,x_2,...), \qquad \mathbf{y}=(y_1,y_2,...).$$
+   Show that $(X,d)$ is a metric space.
+
+   *Identity of Indiscernables*:
+   $d(\textbf{x}, \textbf{y}) = 0 \iff x = y$,
+
+   Suppose that $\textbf{x} = \textbf{y}$, then we have that
+   $\forall i \in \mathbb{N}$, $x_i = y_i$ $\forall x_i \in \textbf{x}$
+   and $\forall y_i \in \textbf{y}$. Then since $d_i$ is a metric on
+   $X_i$, we have that $d_i(x_i, y_i) = 0$. Thus is follows that
+   $$\begin{aligned}
+       d(\textbf{x}, \textbf{y}) &= \sum_{n=1}^{\infty} d_n(x_n, y_n) / 2^n = 0
+     \end{aligned}$$ Now suppose that $d(\textbf{x}, \textbf{y}) = 0$,
+   then we have $$\begin{aligned}
+       0 &= \sum_{n=1}^{\infty} d_n(x_n, y_n) / 2^n\\
+       &= \frac{d_1(x_1, y_1)}{2} + \frac{d_2(x_2, y_2)}{2^2} + \frac{d_3(x_3, y_3)}{2^3} + \dots
+       \intertext{Since \(d_i(x_i, y_i) \geq 0\) forall \(i \in \mathbb{N}\) (The sequence \(1/2^n\) is known to converge absolutely to 1, then it must mean that \(d_i(x_i, y_i) = 0\) so then \(x_i = y_i\) forall \(i\), which gives \(\textbf{x} = \textbf{y}\))}
+     \end{aligned}$$ *Symmetry Property of Metric*:
+   $d(\textbf{x}, \textbf{y}) = d(\textbf{y}, \textbf{x})$
+
+   Observe that $$\begin{aligned}
+       d(\textbf{y}, \textbf{x}) &= \sum_{n=1}^{\infty} \frac{d_n(y_n, x_n)}{2^n}\\
+       &= \sum_{n=1}^{\infty} \frac{d_n(x_n, y_n)}{2^n}\\
+       &= d(\textbf{x}, \textbf{y})
+     \end{aligned}$$
+
+   *$\Delta$-inequality*
+   $d(\textbf{x}, \textbf{y}) \leq d(\textbf{x}, \textbf{z}) + d(\textbf{z}, \textbf{y})$
+   $$\begin{aligned}
+       \sum_{n=1}^{\infty} d_n(x_n, y_n) &\leq \sum_{n=1}^{\infty} \frac{d_n(x_n, z_n)}{2^n} + \sum_{n=1}^{\infty} \frac{d_n(z_n, y_n)}{2^n}\\
+       &= \sum_{n=1}^{\infty} \frac{d_n(x_n, z_n) + d_n(z_n, y_n)}{2^n}\\
+     \end{aligned}$$ Don't know where else to go from here
+
+2. Define $f:\mathbb{R}^2\rightarrow \mathbb{R}^2$ by $$f(x,y):=
+     \begin{cases}
+       x^2\sin(1/x)+\frac{x}{2}, y) & \textrm{if $x\neq 0$} \\
+       (0,y) & \textrm{if $x=0$}
+     \end{cases}$$ Show that
+
+   1. $f$ is differentiable everywhere. Take the Jacobi Matrix of $f$,
+      $$J_f(x,y) = \begin{pmatrix} 2x\sin(1/x) - \cos(1/x) + \frac{1}{2} & 0 \\ 0 & 1\end{pmatrix}$$
+      At $x \neq 0$, the partials are continuous and $J_f(x,y) = f'$,
+      however at $x = 0$, the partial
+      $\frac{\partial{f_1}}{\partial{x}}$ is not defined. So lets guess
+      some $\mathcal{L}$ and show that the limit defintion goes to 0.
+
+      Suppose we guess a $\mathcal{L}: \mathbb{R}^2 \to \mathbb{R}^2$
+      defined by $$\mathcal{L}(x,y) = \left(\frac{x}{2}, y\right)$$
+
+      However at $x = 0$, this gives something annoying, so as
+      $(x,y) \to (0, y_0)$ we have in particular $$\begin{aligned}
+              &= \lim_{(x,y) \to (0, y_0)} \frac{\left \|\begin{pmatrix} x^2\sin(1/x) + \frac{x}{2} \\ y - y_0 \end{pmatrix} - \begin{pmatrix} \frac{x}{2} \\ y-y_0 \end{pmatrix}\right \|}{\left \|\begin{pmatrix}x \\ y - y_0 \end{pmatrix} \right\|}\\
+              &= \lim_{(x,y) \to (0, y_0)} \frac{\left \|\begin{pmatrix} x^2\sin(1/x) \\ 0 \end{pmatrix}\right \|}{\left \|\begin{pmatrix}x\\ y - y_0 \end{pmatrix} \right\|}\\
+              &= \lim_{(x,y) \to (0, y_0)} \frac{x^2\sin (1/x)}{\sqrt{x^2 + (y - y_0)^2}}
+              \intertext{Let \((y - y_0) = u\) and take thus \(u \to 0\) }
+              &= \lim_{(x,u) \to (0,0)} \frac{x^2\sin(1/x)}{\sqrt{x^2 + u^2}}\\
+              &= 0 \leq \frac{x^2\sin(1/x)}{\sqrt{x^2 + u^2}} \leq \frac{x^3}{\sqrt{x^2 + u^2}}\\
+              &= \lim_{(x,u) \to (0,0)} 0 = \lim_{(x,u) \to (0,0)} \frac{x^2\sin(1/x)}{\sqrt{x^2 + u^2}} = \lim_{(x,u) \to (0,0)} \frac{x^3}{\sqrt{x^2 + u^2}} = 0
+            \end{aligned}$$ Dont freak out.
+
+   2. $f'(0,0)$ is invertible.
+
+      With $f'(x,y) = \left(\frac{x}{2}, y\right)$, then
+      $f'(0,0) = (0,0)$. Clearly then an inverse
+      $g:\mathbb{R}^2 \to \mathbb{R}^2$ exists such that
+      $g(0,0) = (0,0)$.
+
+   3. $f$ is not one-to-one in any neighbourhood of the origin.
+
+      Suppose we take some neighbourhood $N$ to be an open ball around
+      the origin for some $r > 0$
+      $$N = B_r((0,0)) = \{(x,y) \in \mathbb{R}^2 \mid d((x,y), (x_0, y_0)) \leq r\}$$
+      Recall definition of one-to-one (injectivity), for
+      $(a_1, a_2),(b_1, b_2) \in \mathbb{R}^2$, then
+      $f(a_1, a_2) = f(b_1, b_2) \implies (a_1, a_2) = (b_1, b_2)$, and
+      thus $a_1 = b_1$ and $a_2 = b_2$. Let us assume we can take
+      $\sin(u)$ to be a periodic function, which by definition means
+      that $\sin(u) = \sin(u + 2\pi)$, which clearly violates
+      injecitivity. Furthermore suppose the equation
+      $x^2\sin(1/x) + \frac{x}{2} = \frac{x}{2}$, then
+      $x^2\sin(1/x) = 0$, it follows that either $x = 0$ or
+      $\sin(1/x) = 0$. Clearly it must be the latter as $f$ is not
+      defined at $x = 0$. Let $\zeta = \frac{1}{x}$, then from our claim
+      earlier $\sin(\zeta) = \sin(\zeta + 2\pi)$, so $f$ is not
+      injective in any neighbourhood of the origin.
+
+      (Note: This just generally states how $\sin$ as a function is not
+      injective. It doesn't really incoporate how it works in a specific
+      neighbourhood around $(0,0)$)
+
+   4. $f$ is not continuously differentiable.
+
+3. Define a function $F:\mathbb{R}^2 \rightarrow \mathbb{R}^2$ by
+   $F(r,\theta):=(r\cos(\theta), r\sin(\theta))$.
+
+   1. Show that $F$ is continuously differentiable on $\mathbb{R}^2$.
+      $$J_F(r, \theta) = \begin{pmatrix} \cos\theta & -r\sin \theta \\ \sin\theta & r\cos\theta \end{pmatrix}$$
+      Clearly all partial derivatives are continuous on $\mathbb{R}$,
+      and such $F$ is continuously differentiable on $\mathbb{R}^2$
+      (Play around with this). It also follows that
+      $J_F(r, \theta) = F'(r, theta)$, then
+
+   2. Compute $F'(0,\theta)$ for any $\theta$.
+
+   3. Show that if $r\neq 0$, then $F'(r,\theta)$ is invertible,
+      therefore an inverse of $F$ exists locally as long as $r\neq 0$.
+      If $r \neq 0$ then we have the Jacobi Matrix
+      $$J_F(r, \theta) = \begin{pmatrix} \cos \theta & -r\sin \theta \\ \sin \theta & r\cos \theta \end{pmatrix}\\
+      $$ $$\begin{aligned}
+            &= \det(J_F(r, \theta)) \\
+            &= -r\sin^2\theta - r\cos^2\theta\\
+            &= -r(\sin^2 \theta + \cos^2 \theta)\\
+            &= -r \neq 0
+          \end{aligned}$$ Thus as $r \neq 0$,
+      $\det(J_F(r, \theta)) \neq 0$. So there exists an inverse of $F$
+      locally as long as $r \neq 0$.
+
+   4. Show that the restriction of $F$ to $(0,\infty)\times [0,2\pi)$ is
+      one to one and onto $\mathbb{R}^2\setminus \{(0,0)\}$.
+
+4. Consider the equation $\frac{x^2}{4}+\frac{y^2}{9}=1$.
+
+   1. Draw the graph in $\mathbb{R}^2$.
+
+   2. Show that this is a manifold.
+
+5. Let $U\subset \mathbb{R}^{n-1}$ and suppose
+   $g:U\rightarrow \mathbb{R}$ is a function. Let
+   $$\Gamma(g)=\{(x,g(x)\, | \, x\in \mathbb{R}^{n-1}\} \subset \mathbb{R}^{n}$$
+   denote the graph of $g$. Define functions
+   $$\phi: U \rightarrow \Gamma(g), \quad \phi(x)=(x,g(x))$$ and
+   $$\psi: \Gamma(g) \rightarrow U, \quad \psi(x,y)=x.$$
+
+   1. Show that $\phi$ and $\psi$ are inverses of each other.
+
+      How in particularly do I do this. Observe that,
+      $U \subseteq \mathbb{R}^{n-1}$,
+      $\Gamma(g) \subseteq \mathbb{R}^n$. $$\begin{aligned}
+            \phi(\psi(x)) &= \phi(x, g(x))\\
+                          &= x
+          \end{aligned}$$ Similarly, $$\begin{aligned}
+            \psi(\phi(x,y)) &= \psi(x)\\
+            &= (x,g(x)) = (x,y)
+          \end{aligned}$$ Letting $y = g(x)$
+
+   2. Show that if $g$ is continuous, then so are $\phi$ and $\psi$. If
+      $g$ is continuous, then by single variable definition, we have
+      that for all $x_0 \in U$,
+      $\lim_{x \to x_0} g(x) = L \in \mathbb{R}$, Furthermore if
+      $\phi(x) = (x, g(x))$ which are both continuous in
+      $\mathbb{R}^{n-1}$ and $\mathbb{R}$. Similarly for
+      $\psi(x,y) = x$; clearly $x$ is continuous in $\mathbb{R}^{n-1}$
+      (Maybe prove that to hold?).
+
+   3. Show that if $g$ is differentiable, then so are $\phi$ and
+      $\psi$.\\
+      Hint: Let
+      $M=(m_1,\cdots, m_{n-1}) \in \mathcal{L}(\mathbb{R}^{n-1}, \mathbb{R})$
+      denote the derivative of $g$. Show that $$N=
+          \begin{pmatrix}
+            1 & 0 &  0 & ... & 0 \\
+            0  & 1 & 0 & ... & 0 \\
+            ... & ... & ...   & ....   & 0\\
+            0 & 0 & ... & 1 &  0 \\
+            0 & 0&  ... & 0 & 1\\
+            m_1 & m_2 & ... & m_{n-2} & m_{n-1}
+          \end{pmatrix} \in \mathcal{L}(\mathbb{R}^{n-1}, \mathbb{R}^n).$$
+      is the derivative of $\phi$, using the definition of multivariable
+      derivative.\\
+
+   As we saw in class, the above considerations allows us to reformulate
+   the implicit functions theorem as follows: *Every hypersurface $V(f)$
+   is a manifold away from the critical points of $f$.* (This is
+   probably the deepest statement in the course, so make sure to
+   meditate on it!).
+
+
