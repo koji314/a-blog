@@ -1,0 +1,58 @@
+% Created 2020-11-11 Wed 15:25
+% Intended LaTeX compiler: pdflatex
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{grffile}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\author{Ismael Khan}
+\date{2020-11-11}
+\title{Topology Sketch Notes}
+\hypersetup{
+ pdfauthor={Ismael Khan},
+ pdftitle={Topology Sketch Notes},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 26.3 (Org mode 9.4)}, 
+ pdflang={English}}
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+\{\{<katex ``display''>\}\}
+\{\{</katex>\}\}
+\section{``Equivalences'' between topological surfaces}
+\label{sec:org5a6cc01}
+Let us propose the following question. How do we know two surfaces are ``equivalent''. Well a topologist will tell you that there exists some structure preserving homeomorphism between them, and that tells you that they are topologically equivalent. You can stretch, translate all around space as much as you want. But to a topologist, a donut and a coffee mug are two of the same.
+
+We formally define a homeomorphism between two surfaces \(X\) and \(Y\) to be some function \(f : X\to Y\) that is bijective, such that both \(f\) and \(f^{-1}\) are continuous. This correlates directly with a ``structure preserving property'', we can go back and forth between surfaces without there being a point where things get funky.
+
+Informally, if two surfaces are homeomorphic to each other, it means that if we can take \(S\) and construct it out of any topologically valid shape (triangles work well, but really it just has to be a shape with no holes), then we can disassemble \(X\), and rearrange those shapes in such a way that each edge is attached to the same edge it was before, but perhaps in a different place within space.
+
+A neat little trick we can use to answer our question from earlier is some function that preserves general properties of surfaces. These are called \textbf{invariants}, and a really good example of an invariant is the Euler Characteristic. For some surface \(S\), the Euler Characteristic is denoted \(\chi(S)\).
+
+The key property of an invariant \(f\) is if two surfaces \(S\) and \(T\) are equivalent, then \(f(S) = f(T)\). Note that the converse is \textbf{not true}. \(f(S) = f(T)\) does not imply that two surfaces are equivalent.
+
+\subsection{Computing Euler's Characteristic}
+\label{sec:org5d4b618}
+The technique to compute this involved constructing the surface in question, say \(S\), out of any shape as long as its homeomorphic to a topological disc (no holes). Once we have done that, we count the vertices, edges and faces used, such that
+\[
+\chi(S) = V - E + F
+\]
+
+\section{Orientability of Surfaces}
+\label{sec:orgb9091a1}
+\emph{Since this is a \textbf{MATH2302} somewhat revision style recall, we have somewhat rough definitions of orientability based on a discrete point of view. I eventually want to expand this into a larger introduction into topology and branching into manifolds and into analysis.}
+
+Unfortunately, the Euler Characteristic is not a strong enough invariant to distinguish between two surfaces. For example, both the Klein Bottle and a Torus have \(\chi(S) = 0\). So we introduce a new invariant, the ``orientability'' of the surface.
+\end{document}

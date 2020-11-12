@@ -1,0 +1,128 @@
+#+TITLE: COMP3506 Exam Preperation
+A dumping of general COMP3506 notes within this notebook, simply because I have done goofed my notes, these are *not* formal notes, these are just scratch notes to help with recall on
+the exam.
+
+{{<katex "display">}}
+{{</katex>}}
+* Trees
+** Splay Trees
+Utilises an operation called "splaying" that brings a node in question up to root (self balancing), all other tree operations utilise the base "splay" operation. We define splaying with the following rules. Given some node \(x\), we let \(p\) be the parent of this node \(x\), then
+1. If \(p\) is the root, then we "rotate" the tree along the edge between \(p\) and \(x\), \(px\). All children on the right *stay* on the right, vice-versa on the left.
+2. If \(p\) is not the root, and \(p\) and \(x\) are *both* left children or right children, then denote \(p\)'s parent \(g\), and we rotate along \(pg\), then \(px\).
+3. If \(p\) is not the root, and either \(p\) is a right child and \(x\) is a left (vice versa), then we rotate between \(px\) and we rotate along \(xg\).
+** (2,4) Trees
+A multi-way search tree with the key property on having *at most* _four_ children. It also requires that *all external nodes have the same depth*.
+
+Depending on the number of children, an internal node in the tree is either called a 2, 3 or 4 node (based on how many children that node has).
+*** Searching through a (2,4) tree
+Searching through with a height of \(h\) takes \(O(h)\) time. Considering that each node must have at most 4 children, there are at least \(2^i\) items at some depth \(i\), and then at the final height \(h\), there must be no items. Thus at \(h-1\) we have \(2^{h-1}\) items, thus \(h \leq \log_2(n+1)\). Furthermore searching will take \(O(\log_2(n)) = O(log(n))\) time.
+
+*** Key Operations
+**** Insertion
+We insert a new item, \((k,o)\) at the parent \(v\) of the leaf when we are searching for \(k\). This preserves the depth property, but has the off chance of causing an overflow making a node a \(5\) node.
+[[/img/5-node-overflow.png]]
+# Should be visible in webpage.
+# Uncomment following to see in org
+
+# [[./5-node-overflow.png]]
+We can combat the overflow with something called a split operation, simply taking the children of the node \(v\) to be \(v_1, \dots, v_5\) and the keys \(k_1, \dots k_4\) of \(v\), we *split* \(v\) into two. We take \(v'\) to be a 3-node with \(k_1\) and \(k_2\), with children \(v_1, v_2\) and \(v_3\). \(v''\) to be a 2-node with \(k_4\) and children \(v_4, v_5\), and \(k_3\) is put into the parent of \(v\) (this is so we can split in the first place without violating rules of 2-4).
+**** Deletion
+If an item is at node with leaf children, then we can just delete it without hurting any other items. Otherwise if an item has children, we delete it and let the in-order successor take its place.
+
+Similarly to insertion, this can cause *underflow*. We might have a node that has one node and no keys. This is dealt with case by case:
+- Case 1: If the adjacent sibling to empty node \(v\) are 2-nodes.
+
+  Suppose the adjacent 2-node sibling is denoted \(w\), we fuse the two by taking the single key in \(w\) and a key from the parent node \(u\).
+  [[/img/fusion.png]]
+
+- Case 2: If adjacent sibling is a 3-node or a 4-node
+
+  If this is the case, then given \(w\) as an adjacent sibling to \(v\), and \(u\) the parent to \(v\).
+  + Then we move a child of \(w\) to \(v\) (\(v\) becomes a 2-node).
+  + Move an item from \(u\) to \(v\)
+  + Move an item from \(w\) to \(u\)
+
+
+***** Analysis of Deletion
+Given a (2,4) tree with \(n\) items, in a deletion operation, we visit \(O(\log n)\) nodes to search for the node and delete entry. In case of an underflow, we may need to have perhaps \(O(\log n)\) fusions, where each fusion or transfer takes atleast \(O(1)\) time. All together a (2,4) tree takes \(O(\log n)\) *time to delete an item.*
+
+
+*** (A,B) Trees
+(A,B) trees are a somewhat generalisation of \((2,4)\) trees in the sense that we define \(a,b\) as two integers such that
+\[
+2 \leq a \leq (b+1)/2
+\]
+with the following restrictions.
++ Each internal node must have alteast \(a\) children except the root. The root has *at most* \(b\) children.
++ All external nodes *have the same depth*.
+
+
+***** Height of (A,B) tree
+We analyse the height of the \((a,b)\) tree similarly to the \((2,4)\), storing \(n\) entries we have *at least*
+\[
+\Omega\left(\frac{\log n}{\log b}\right) \implies \Omega(\log_b n)
+\]
+and *at most*
+\[
+O\left(\frac{\log n}{\log a}\right) \implies O(\log_a n)
+\]
+
+**** Searching and Key Operations
+Searching functions the same as any multi-way search tree.
+
+*Insertion* functions similar to a (2,4) tree, if we have an overflow of \(b+1\) node, we do the split operation.
+
+*Deletion* is the same, if we have an underflow of an \(a-1\) node, we either do a transfer or a fusion depending on the sibling node.
+
+**** B-Trees
+B-Trees are a special kind of \((a,b)\) tree structure, it is well known for maintaining a map of external memory.
+
+We say a *B-tree of order \(d\)* is an \((a,b)\) tree with \(a = \frac{d}{2}\) and \(b = d\).
+# Put an image of a B-tree here pls.
+
+*** Red-Black Trees
+If we compare the \((2,4)\) tree structure to the Red-Black tree structure, we notice it has the following key details:
+- The *same \(O(\log n)\) worst case complexity* for each operation; search, insert and removal.
+- A arguably simpler implementation
+- Fewer restructurings.
+  # elaborate on above perhaps?
+
+But what are they. They are a *binary* search tree that satisfy the following:
+- The root is black
+- Every leaf is black
+- Children of a red node are black
+- ... All leaves have the same black depth?
+
+Since this feels like a pain to represent, take this following diagram as a conversion between a \((2,4)\) tree structure and the equivalent Red-Black tree structure.
+[[/img/24-rb.png]]
+
+**** Insertion in RB Trees
+Standard insertion into a binary search tree. We colour the newly inserted node *red*, unless it is the root. This thus preserves the root, external and depth properties of the tree. Denote the node just inserted as \(x\), letting the parent of \(x\) denoted \(p\). If \(p\) is black, then it preserves the internal property as well (children of a red node is black). *Otherwise* if the parent is red, then we have a double red, which violates the interal property. So we need to reorganise the tree.
+***** Fixing Double Reds
+Let \(s\) be the sibling of of the parent node \(y\),
+- Case 1: If \(s\) is black, we perform a *tri-node restructuring*
+
+*Tri-Node Restructuring*: Label nodes \(x,y,z\) as \(a,b,c\) in left-right order (in order travesal), replacing \(z\) with whatever node is labelled as \(b\). Then we make nodes labelled \(a\) and \(c\) children of the node labelled \(b\).
+
+- Case 2: if \(s\) is red, then the double red corresponds to an *overflow* in a (2,4) tree, recolouring in this case is equivalent to performing a split.
+
+*Recolouring*: Parent \(y\) of \(x\) and its sibling become black, and grandparent of \(x\) (parent of \(y\)) becomes red unless it is the root. This is somehow equivalent to performing a split on a 5-node...
+
+***** Analysis of Insertion
+A RB Tree has height \(O(\log n)\), furthermore searching for the key \(k\), it takes \(O(\log n)\) time. Once we find \(k\), inserting the new entry takes \(O(1)\) time, each recolouring takes \(O(\log n)\) time (traversing through the tree), with each recolour taking \(O(1)\). There may be at most one restructuring, which takes \(O(1)\) time.
+
+Overall we have insertion takes \(O(\log n)\) time in a RB tree.
+**** Deletion in RB Trees
+Deletion in RB trees uses a binary search tree deletion algorithm. Letting \(q\) being the internal node that is being removed, \(r\) being the external node being removed and \(p\) being the sibling of \(r\).
+- If \(q\) was red, nothing more to do
+- If \(q\) was *black*, both children were either external, or \(q\) has one red child \(p\). If so, we recolour \(p\) to be black.
+- If \(q\) was black, with two external nodes, then we have a double black. This corresponds to an underflow in (2,4).
+
+ 
+***** Fixing Double Blacks
+Consider a double black node \(p\) whose sibling is denoted \(y\),
+- If \(y\) is black and has a red child \(x\), we perform a *restructuring* (equivalent to transfer)
+- If \(y\) is black and its children are both black, we perform a *recolouring* (equivalent to fusion)
+- If \(y\) is red, we perform an *adjustment*. After the adjustment is applied we see if either the former cases apply.
+
+Time complexity of deletion in RB trees takes \(O(\log n)\) time.

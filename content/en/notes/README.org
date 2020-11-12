@@ -1,0 +1,6 @@
+#+TITLE: Digital Notebook Collection
+This is a collection of my digital written notebooks, mainly written thru Org mode as there is no particular preference to how I am aiming to format them. It is just a bunch of data and information on disciplines of interest.
+
+In saying that, there wont be a *specific* course code or class that these notes fall under. Rather just a collection of notes sorted as best as I can into the relevant fields.
+
+This should also work in conjuction with my website/blog protocol that syncs information online. As well as compiling each of these notes into a respective LaTeX built pdf (through pdflatex).
