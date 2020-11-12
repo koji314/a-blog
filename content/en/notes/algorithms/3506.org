@@ -1,4 +1,6 @@
 #+TITLE: COMP3506 Exam Preperation
+#+AUTHOR: Ismael Khan
+#+DATE: 2020-11-12
 A dumping of general COMP3506 notes within this notebook, simply because I have done goofed my notes, these are *not* formal notes, these are just scratch notes to help with recall on
 the exam.
 
@@ -126,3 +128,86 @@ Consider a double black node \(p\) whose sibling is denoted \(y\),
 - If \(y\) is red, we perform an *adjustment*. After the adjustment is applied we see if either the former cases apply.
 
 Time complexity of deletion in RB trees takes \(O(\log n)\) time.
+
+* Pattern Matching
+A string is simply a sequence of characters, thus it follows that the *alphabet* (denoted \(\Sigma\)) is the set of _all possible characters_ for a family of strings. Examples include
+- ASCII
+- Unicode
+- {0,1} (Binary)
+- {A,C,G,T} (DNA, RNA Sequences)
+
+Let \(S\) be a string of size \(m\), then we say a *substring* of \(S\) is some portion of \(S\) from position \(i\) to \(j\).
+
+A prefix is a substring that starts at position 0 (beginning of string), to some position \(i\). Similarly a suffix is a substring starting from position \(i\) to the end of the string (\(m-1\)).
+
+The problem arises, how can we find a substring \(T\) in \(S\) that matches some pattern \(P\)?
+** Brute Force Pattern Matching
+Literally compare the pattern \(P\) with \(T\) for each possible character shift in \(T\).
+#+BEGIN_SRC ps
+Alg BruteForce(T,P)
+for i = 0 to n - m do:
+    { test shift at position i of the pattern }
+    j = 0
+    while j < m AND T[i + j] = P[j] do
+        j = j + 1
+    if j = m then
+        return i {we found a match at pos i}
+    else
+        break {keep going}
+return -1 {no match found}
+#+END_SRC
+For a pattern with size \(n\) and text \(T\) with size \(m\). The runtime complexity with brute-force pattern searching is \(O(nm)\), an example of worse case would be the following \(T = aaaaaaaah\) and \(P = aaah\).
+[[/img/brute.png]]
+
+** Boyer-Moore Pattern Matching Algorithm
+The Boyer-Moore pattern matching algorithm works as follows, shifting the pattern down the string \(S\), *if a mismatch occurs* at \(S[i] = \alpha\):
+- If \(\alpha \in P\), then we position \(P\) such that position \(P[\beta] = \alpha\) is aligned with \(S[i] = \alpha\).
+  [[/img/pcontc.png]]
+- Otherwise, we shift \(P\) such that the beginning of \(P\) (\(P[0]\)) is at \(S[i+1]\).
+  [[/img/pend.png]]
+
+Observe this very nice example (from COMP3506 lecture slides as most of these screenshots are).
+[[/img/b-m-example.png]]
+
+*** Last-Occurence Function
+The Boyer-Moore's algorithm preprocesses the pattern and the alphabet to generate the *last occurence function* \(L\).
+
+Defined \(L:\Sigma \to \mathbb{N}\) such that
+\[
+L(c) := \begin{cases}
+\text{ largest index of } i &\text{ such that } P[i] = c\\
+-1 & \text{ if no index exists }
+\end{cases}
+\]
+# Ah this is cursed.
+In processing we can represent it by some array that is indexed by the characters in some numerical format I dont know what this is trying to say tbh. Furthermore LOF is computed in \(O(m+s)\) time where \(m\) is the size of the pattern \(P\) and \(s\) is the size of the alphabet \(\Sigma\), and accessed in \(O(1)\) time.
+
+Overall, Boyer-Moore's algorithm runs in \(O(nm + s)\) time, with \(n\) being the size of \(T\), \(m\) the size of \(P\) and \(s\) the size of the alphabet. Regardless, Boyer-Moore's algorithm is significantly *faster* than brute-force.
+
+** Knuth-Morris-Pratt Algorithm (KMP)
+The KMP algorithm compares the pattern to the text from left-to-right, however the methods and steps to shifting are more /intelligent/ than brute force. Particularly, we want to now how much we can shift to avoid redundant comparisons. In particular, this is represented by *the largest prefix of \(P[0, j-1]\) that is a suffix of \(P[1,j-1]\)*. You can observe this in the following, the suffix \(ab\) is equal to the largest prefix, thus we shift \(P\) to the index of the end of the largest prefix \(ab\). This avoids the unneccesary comparison.
+[[/img/comp.png]]
+
+In particular, the KMP algorithm will preprocess the pattern finding the largest prefix of substring \(P[0,j]\) that is also a suffix of \(P[1,j]\) for all \(j\), the size of the prefix is denoted as \(F(j)\), the *Failure Function* at \(j\). Thus when a mismatch occurs, we can set \(j\) (the shift position) to be \(F(j-1)\).
+*** Analysis of Algorithm
+For a pattern \(P\), with size \(m\), the Failure Function is represented by an array and takes \(O(m)\) time to be computed.
+#+BEGIN_SRC ps
+Algorithm KMPMatch(T, P)
+F = failureFunction(P)
+i = 0
+j = 0
+while i < length(T)
+        if T[i] = P[j] then
+            if j = length(P) - 1 then
+                return i - j { match }
+            else
+                i = i + 1
+                j = j + 1
+        else
+            if j > 0 then
+                j = F[j - 1]
+            else
+                i = i + 1
+return -1 { no match }
+#+END_SRC
+Each iteration of the loop, we either increment \(i\) by one *or* the shift distance increments by one. This means that we can get no more than \(2n\) iterations of the while loop. So our KMP algorithm runs in \(O(m+n)\) time!
