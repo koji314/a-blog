@@ -31,9 +31,36 @@ The technique to compute this involved constructing the surface in question, say
   [[/img/torus-construct.png]]
 - *Klein Bottle*: This one is similar to the torus but once the tube is formed, we take one end of the tube and connect it to the other in opposite orientations.
   [[/img/klein.png]]
+- *Projective Plane*: We define a projective plane to be a disc glued to a mobius strip along its boundaries. The same applies here. Taking a rectangle and a disc, we construct the Mobius strip by gluing the short edges in opposite directions to create a "twist", and then the disc (divided into two boundaries \(b\) and \(c\)) is glued along the respective \(b\) and \(c\) boundaries of strip. However to turn this into a polygon, we attach the edges marked \(c\), this leaves us with just \(a\) and \(b\) as seen below, which we can just call \(d\) and we achieve a bigon.
+  [[/img/bigon.png]]
+  Take note however that the edges of the bigon are glued in opposite directions, so the two vertices merge together into one, such that \(V = 1\), \(E = 1\) and there will be only one face so \(F = 1\). Furthermore, \(\chi = 1-1+1 = 1\).
 
 
+*Theorem*: /For any two surfaces \(S\) and \(T\), \(\chi(S \# T) = \chi(S) + \chi(T) - 2\)./
+
+*Proof*: To be written.
 *** Orientability of Surfaces
 /Since this is a *MATH2302* somewhat revision style recall, we have somewhat rough definitions of orientability based on a discrete point of view. I eventually want to expand this into a larger introduction into topology and branching into manifolds and into analysis./
 
 Unfortunately, the Euler Characteristic is not a strong enough invariant to distinguish between two surfaces. For example, both the Klein Bottle and a Torus have \(\chi(S) = 0\). So we introduce a new invariant, the "orientability" of the surface.
+
+** Graph Theory
+*Definition*: A graph \(G\) consists of a set *vertices* and a set of *edges*. The vertex set is finite and non-empty, denoted \(V(G)\). The edge set is a (possibly empty) set of unordered pairs of vertices, and denoted \(E(G)\).
+*** Some general definitions
+- The number of vertices in a graph \(G\) is under its *order*, the number of edges in a graph is called its *size*.
+- Two graphs \(G_1\), \(G_2\) are *isomorphic*, denoted by \(G_1 \cong G_2\). If there is a bijection between vertices of \(G_1\) and \(G_2\) such that two vertices adjacent in \(G_1\) if and only if they are adjacent in \(G_2\).
+- Equivalence of two graphs are defined if both the edge set and vertex set are equal, i.e \(G_1\) is equal to \(G_2\) if \(V(G_1) = V(G_2)\) and \(E(G_1) = E(G_2)\).
+- A *complete graph* of order \(n\), \(n \geq 1\), denoted the \(K_n\), is a graph with \(n\) vertices and an edge between each pair of vertices.
+
+  In other words each node is connected by an edge. I believe that by definition it is a cycle.
+- For \(m \geq 1\), an \(m\)-*path* is a graph denoted \(P_m\) with distinct vertices and edges such that \(v_1v_2, v_2v_3, \dots, v_{m-1}v_m\)
+
+  # Put a tikz diagram here?
+
+  Then for \(m \geq 3\) an \(m\)-*cycle*, denoted \(C_m\) is a graph with distinct vertices and edges such that
+  \(v_1v_2, v_2v_3, \dots, v_{m-1}v_m, v_mv_1\)
+- A graph is *bipartite* if its vertices can be partitioned into two sets \(A\) and \(B\) such that every edge joins a vertex in \(A\) to a vertex in \(B\). Thus a bipartite has no edges in \(A\) going to \(A\), and vice-versa with \(B\).
+
+  *Note* that a graph is bipartite if and only if it contains no \(m\)-cycle with \(m\) odd.
+
+  Furthermore, a *complete bipartite graph*, denoted \(K_{m,n}\), (\(m+n \geq 1\)) is a bipartite graph, with vertex set \(A \cup B\), such that \(|V(A)| = m\) and \(|V(B) = n\), every vertex in \(A\) is joined to a vertex in \(B\), we call \(K_{1,n}\) to be a *star*.
