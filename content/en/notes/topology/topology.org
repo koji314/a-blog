@@ -26,3 +26,7 @@ The technique to compute this involved constructing the surface in question, say
 /Since this is a *MATH2302* somewhat revision style recall, we have somewhat rough definitions of orientability based on a discrete point of view. I eventually want to expand this into a larger introduction into topology and branching into manifolds and into analysis./
 
 Unfortunately, the Euler Characteristic is not a strong enough invariant to distinguish between two surfaces. For example, both the Klein Bottle and a Torus have \(\chi(S) = 0\). So we introduce a new invariant, the "orientability" of the surface.
+
+
+** Classification of Surfaces
+*Theorem*:

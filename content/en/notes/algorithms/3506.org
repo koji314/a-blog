@@ -7,6 +7,8 @@ the exam.
 {{<katex "display">}}
 {{</katex>}}
 * Trees
+** Binary Search Trees (BST)
+** AVL Trees
 ** Splay Trees
 Utilises an operation called "splaying" that brings a node in question up to root (self balancing), all other tree operations utilise the base "splay" operation. We define splaying with the following rules. Given some node \(x\), we let \(p\) be the parent of this node \(x\), then
 1. If \(p\) is the root, then we "rotate" the tree along the edge between \(p\) and \(x\), \(px\). All children on the right *stay* on the right, vice-versa on the left.
@@ -211,3 +213,6 @@ while i < length(T)
 return -1 { no match }
 #+END_SRC
 Each iteration of the loop, we either increment \(i\) by one *or* the shift distance increments by one. This means that we can get no more than \(2n\) iterations of the while loop. So our KMP algorithm runs in \(O(m+n)\) time!
+
+* Tries (Re"trie"val trees)
+* Text Compression
