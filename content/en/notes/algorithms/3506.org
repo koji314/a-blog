@@ -6,6 +6,84 @@ the exam.
 
 {{<katex "display">}}
 {{</katex>}}
+* Algorithm Analysis
+Formally we define \(\Omega\) notation if \(f(n)\) is asymptotically *greater than or equal to* \(g(n)\).
+
+*Definition: \(\Omega\)*: \(f(n)\) is \(\Omega(g(n))\) if there exists some \(c > 0\) and \(n_0 > 0\) such that
+\[
+f(n) \geq c \cdot g(n) \; \; \forall n \geq n_0
+\]
+
+
+Analagously, we define \(\Theta\) notation as asymptotically equal to \(g(n)\).
+
+*Definition \(\Theta\)*: \(f(n)\) is \(\Theta(g(n))\) if there exists some \(c_1, c_2 > 0\) and \(n_0 > 0\) such that
+\[
+c_1 \cdot g(n) \leq f(n) \leq c_2 \cdot f(n) \;\; \forall n \geq n_0
+\]
+
+* Priority Queues and Heaps
+** Priority Queues
+*Queues* work as a FIFO system, what you put in first comes out first.
+
+*Priority Queues* stores items as _entries_. The entry with the *highest priority* is removed first, in this case it is the one with the smallest key.
+
+*** Entry and Compare ADT in Java
+The entry in a priority queue is a key pair value with getter methods
+- ~getKey~
+- ~getValue~
+
+A generic priority queue will use an auxilary comparator ~compare(a,b)~ that returns
+- \(i < 0\) if \(a < b\)
+- \(i = 0\) if \(a = b\)
+- \(i > 0\) if \(a > b\)
+and an error if \(a,b\) cannot be compared.
+
+*** Sequence-Based Prioirity Queue
+An implementation of a sequence based priority queue that is *not sorted*, then ~insertion~ takes \(O(1)\) time and ~removeMin~ and ~min~ takes \(O(n)\) time.
+
+~insert~ takes \(O(1)\) because ordering doesn't matter, we can put it at the end or beginning of the sequence or anywhere without problem. ~removeMin~ and ~min~ take \(O(n)\) because we need to scroll through the sequence and compare each value to find the minimum.
+
+An implementation that *is sorted*, will have ~insert~ take \(O(n)\) and ~removeMin~ and ~min~ take \(O(n)\), this is as we need to compare the value \(v\) to be inserted with the values of the sequence until it finds one that is greater or equal to \(v\). Analogously, ~removeMin~ and ~min~ take \(O(1)\) because we pop off the first or last element of the sequence for an ascending or descending sequence respectively.
+** Heaps
+Heaps are binary trees that satisfy the following properties
+- _Heap-Order_: For every internal node other than the root, the key of the child must be greater or equal to the key of the parent.
+  \[
+  \text{key}(v) \geq \text{key}(\text{parent}(v))
+  \]
+- _Complete Binary Tree_: For depths \(i = 0 \to h-1\) where \(h\) is the height of the tree, the tree must be *complete*. In other words, at each depth \(i\), there must be \(2^i\) nodes. At the last depth \(h\) however, we must have all nodes pushed to the left.
+- _Last Node_: We call the rightmost node at the last depth \(h\) the "last node" of the heap.
+
+  *Theorem*: A heap storing \(n\) keys has a search height of \(O(log n)\)
+
+  *Proof*: Let \(h\) be the height of the tree storing \(n\) keys. At depth \(h\), we have \(2^h\) nodes, then \(n \geq 2^h\) which implies that \(h \leq \log_2 n\). Thus search height is \(O(log n)\).
+
+
+*** Implementing Heaps with PQ's
+We set each node as a key,value pair; and keep track of the position of the last node.
+[[/img/heap-pq.png]]
+
+**** Insertion for Heaps
+Insertion of a key \(k\) in a heap correlates with a priority queue ADT.
+
+*Algorithm for Insertion*:
+1. Find the insertion node \(z\) (and set \(z\) as the new last node)
+2. Store the key \(k\) in \(z\)
+3. Restore the heap-order with upheap.
+
+*Upheap Algorithm*: Traverse upwards from a node \(v\) and when a node \(e\) is greater or equal to \(v\), we swap until we reach a node that is less than \(v\) or we reach the root. This algorithm runs in \(O(\log n)\) time.
+**** Removal for Heaps
+Removal of the last node correlates directly with priority queue ~removeMin~.
+
+*Algorithm for Removal*:
+1. Swap the root key with the key of the last node.
+2. Remove the last node
+3. Restore heap-order with downheap.
+
+*Downheap Algorithm*: Traverse downwards from the root node \(v\)
+- If there is no right child, we choose the left
+- Otherwise if there is both, we choose the one with the smallest key.
+Traverse downwards and swap with child if \(\text{key}(\text{child}) < \text{key}(v)\). This algorithm runs in \(O(\log n)\) time.
 * Trees
 ** Binary Search Trees (BST)
 ** AVL Trees

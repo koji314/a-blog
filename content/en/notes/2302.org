@@ -3,6 +3,74 @@
 {{</katex>}}
 Similar to COMP3506 notes, these are scratch notes to help with recall, they will be sorted into respective categories after.
 ** Counting
+*** Selections
+Some \(n\)-set of \(n\) objects (distinct), there are four different ways we can select \(r\) objects from the set:
+- Ordered Selections without repetition
+- Ordered selections *with* repetition
+- Unordered selections without repetitions
+- Unordered selections *with* repetitions
+
+ 
+**** Ordered Selections without Repetition
+An *ordered selection without repetition* of \(r\) objects from an \(n\)-set is
+\[
+\frac{n!}{(n-r)!}
+\]
+**** Ordered Selection with Repetition
+Furthermore the number of ordered selections *with* repetition of \(r\) objects from an \(n\)-set is \(n^r\).
+**** Unordered Selection without Repetitions
+The number of unordered selections without repetitions of \(r\) objects from an \(n\)-set is given by binomial coefficient
+\[
+{n \choose r} = \frac{n!}{(n-r)!r!}
+\]
+
+**** Unordered Selection with Repetitions
+The number of unordered selections with repetition of \(r\) objects from an \(n\)-set is
+\[
+{n + r - 1 \choose r}
+\]
+
+*** Combinatorial Identities
+Observe the following identity
+\[
+{n+1 \choose r} = {n \choose r} + {n \choose r - 1}
+\]
+
+*Proof*: Take the right hand side of the expression
+\[
+\begin{aligned}
+{n \choose r} + {n \choose r - 1} &= \frac{n!}{(n-r)!r!} + \frac{n!}{(n-r+1)!(r-1)!}\\
+&= \frac{n!(n-r+1)}{(n-r+1)!r!} + \frac{n!r}{(n-r+1)!r!}\\
+&= \frac{n!(n-r+1) + n!r}{(n-r+1)!r!}\\
+&= \frac{n!(n-r + 1 + r)}{(n-r+1)!r!}\\
+&= \frac{n!(n+1)}{(n-r+1)!r!}\\
+&= \frac{(n+1)!}{((n+1)-r)! r!}\\
+&= {n+1 \choose r}
+\end{aligned}
+\]
+
+*Identity*: For \(n \geq 0\), \(x,y \in \mathbb{R}^{}\)
+\[
+(x+y)^n = \sum_{r=0}^n {n \choose r} x^r y^{n-r}
+\]
+
+*Identity*: For \(n \geq 0\)
+\[
+\sum_{r=0}^n {n \choose r} = 2^n
+\]
+
+*Identity*: For \(r \geq 1\) and \(n  \geq 0\)
+\[
+{n \choose r} = \sum_{i=0}^{n-1} {i \choose r-1}
+\]
+
+*Identity*: For \(n \geq 1\)
+\[
+\sum_{r=0}^n(-1)^r {n \choose r} = 0
+\]
+
+** Inclusion-Exclusion +
+
 ** Classification of Surfaces
 Define the *connected sum* \(S \# T\) between two surfaces \(S\) and \(T\). We obtain the connected sum by cutting small discs out of each of the surfaces, and attaching a tube to the ends of those circular boundaries.
 [[/img/cs.png]]
@@ -43,7 +111,18 @@ The technique to compute this involved constructing the surface in question, say
 /Since this is a *MATH2302* somewhat revision style recall, we have somewhat rough definitions of orientability based on a discrete point of view. I eventually want to expand this into a larger introduction into topology and branching into manifolds and into analysis./
 
 Unfortunately, the Euler Characteristic is not a strong enough invariant to distinguish between two surfaces. For example, both the Klein Bottle and a Torus have \(\chi(S) = 0\). So we introduce a new invariant, the "orientability" of the surface.
+*** Classification Theorem
+We can sum up every surface as one of the following three cases
+|                                          | Word representation                                     | Euler Characteristic | Orientable |
+| Sphere                                   | \(aa^{-1}\)                                             | 2                    | yes        |
+| Connected sum of \(g\) tori              | \(x_1 y_1 x_1^{-1}y_1^{-1}\dotsx_gy_gx^{-1}_gy^{-1}_g\) | \(2-2g\)             | yes        |
+| Connected sum of \(g\) projective planes | \(x_1,x_1,x_2,x_2,\dots,x_gx_g\)                        | \(2-g\)              | no         |
 
+Formally then, *every closed surface is homeomorphic to either*
+- The spehre
+- A connected sum of \(g \geq 1\) tori
+- A connected sum of \(g \geq 1\) projective planes.
+Such that \(g \in \mathbb{Z}^+\). This is known as the *Classification of Surfaces* theorem. Note that all surfaces listed are distinct, they are not homeomorphic to each other.
 ** Graph Theory
 *Definition*: A graph \(G\) consists of a set *vertices* and a set of *edges*. The vertex set is finite and non-empty, denoted \(V(G)\). The edge set is a (possibly empty) set of unordered pairs of vertices, and denoted \(E(G)\).
 *** Some general definitions
@@ -64,3 +143,7 @@ Unfortunately, the Euler Characteristic is not a strong enough invariant to dist
   *Note* that a graph is bipartite if and only if it contains no \(m\)-cycle with \(m\) odd.
 
   Furthermore, a *complete bipartite graph*, denoted \(K_{m,n}\), (\(m+n \geq 1\)) is a bipartite graph, with vertex set \(A \cup B\), such that \(|V(A)| = m\) and \(|V(B) = n\), every vertex in \(A\) is joined to a vertex in \(B\), we call \(K_{1,n}\) to be a *star*.
+
+** Design Theory
+
+*** Latin Squares
