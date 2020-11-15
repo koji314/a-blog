@@ -294,3 +294,59 @@ Each iteration of the loop, we either increment \(i\) by one *or* the shift dist
 
 * Tries (Re"trie"val trees)
 * Text Compression
+We are able to compress a string \(X\) into a smaller string \(Y\) using a *prefix code* for the characters of \(X\). The main purpose of this is to save space and memory.
+** Prefix Codes
+Mapping each character of an alphabet to a binary code word, such that no code-word is a prefix of another.
+
+We can use an *encoding trie* to represent the prefix-codes. Each *external* node stores a character, and the code word is given by the path from the root to the external node of that character.
+
+We denote an edge to a left child 0, and edge to a right child 1.
+[[/img/test.png]]
+
+** Huffman's Algorithm
+Given a string \(X\), we construct a prefix code that *minimises* the size of the encoding of \(X\). (Optimization of the encoding). Using an example string \(X = abracadabra\)
+1. Preprocess the frequency of each character in \(X\). Let \(f(k)\) be the frequency for each char \(k \in x\). For some reason the table isn't working in enumerations you'll just have to imagine it :)
+2. Create an empty priority queue, for each character in \(X\), we create a *single node* binary tree \(T\) storing \(k\), insert \(f(k)\) as the key and \(T\) as the value.
+3. *While the priority queue has more than one element* (=PQ.size() > 1=), we remove two items from the PQ and store them in \((f_1, T_1)\) and \((f_2, T_2)\) respectively. Create a *new* tree \(T'\) that has \(T_1\) as the left subtree and \(T_2\) as the right subtree. Insert a new item into the priority queue as the *sum of the frequencies* as the key and the *new* tree \(T'\) as the value (=PQ.insert(f1+f2,T)=).
+4. This repeats until the entire priority queue merges into a single item with all elements represented as a binary tree, thus there is only one item in the priority queue, we exit the loop.
+5. Remove the last element of the priority queue and return the tree \(T'\).
+In psuedocode, (I don't know how to reference but from COMP3506 Text Compression notes)
+#+BEGIN_EXAMPLE Huffman's Algorithm
+Algorithm Huffman(X):
+Input: string X of length n
+Output:optimal encoding tree for X
+Compute frequency f(c) of each character c of X
+PQ = new empty Priority Queue
+
+for each character c in alphabet of X do
+    T = single node binary tree storing c
+    PQ.insert(f(c), T)
+while PQ.size() > 1 do
+    (f1 , T1) = PQ.removeMin()
+    (f2 , T2) = PQ.removeMin()
+    T = a new binary tree T with left subtree T1 and right subtree T2
+    PQ.insert(f 1 + f 2 , T)
+(f, T) = PQ.removeMin()
+return T
+#+END_EXAMPLE
+
+# #+begin_export html
+# <style>
+# .my-table th,
+# .my-table td {
+#     padding: 20px;
+#     text-align: center;
+# }
+# </style>
+# #+caption: Table for frequencies of the string \(X = abracadabra\)
+# #+attr_html: :class my-table
+# | \(k\)    | \(a\) | \(b\) | \(c\) | \(d\) | \(r\) |
+# |----------+-------+-------+-------+-------+-------|
+# | \(f(k)\) |     5 |     2 |     1 |     1 |     2 |
+
+Under the assumption that
+- The size of the string \(X\) is \(n\)
+- \(d\) is the number of distinct chars of \(X\)
+- The Priority Queue is implemented with a heap
+
+Then we have that Huffman's Algorithm runs in \(O(n + d\cdot \log d)\) time. This is clear to see as the first for loop iterates throug each character in \(X\), which takes \(O(n)\) time. Each removal takes \(O(log d)\) time, which happens \(d\) times, so \(O(d\cdot \log d)\), thus as the loops happen consectively after each other, we sum them together and have \(O(n + d\cdot \log d)\) as the runtime.
