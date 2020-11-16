@@ -1,13 +1,14 @@
 #+TITLE: COMP3506 Exam Preperation
 #+AUTHOR: Ismael Khan
 #+DATE: 2020-11-12
+#+TYPE: posts
 A dumping of general COMP3506 notes within this notebook, simply because I have done goofed my notes, these are *not* formal notes, these are just scratch notes to help with recall on
 the exam.
 
 {{<katex "display">}}
 {{</katex>}}
 * Algorithm Analysis
-Formally we define \(\Omega\) notation if \(f(n)\) is asymptotically *greater than or equal to* \(g(n)\). a
+Formally we define \(\Omega\) notation if \(f(n)\) is asymptotically *greater than or equal to* \(g(n)\).
 
 *Definition: \(\Omega\)*: \(f(n)\) is \(\Omega(g(n))\) if there exists some \(c > 0\) and \(n_0 > 0\) such that
 \[
