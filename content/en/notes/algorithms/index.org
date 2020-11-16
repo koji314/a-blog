@@ -1,14 +1,13 @@
 #+TITLE: COMP3506 Exam Preperation
 #+AUTHOR: Ismael Khan
 #+DATE: 2020-11-12
-#+TYPE: posts
 A dumping of general COMP3506 notes within this notebook, simply because I have done goofed my notes, these are *not* formal notes, these are just scratch notes to help with recall on
 the exam.
 
 {{<katex "display">}}
 {{</katex>}}
 * Algorithm Analysis
-Formally we define \(\Omega\) notation if \(f(n)\) is asymptotically *greater than or equal to* \(g(n)\).
+Formally we define \(\Omega\) notation if \(f(n)\) is asymptotically *greater than or equal to* \(g(n)\). a
 
 *Definition: \(\Omega\)*: \(f(n)\) is \(\Omega(g(n))\) if there exists some \(c > 0\) and \(n_0 > 0\) such that
 \[
@@ -167,9 +166,10 @@ Heaps are binary trees that satisfy the following properties
 - _Complete Binary Tree_: For depths \(i = 0 \to h-1\) where \(h\) is the height of the tree, the tree must be *complete*. In other words, at each depth \(i\), there must be \(2^i\) nodes. At the last depth \(h\) however, we must have all nodes pushed to the left.
 - _Last Node_: We call the rightmost node at the last depth \(h\) the "last node" of the heap.
 
-  *Theorem*: A heap storing \(n\) keys has a search height of \(O(log n)\)
 
-  *Proof*: Let \(h\) be the height of the tree storing \(n\) keys. At depth \(h\), we have \(2^h\) nodes, then \(n \geq 2^h\) which implies that \(h \leq \log_2 n\). Thus search height is \(O(log n)\).
+*Theorem*: A heap storing \(n\) keys has a search height of \(O(\log n)\)
+
+*Proof*: Let \(h\) be the height of the tree storing \(n\) keys. At depth \(h\), we have \(2^h\) nodes, then \(n \geq 2^h\) which implies that \(h \leq \log_2 n\). Thus search height is \(O(log n)\).
 
 *** Implementing Heaps with PQ's
 We set each node as a key,value pair; and keep track of the position of the last node.
@@ -236,6 +236,7 @@ Similarly to insertion, this can cause *underflow*. We might have a node that ha
   + Move an item from \(u\) to \(v\)
   + Move an item from \(w\) to \(u\)
 
+   
 ***** Analysis of Deletion
 Given a (2,4) tree with \(n\) items, in a deletion operation, we visit \(O(\log n)\) nodes to search for the node and delete entry. In case of an underflow, we may need to have perhaps \(O(\log n)\) fusions, where each fusion or transfer takes atleast \(O(1)\) time. All together a (2,4) tree takes \(O(\log n)\) *time to delete an item.*
 
@@ -289,6 +290,7 @@ Since this feels like a pain to represent, take this following diagram as a conv
 
 **** Insertion in RB Trees
 Standard insertion into a binary search tree. We colour the newly inserted node *red*, unless it is the root. This thus preserves the root, external and depth properties of the tree. Denote the node just inserted as \(x\), letting the parent of \(x\) denoted \(p\). If \(p\) is black, then it preserves the internal property as well (children of a red node is black). *Otherwise* if the parent is red, then we have a double red, which violates the interal property. So we need to reorganise the tree.
+
 ***** Fixing Double Reds
 Let \(s\) be the sibling of of the parent node \(y\),
 - Case 1: If \(s\) is black, we perform a *tri-node restructuring*
@@ -308,6 +310,8 @@ Deletion in RB trees uses a binary search tree deletion algorithm. Letting \(q\)
 - If \(q\) was red, nothing more to do
 - If \(q\) was *black*, both children were either external, or \(q\) has one red child \(p\). If so, we recolour \(p\) to be black.
 - If \(q\) was black, with two external nodes, then we have a double black. This corresponds to an underflow in (2,4).
+ 
+
 
 ***** Fixing Double Blacks
 Consider a double black node \(p\) whose sibling is denoted \(y\),
