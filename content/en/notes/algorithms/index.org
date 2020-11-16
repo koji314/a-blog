@@ -1,6 +1,7 @@
 #+TITLE: COMP3506 Exam Preperation
 #+AUTHOR: Ismael Khan
 #+DATE: 2020-11-12
+#+TYPE: posts
 A dumping of general COMP3506 notes within this notebook, simply because I have done goofed my notes, these are *not* formal notes, these are just scratch notes to help with recall on
 the exam.
 
@@ -22,6 +23,118 @@ Analagously, we define \(\Theta\) notation as asymptotically equal to \(g(n)\).
 c_1 \cdot g(n) \leq f(n) \leq c_2 \cdot f(n) \;\; \forall n \geq n_0
 \]
 
+* Linear Data Structures
+*Linear Data Structures* is a data structure where the elements are represented as some form of line or sequence. More particularly, *one element follows the next*. Examples of Linear Structures are
+- Lists
+- Stacks
+- Queues
+- Vectors
+- Sequences
+
+In a programming sense, what could we implement the linear structures with? Arrays?
+
+If we use *arrays*, we need to declare the specific size of the array on creation. We then get \(O(1)\) time to get random access. Resizing, prepending, appending and removal happen all from the head of the array (the end).
+** Singly/Doubly Linked Lists
+*** Singly Linked List
+A singly linked list is a sequence of nodes that store both the value and *the pointer to the next node*.
+[[./img/singly.png]]
+*** Doubly Linked List
+A doubly linked list is a sequence of nodes that store the value, *the pointer to the previous node and the pointer to the next node*.
+
+Generally most linked lists are implemented as *doubly*, this is because being able to go back and forth between nodes in the sequence is much more convinient that in a *singly*. The disadvantage to a *doubly* is that per node, it takes up one extra node in memory (unless it is implemented like [[https://en.wikipedia.org/wiki/XOR_linked_list][this]]).
+
+Generally for a Linked Implementation, the efficiency of the operations are as follows:
+- Accessing an element: \(O(1)\)
+- Iterating over elements: \(O(n)\)
+- Insert / Delete element: \(O(1)\)
+- Memory usage: \(O(n)\)
+** Stacks
+Stores arbitrary objects, insertions and deletions are LIFO (last in, first out). Analagous to a spring-loaded plate dispenser, where we insert at the top of the dispenser, and the first thing to come out is also from the top. Thus
+- Insertions at the top of the stack
+- Removals from the top of the stack
+
+*** Array-based Stack
+A simple stack implementation is just adding elements from left to right and keeping track on what the index of the top element of the stack. At a point the array might become full, in which a =push= operation should throw some kind of =IllegalStateException.=
+
+**** Performance of Array-based Stack
+If \(n\) is the amount of elements in the stack, then we need an array of size \(N\) such that \(N \geq n\), thus the space used is \(O(N)\) and each operation will run in \(O(1)\) time.
+** Queues
+Stores arbitrary objects like the stack, but the insertion and deletions are *FIFO* (first-in, first out). Like a waiting line (queue). The insertions are at the end of the queue, and the removals are at the front of the queue.
+*** Array-based Queue
+Use an array of size \(N\), keeping internal track of what the index of the *front element \(f\)*, and the *number of stored elements* \(n\). Thus the rear element (removal element) is given by \(r = (f+n) \mod N\).
+[[./img/array-queue.png]]
+
+=enqueue= operation adds an element to the queue and =dequeue= pops the front element out returns it. In the array-based implementation, if the array is full, =enqueue= should throw an exception.
+
+** Applications of Stacks
+A java example on *reversing an array* (from COMP3506 course slides)
+#+BEGIN_SRC java
+public class Tester<V> {
+    // … other methods
+    public void reverseArray(V a[]) {
+        Stack<V> s = new ArrayStack<>(a.length);
+        for(V value: a) {
+            s.push(value);
+        }
+        int i = 0;
+        while(!s.isEmpty()) {
+            a[i++] = s.pop();
+        }
+#+END_SRC
+
+*** Parantheses Matching
+Another java example on seeing if a string expression has all matching pairs of parenethesis. For example
+- =()(()){[()]}= will return *true*
+- =({[]})}= will return *false*
+#+BEGIN_SRC java
+public static boolean isMatched(String expression) {
+    final String opening = "({["; // opening delimiters
+    final String closing = ")}]"; // respective closing delimiters
+    Stack<Character> buffer = new LinkedStack<>( );
+    for (char c : expression.toCharArray( )) {
+        if (opening.indexOf(c) != −1) // this is a left delimiter
+            buffer.push(c);
+        else if (closing.indexOf(c) != −1) { // this is a right delimiter
+            if (buffer.isEmpty( )) // nothing to match with
+                return false;
+            if (closing.indexOf(c) != opening.indexOf(buffer.pop( )))
+                return false; // mismatched delimiter
+        }
+    }
+    return buffer.isEmpty( ); // were all opening delimiters matched?
+}
+#+END_SRC
+*** HTML Tag Matching
+Similar to the parenethesis matching, HTML tag matching should check if there is a match for each =<name>= with its corresponding =</name>=.
+#+BEGIN_SRC java
+public static boolean isHTMLMatched(String html) {
+    Stack<String> buffer = new LinkedStack<>( );
+    int j = html.indexOf('<‘); // find first ’<’ character (if any)
+    while (j != −1) {
+        int k = html.indexOf('>', j+1); // find next ’>’ character
+        if (k == −1)
+            return false; // invalid tag
+        String tag = html.substring(j+1, k); // strip away < >
+        if (!tag.startsWith("/")) // this is an opening tag
+            buffer.push(tag);
+        else { // this is a closing tag
+            if (buffer.isEmpty( ))
+                return false; // no tag to match
+            if (!tag.substring(1).equals(buffer.pop( ))) // skip over '/' of tag
+                return false; // mismatched tag
+        }
+        j = html.indexOf('<', k+1); // find next ’<’ character (if any)
+    }
+    return buffer.isEmpty( ); // were all opening tags matched?
+}
+#+END_SRC
+
+** Application of Queues
+*** Round Robin Scheduler
+A round robin scheduler can be implemented by repeating the following steps
+1. =e = Q.dequeue()= (get the front element of the queue)
+2. Do whatever you want with =e=.
+3. =Q.enqueue(e)= (chuck =e= back into the Queue)
 * Priority Queues and Heaps
 ** Priority Queues
 *Queues* work as a FIFO system, what you put in first comes out first.
@@ -58,10 +171,9 @@ Heaps are binary trees that satisfy the following properties
 
   *Proof*: Let \(h\) be the height of the tree storing \(n\) keys. At depth \(h\), we have \(2^h\) nodes, then \(n \geq 2^h\) which implies that \(h \leq \log_2 n\). Thus search height is \(O(log n)\).
 
-
 *** Implementing Heaps with PQ's
 We set each node as a key,value pair; and keep track of the position of the last node.
-[[/img/heap-pq.png]]
+[[./img/heap-pq.png]]
 
 **** Insertion for Heaps
 Insertion of a key \(k\) in a heap correlates with a priority queue ADT.
@@ -102,7 +214,7 @@ Searching through with a height of \(h\) takes \(O(h)\) time. Considering that e
 *** Key Operations
 **** Insertion
 We insert a new item, \((k,o)\) at the parent \(v\) of the leaf when we are searching for \(k\). This preserves the depth property, but has the off chance of causing an overflow making a node a \(5\) node.
-[[/img/5-node-overflow.png]]
+[[./img/5-node-overflow.png]]
 # Should be visible in webpage.
 # Uncomment following to see in org
 
@@ -115,7 +227,7 @@ Similarly to insertion, this can cause *underflow*. We might have a node that ha
 - Case 1: If the adjacent sibling to empty node \(v\) are 2-nodes.
 
   Suppose the adjacent 2-node sibling is denoted \(w\), we fuse the two by taking the single key in \(w\) and a key from the parent node \(u\).
-  [[/img/fusion.png]]
+  [[./img/fusion.png]]
 
 - Case 2: If adjacent sibling is a 3-node or a 4-node
 
@@ -124,10 +236,8 @@ Similarly to insertion, this can cause *underflow*. We might have a node that ha
   + Move an item from \(u\) to \(v\)
   + Move an item from \(w\) to \(u\)
 
-
 ***** Analysis of Deletion
 Given a (2,4) tree with \(n\) items, in a deletion operation, we visit \(O(\log n)\) nodes to search for the node and delete entry. In case of an underflow, we may need to have perhaps \(O(\log n)\) fusions, where each fusion or transfer takes atleast \(O(1)\) time. All together a (2,4) tree takes \(O(\log n)\) *time to delete an item.*
-
 
 *** (A,B) Trees
 (A,B) trees are a somewhat generalisation of \((2,4)\) trees in the sense that we define \(a,b\) as two integers such that
@@ -137,7 +247,6 @@ Given a (2,4) tree with \(n\) items, in a deletion operation, we visit \(O(\log 
 with the following restrictions.
 + Each internal node must have alteast \(a\) children except the root. The root has *at most* \(b\) children.
 + All external nodes *have the same depth*.
-
 
 ***** Height of (A,B) tree
 We analyse the height of the \((a,b)\) tree similarly to the \((2,4)\), storing \(n\) entries we have *at least*
@@ -176,7 +285,7 @@ But what are they. They are a *binary* search tree that satisfy the following:
 - ... All leaves have the same black depth?
 
 Since this feels like a pain to represent, take this following diagram as a conversion between a \((2,4)\) tree structure and the equivalent Red-Black tree structure.
-[[/img/24-rb.png]]
+[[./img/24-rb.png]]
 
 **** Insertion in RB Trees
 Standard insertion into a binary search tree. We colour the newly inserted node *red*, unless it is the root. This thus preserves the root, external and depth properties of the tree. Denote the node just inserted as \(x\), letting the parent of \(x\) denoted \(p\). If \(p\) is black, then it preserves the internal property as well (children of a red node is black). *Otherwise* if the parent is red, then we have a double red, which violates the interal property. So we need to reorganise the tree.
@@ -200,7 +309,6 @@ Deletion in RB trees uses a binary search tree deletion algorithm. Letting \(q\)
 - If \(q\) was *black*, both children were either external, or \(q\) has one red child \(p\). If so, we recolour \(p\) to be black.
 - If \(q\) was black, with two external nodes, then we have a double black. This corresponds to an underflow in (2,4).
 
- 
 ***** Fixing Double Blacks
 Consider a double black node \(p\) whose sibling is denoted \(y\),
 - If \(y\) is black and has a red child \(x\), we perform a *restructuring* (equivalent to transfer)
@@ -209,6 +317,18 @@ Consider a double black node \(p\) whose sibling is denoted \(y\),
 
 Time complexity of deletion in RB trees takes \(O(\log n)\) time.
 
+* DAG's and Topological Orderings
+** Directed Acrylic Graphs
+An ordering of nodes in a *direct graph* such that for each node in a path from \(A\) to \(B\), node \(A\) will be before node \(B\). The ordering is not unique.
+[[./img/Topological_Ordering.svg]]
+
+It follows that *not all graphs* have a topological ordering. For example, graphs with cycles. Only a *DAG* can have a topological ordering.
+
+*** Topological Sorting
+Algorithm for getting the topological order:
+1. Select a vertex \(v\) with no incoming edges
+2. Append \(v\) to the result?
+3. Remove \(v\) and its outgoing edges.
 * Pattern Matching
 A string is simply a sequence of characters, thus it follows that the *alphabet* (denoted \(\Sigma\)) is the set of _all possible characters_ for a family of strings. Examples include
 - ASCII
@@ -237,17 +357,17 @@ for i = 0 to n - m do:
 return -1 {no match found}
 #+END_SRC
 For a pattern with size \(n\) and text \(T\) with size \(m\). The runtime complexity with brute-force pattern searching is \(O(nm)\), an example of worse case would be the following \(T = aaaaaaaah\) and \(P = aaah\).
-[[/img/brute.png]]
+[[./img/brute.png]]
 
 ** Boyer-Moore Pattern Matching Algorithm
 The Boyer-Moore pattern matching algorithm works as follows, shifting the pattern down the string \(S\), *if a mismatch occurs* at \(S[i] = \alpha\):
 - If \(\alpha \in P\), then we position \(P\) such that position \(P[\beta] = \alpha\) is aligned with \(S[i] = \alpha\).
-  [[/img/pcontc.png]]
+  [[./img/pcontc.png]]
 - Otherwise, we shift \(P\) such that the beginning of \(P\) (\(P[0]\)) is at \(S[i+1]\).
-  [[/img/pend.png]]
+  [[./img/pend.png]]
 
 Observe this very nice example (from COMP3506 lecture slides as most of these screenshots are).
-[[/img/b-m-example.png]]
+[[./img/b-m-example.png]]
 
 *** Last-Occurence Function
 The Boyer-Moore's algorithm preprocesses the pattern and the alphabet to generate the *last occurence function* \(L\).
@@ -266,7 +386,7 @@ Overall, Boyer-Moore's algorithm runs in \(O(nm + s)\) time, with \(n\) being th
 
 ** Knuth-Morris-Pratt Algorithm (KMP)
 The KMP algorithm compares the pattern to the text from left-to-right, however the methods and steps to shifting are more /intelligent/ than brute force. Particularly, we want to now how much we can shift to avoid redundant comparisons. In particular, this is represented by *the largest prefix of \(P[0, j-1]\) that is a suffix of \(P[1,j-1]\)*. You can observe this in the following, the suffix \(ab\) is equal to the largest prefix, thus we shift \(P\) to the index of the end of the largest prefix \(ab\). This avoids the unneccesary comparison.
-[[/img/comp.png]]
+[[./img/comp.png]]
 
 In particular, the KMP algorithm will preprocess the pattern finding the largest prefix of substring \(P[0,j]\) that is also a suffix of \(P[1,j]\) for all \(j\), the size of the prefix is denoted as \(F(j)\), the *Failure Function* at \(j\). Thus when a mismatch occurs, we can set \(j\) (the shift position) to be \(F(j-1)\).
 *** Analysis of Algorithm
@@ -301,7 +421,7 @@ Mapping each character of an alphabet to a binary code word, such that no code-w
 We can use an *encoding trie* to represent the prefix-codes. Each *external* node stores a character, and the code word is given by the path from the root to the external node of that character.
 
 We denote an edge to a left child 0, and edge to a right child 1.
-[[/img/test.png]]
+[[./img/test.png]]
 
 ** Huffman's Algorithm
 Given a string \(X\), we construct a prefix code that *minimises* the size of the encoding of \(X\). (Optimization of the encoding). Using an example string \(X = abracadabra\)

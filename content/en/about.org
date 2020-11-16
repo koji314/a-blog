@@ -1,6 +1,0 @@
-#+TITLE: About
-
-*Ismael Khan* - Undergraduate Student in Mathematics and Computer Science. Tinkerer. Avid LaTeX User.
-
-Thinking about Terminal Fonts
-- [[https://github.com/koji314][Github]]
