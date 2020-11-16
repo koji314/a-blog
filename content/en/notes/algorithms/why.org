@@ -1,7 +1,6 @@
 #+TITLE: COMP3506 Exam Preperation
 #+AUTHOR: Ismael Khan
 #+DATE: 2020-11-12
-#+TYPE: posts
 A dumping of general COMP3506 notes within this notebook, simply because I have done goofed my notes, these are *not* formal notes, these are just scratch notes to help with recall on
 the exam.
 
