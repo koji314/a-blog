@@ -1,0 +1,13 @@
+#+TITLE: Notebook Collections
+#+TYPE: about
+The following are a collection of notes I have taken through courses and reading on many different topics, of which might all be rubbish, But feel free to have a browse or if you are Ismael than this is probably your personal reference to your notes, among the mountains of pages you have written on. A philosophy of mine is having knowledge and learning to be free and available to all. This is my way of reflecting that.
+  #+BEGIN_CENTER
+** Formalised Notes on Different Areas
+The notes you will find here are notes I have somewhat taken the time out to write. Majority of these are topics that interest me and are studying, which is mathematical analysis, as well as a bit of discrete topics here and there.
+
+** Research Notes
+These are rough scratch notes related to research topics that interest me, these deviate and majority are incorrect, but these are just good reference for me.
+
+** Complete Scratch Notes
+Don't go in here, you will regret it.
+#+END_CENTER

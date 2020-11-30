@@ -1,7 +1,7 @@
-$hackercode: '';
+$blackcode: '';
 
-@if $theme_hacker_chroma_background == dark {
-  $hackercode: (
+@if $theme_black_chroma_background == dark {
+  $blackcode: (
     content-code-color: #fcfcfa,
     content-pre-main-color: #FFA7C4,
     content-pre-color: #eee,
@@ -11,8 +11,8 @@ $hackercode: '';
     content-pre-border-background-color: #3a3a3a,
     content-pre-header-color: #FCFCFA,
   );
-} @else if $theme_hacker_chroma_background == light {
-  $hackercode: (
+} @else if $theme_black_chroma_background == light {
+  $blackcode: (
     content-code-color: #26a69a,
     content-pre-main-color: #607d8b,
     content-pre-color: #344952,
@@ -22,8 +22,8 @@ $hackercode: '';
     content-pre-header-background-color: darken(#F5F2F0, 3%),
     content-pre-header-color: #344952,
   );
-} @else if $theme_hacker_chroma_background == hacker {
-  $hackercode: (
+} @else if $theme_black_chroma_background == hacker {
+  $blackcode: (
     content-code-color: #E3CD26,
     content-pre-main-color: #1FFF2A,
     content-pre-color: #d1d1d1,
@@ -33,8 +33,8 @@ $hackercode: '';
     content-pre-header-background-color: darken(#202420, 1.5%),
     content-pre-header-color: #FCFCFA,
   );
-} @else if $theme_hacker_chroma_background == solarized {
-  $hackercode: (
+} @else if $theme_black_chroma_background == solarized {
+  $blackcode: (
     content-code-color: #268bd2,
     content-pre-main-color: #B58900,
     content-pre-color: #344952,
@@ -44,8 +44,8 @@ $hackercode: '';
     content-pre-header-background-color: darken(#FBF1D1, 6%),
     content-pre-header-color: #344952,
   );
-} @else if $theme_hacker_chroma_background == kimbie {
-  $hackercode: (
+} @else if $theme_black_chroma_background == kimbie {
+  $blackcode: (
     content-code-color: #f06431,
     content-pre-main-color: #dc3958,
     content-pre-color: #d3af86,
@@ -55,8 +55,19 @@ $hackercode: '';
     content-pre-header-background-color: lighten(#362712, 3%),
     content-pre-border-background-color: #e3b583,
   );
-} @else if $theme_dark_chroma_background == black {
-    $hackercode: (
+} @else if $theme_black_chroma_background == black {
+    $blackcode: (
+    content-code-color: #000000,
+    content-pre-main-color: #jjjjjj,
+    content-pre-color: #eee,
+    content-pre-number-color: #a66,
+    content-pre-background-color: #171f2e,
+    content-pre-header-background-color: darken(#011627, 1.5%),
+    content-pre-border-background-color: #000000,
+    content-pre-header-color: #0CFCFA,
+);
+} @else {
+  $blackcode: (
     content-code-color: #fcfcfa,
     content-pre-main-color: #FFA7C4,
     content-pre-color: #eee,
@@ -64,17 +75,6 @@ $hackercode: '';
     content-pre-background-color: #171f2e,
     content-pre-header-background-color: darken(#011627, 1.5%),
     content-pre-border-background-color: #3a3a3a,
-    content-pre-header-color: #FCFCFA,
-);
-} @else {
-  $hackercode: (
-    content-code-color: #E3CD26,
-    content-pre-main-color: #E08C48,//#1FFF2A,
-    content-pre-color: #d1d1d1,
-    content-pre-number-color: #666,
-    content-pre-background-color: #282a36,
-    content-pre-border-background-color: #424242,
-    content-pre-header-background-color: darken(#202420, 1.5%),
     content-pre-header-color: #FCFCFA,
   );
 }

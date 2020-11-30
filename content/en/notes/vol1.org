@@ -1,0 +1,820 @@
+#+TITLE: Notebook - Volume I
+#+AUTHOR: I. Khan
+What if I had a single volume notebook, they will all be in one spot, collapsed, and accessible at will. Will it become too cluttered, its worth an experiment because its not too complex of a transition and I could always keep or revert back to the original sorted folders if need be.
+# Usage of this is to make valid renderings thru web interface.
+{{<katex "display">}}
+{{</katex>}}
+* Algorithms
+** Algorithm Analysis
+Formally we define \(\Omega\) notation if \(f(n)\) is asymptotically *greater than or equal to* \(g(n)\).
+
+*Definition: \(\Omega\)*: \(f(n)\) is \(\Omega(g(n))\) if there exists some \(c > 0\) and \(n_0 > 0\) such that
+\[
+f(n) \geq c \cdot g(n) \; \; \forall n \geq n_0
+\]
+
+
+Analagously, we define \(\Theta\) notation as asymptotically equal to \(g(n)\).
+
+*Definition \(\Theta\)*: \(f(n)\) is \(\Theta(g(n))\) if there exists some \(c_1, c_2 > 0\) and \(n_0 > 0\) such that
+\[
+c_1 \cdot g(n) \leq f(n) \leq c_2 \cdot f(n) \;\; \forall n \geq n_0
+\]
+
+** Linear Data Structures
+*Linear Data Structures* is a data structure where the elements are represented as some form of line or sequence. More particularly, *one element follows the next*. Examples of Linear Structures are
+- Lists
+- Stacks
+- Queues
+- Vectors
+- Sequences
+
+In a programming sense, what could we implement the linear structures with? Arrays?
+
+If we use *arrays*, we need to declare the specific size of the array on creation. We then get \(O(1)\) time to get random access. Resizing, prepending, appending and removal happen all from the head of the array (the end).
+*** Singly/Doubly Linked Lists
+**** Singly Linked List
+A singly linked list is a sequence of nodes that store both the value and *the pointer to the next node*.
+[[./img/singly.png]]
+**** Doubly Linked List
+A doubly linked list is a sequence of nodes that store the value, *the pointer to the previous node and the pointer to the next node*.
+
+Generally most linked lists are implemented as *doubly*, this is because being able to go back and forth between nodes in the sequence is much more convinient that in a *singly*. The disadvantage to a *doubly* is that per node, it takes up one extra node in memory (unless it is implemented like [[https://en.wikipedia.org/wiki/XOR_linked_list][this]]).
+
+Generally for a Linked Implementation, the efficiency of the operations are as follows:
+- Accessing an element: \(O(1)\)
+- Iterating over elements: \(O(n)\)
+- Insert / Delete element: \(O(1)\)
+- Memory usage: \(O(n)\)
+*** Stacks
+Stores arbitrary objects, insertions and deletions are LIFO (last in, first out). Analagous to a spring-loaded plate dispenser, where we insert at the top of the dispenser, and the first thing to come out is also from the top. Thus
+- Insertions at the top of the stack
+- Removals from the top of the stack
+
+**** Array-based Stack
+A simple stack implementation is just adding elements from left to right and keeping track on what the index of the top element of the stack. At a point the array might become full, in which a =push= operation should throw some kind of =IllegalStateException.=
+
+***** Performance of Array-based Stack
+If \(n\) is the amount of elements in the stack, then we need an array of size \(N\) such that \(N \geq n\), thus the space used is \(O(N)\) and each operation will run in \(O(1)\) time.
+*** Queues
+Stores arbitrary objects like the stack, but the insertion and deletions are *FIFO* (first-in, first out). Like a waiting line (queue). The insertions are at the end of the queue, and the removals are at the front of the queue.
+**** Array-based Queue
+Use an array of size \(N\), keeping internal track of what the index of the *front element \(f\)*, and the *number of stored elements* \(n\). Thus the rear element (removal element) is given by \(r = (f+n) \mod N\).
+[[./img/array-queue.png]]
+
+=enqueue= operation adds an element to the queue and =dequeue= pops the front element out returns it. In the array-based implementation, if the array is full, =enqueue= should throw an exception.
+
+*** Applications of Stacks
+A java example on *reversing an array* (from COMP3506 course slides)
+#+BEGIN_SRC java
+public class Tester<V> {
+    // … other methods
+    public void reverseArray(V a[]) {
+        Stack<V> s = new ArrayStack<>(a.length);
+        for(V value: a) {
+            s.push(value);
+        }
+        int i = 0;
+        while(!s.isEmpty()) {
+            a[i++] = s.pop();
+        }
+#+END_SRC
+
+**** Parantheses Matching
+Another java example on seeing if a string expression has all matching pairs of parenethesis. For example
+- =()(()){[()]}= will return *true*
+- =({[]})}= will return *false*
+#+BEGIN_SRC java
+public static boolean isMatched(String expression) {
+    final String opening = "({["; // opening delimiters
+    final String closing = ")}]"; // respective closing delimiters
+    Stack<Character> buffer = new LinkedStack<>( );
+    for (char c : expression.toCharArray( )) {
+        if (opening.indexOf(c) != −1) // this is a left delimiter
+            buffer.push(c);
+        else if (closing.indexOf(c) != −1) { // this is a right delimiter
+            if (buffer.isEmpty( )) // nothing to match with
+                return false;
+            if (closing.indexOf(c) != opening.indexOf(buffer.pop( )))
+                return false; // mismatched delimiter
+        }
+    }
+    return buffer.isEmpty( ); // were all opening delimiters matched?
+}
+#+END_SRC
+**** HTML Tag Matching
+Similar to the parenethesis matching, HTML tag matching should check if there is a match for each =<name>= with its corresponding =</name>=.
+#+BEGIN_SRC java
+public static boolean isHTMLMatched(String html) {
+    Stack<String> buffer = new LinkedStack<>( );
+    int j = html.indexOf('<‘); // find first ’<’ character (if any)
+    while (j != −1) {
+        int k = html.indexOf('>', j+1); // find next ’>’ character
+        if (k == −1)
+            return false; // invalid tag
+        String tag = html.substring(j+1, k); // strip away < >
+        if (!tag.startsWith("/")) // this is an opening tag
+            buffer.push(tag);
+        else { // this is a closing tag
+            if (buffer.isEmpty( ))
+                return false; // no tag to match
+            if (!tag.substring(1).equals(buffer.pop( ))) // skip over '/' of tag
+                return false; // mismatched tag
+        }
+        j = html.indexOf('<', k+1); // find next ’<’ character (if any)
+    }
+    return buffer.isEmpty( ); // were all opening tags matched?
+}
+#+END_SRC
+
+*** Application of Queues
+**** Round Robin Scheduler
+A round robin scheduler can be implemented by repeating the following steps
+1. =e = Q.dequeue()= (get the front element of the queue)
+2. Do whatever you want with =e=.
+3. =Q.enqueue(e)= (chuck =e= back into the Queue)
+** Priority Queues and Heaps
+*** Priority Queues
+*Queues* work as a FIFO system, what you put in first comes out first.
+
+*Priority Queues* stores items as _entries_. The entry with the *highest priority* is removed first, in this case it is the one with the smallest key.
+
+**** Entry and Compare ADT in Java
+The entry in a priority queue is a key pair value with getter methods
+- ~getKey~
+- ~getValue~
+
+A generic priority queue will use an auxilary comparator ~compare(a,b)~ that returns
+- \(i < 0\) if \(a < b\)
+- \(i = 0\) if \(a = b\)
+- \(i > 0\) if \(a > b\)
+and an error if \(a,b\) cannot be compared.
+
+**** Sequence-Based Prioirity Queue
+An implementation of a sequence based priority queue that is *not sorted*, then ~insertion~ takes \(O(1)\) time and ~removeMin~ and ~min~ takes \(O(n)\) time.
+
+~insert~ takes \(O(1)\) because ordering doesn't matter, we can put it at the end or beginning of the sequence or anywhere without problem. ~removeMin~ and ~min~ take \(O(n)\) because we need to scroll through the sequence and compare each value to find the minimum.
+
+An implementation that *is sorted*, will have ~insert~ take \(O(n)\) and ~removeMin~ and ~min~ take \(O(n)\), this is as we need to compare the value \(v\) to be inserted with the values of the sequence until it finds one that is greater or equal to \(v\). Analogously, ~removeMin~ and ~min~ take \(O(1)\) because we pop off the first or last element of the sequence for an ascending or descending sequence respectively.
+*** Heaps
+Heaps are binary trees that satisfy the following properties
+- _Heap-Order_: For every internal node other than the root, the key of the child must be greater or equal to the key of the parent.
+  \[
+  \text{key}(v) \geq \text{key}(\text{parent}(v))
+  \]
+- _Complete Binary Tree_: For depths \(i = 0 \to h-1\) where \(h\) is the height of the tree, the tree must be *complete*. In other words, at each depth \(i\), there must be \(2^i\) nodes. At the last depth \(h\) however, we must have all nodes pushed to the left.
+- _Last Node_: We call the rightmost node at the last depth \(h\) the "last node" of the heap.
+
+
+*Theorem*: A heap storing \(n\) keys has a search height of \(O(\log n)\)
+
+*Proof*: Let \(h\) be the height of the tree storing \(n\) keys. At depth \(h\), we have \(2^h\) nodes, then \(n \geq 2^h\) which implies that \(h \leq \log_2 n\). Thus search height is \(O(log n)\).
+
+**** Implementing Heaps with PQ's
+We set each node as a key,value pair; and keep track of the position of the last node.
+[[./img/heap-pq.png]]
+
+***** Insertion for Heaps
+Insertion of a key \(k\) in a heap correlates with a priority queue ADT.
+
+*Algorithm for Insertion*:
+1. Find the insertion node \(z\) (and set \(z\) as the new last node)
+2. Store the key \(k\) in \(z\)
+3. Restore the heap-order with upheap.
+
+*Upheap Algorithm*: Traverse upwards from a node \(v\) and when a node \(e\) is greater or equal to \(v\), we swap until we reach a node that is less than \(v\) or we reach the root. This algorithm runs in \(O(\log n)\) time.
+***** Removal for Heaps
+Removal of the last node correlates directly with priority queue ~removeMin~.
+
+*Algorithm for Removal*:
+1. Swap the root key with the key of the last node.
+2. Remove the last node
+3. Restore heap-order with downheap.
+
+*Downheap Algorithm*: Traverse downwards from the root node \(v\)
+- If there is no right child, we choose the left
+- Otherwise if there is both, we choose the one with the smallest key.
+Traverse downwards and swap with child if \(\text{key}(\text{child}) < \text{key}(v)\). This algorithm runs in \(O(\log n)\) time.
+
+** Maps and Hashtables/maps
+** Trees
+*** Binary Search Trees (BST)
+*** AVL Trees
+Balanced binary search tree, such that for every internal node \(v\), the heights of the children of \(v\) can differ by at most 1.
+*** Splay Trees
+Splay Trees are a binary search tree that utilises an operation called "splaying" that brings a node in question up to root (self balancing), all other tree operations utilise the base "splay" operation. We define splaying with the following rules. Given some node \(x\), we let \(p\) be the parent of this node \(x\), then
+1. If \(p\) is the root, then we "rotate" the tree along the edge between \(p\) and \(x\), \(px\). All children on the right *stay* on the right, vice-versa on the left.
+2. If \(p\) is not the root, and \(p\) and \(x\) are *both* left children or right children, then denote \(p\)'s parent \(g\), and we rotate along \(pg\), then \(px\).
+3. If \(p\) is not the root, and either \(p\) is a right child and \(x\) is a left (vice versa), then we rotate between \(px\) and we rotate along \(xg\).
+
+Splaying is combined with all general operations to achieve \(O(\log n)\) amortirized time overall. Elaboration on the concept of splaying, on every operation we splay. Take the following examples
+- *Insertion*: For an item \(v\) we are inserting, we want to find the first null leaf and place it there, then we splay it upwards given the rules above.
+- *Deletion*: For an item \(v\) we want to remove from the tree, we actually have two methods. One with splaying, one without. Arguably I find the splaying one easier so lets just explain that:
+
+  Splay \(v\) to root, then remove it, we are then left with two subtrees, to make sure they are joined together while preserving properties of a splay tree, we *splay the largest node in the left subtree*, such that the root has no right child (null right). Then we can set the *root of the right subtree* as the right child of the tree.
+
+There are some two other main operations, =join= and =split=, I wrote about =join= earlier as it is used in a method of deletion.
+
+*Join*: For two trees \(X\) and \(Y\), the join operation merges them into \(XY\)
+1. Splay the largest node in \(X\), this makes it such that \(X\) has no right children at root.
+2. Make the \(X\) root's right child to \(Y\).
+
+*Split*: For some tree \(X\), splitting at an element \(x\), split will split \(X\) into a left subtree with elements less than \(x\), and a right subtree with elements greater than \(x\).
+1. Splay \(x\), this causes all values less than \(x\) to be *left children from the root* and all values *greater than \(x\) to be right children* from the root.
+2. Split the right child subtree from \(X\).
+*** (2,4) Trees
+A multi-way search tree with the key property on having *at most* _four_ children. It also requires that *all external nodes have the same depth*.
+
+Depending on the number of children, an internal node in the tree is either called a 2, 3 or 4 node (based on how many children that node has).
+**** Searching through a (2,4) tree
+Searching through with a height of \(h\) takes \(O(h)\) time. Considering that each node must have at most 4 children, there are at least \(2^i\) items at some depth \(i\), and then at the final height \(h\), there must be no items. Thus at \(h-1\) we have \(2^{h-1}\) items, thus \(h \leq \log_2(n+1)\). Furthermore searching will take \(O(\log_2(n)) = O(log(n))\) time.
+
+**** Key Operations
+***** Insertion
+We insert a new item, \((k,o)\) at the parent \(v\) of the leaf when we are searching for \(k\). This preserves the depth property, but has the off chance of causing an overflow making a node a \(5\) node.
+[[./img/5-node-overflow.png]]
+# Should be visible in webpage.
+# Uncomment following to see in org
+
+# [[./5-node-overflow.png]]
+We can combat the overflow with something called a split operation, simply taking the children of the node \(v\) to be \(v_1, \dots, v_5\) and the keys \(k_1, \dots k_4\) of \(v\), we *split* \(v\) into two. We take \(v'\) to be a 3-node with \(k_1\) and \(k_2\), with children \(v_1, v_2\) and \(v_3\). \(v''\) to be a 2-node with \(k_4\) and children \(v_4, v_5\), and \(k_3\) is put into the parent of \(v\) (this is so we can split in the first place without violating rules of 2-4).
+***** Deletion
+If an item is at node with leaf children, then we can just delete it without hurting any other items. Otherwise if an item has children, we delete it and let the in-order successor take its place.
+
+Similarly to insertion, this can cause *underflow*. We might have a node that has one node and no keys. This is dealt with case by case:
+- Case 1: If the adjacent sibling to empty node \(v\) are 2-nodes.
+
+  Suppose the adjacent 2-node sibling is denoted \(w\), we fuse the two by taking the single key in \(w\) and a key from the parent node \(u\).
+  [[./img/fusion.png]]
+
+- Case 2: If adjacent sibling is a 3-node or a 4-node
+
+  If this is the case, then given \(w\) as an adjacent sibling to \(v\), and \(u\) the parent to \(v\).
+  + Then we move a child of \(w\) to \(v\) (\(v\) becomes a 2-node).
+  + Move an item from \(u\) to \(v\)
+  + Move an item from \(w\) to \(u\)
+
+****** Analysis of Deletion
+Given a (2,4) tree with \(n\) items, in a deletion operation, we visit \(O(\log n)\) nodes to search for the node and delete entry. In case of an underflow, we may need to have perhaps \(O(\log n)\) fusions, where each fusion or transfer takes atleast \(O(1)\) time. All together a (2,4) tree takes \(O(\log n)\) *time to delete an item.*
+
+**** (A,B) Trees
+(A,B) trees are a somewhat generalisation of \((2,4)\) trees in the sense that we define \(a,b\) as two integers such that
+\[
+2 \leq a \leq (b+1)/2
+\]
+with the following restrictions.
++ Each internal node must have alteast \(a\) children except the root. The root has *at most* \(b\) children.
++ All external nodes *have the same depth*.
+
+****** Height of (A,B) tree
+We analyse the height of the \((a,b)\) tree similarly to the \((2,4)\), storing \(n\) entries we have *at least*
+\[
+\Omega\left(\frac{\log n}{\log b}\right) \implies \Omega(\log_b n)
+\]
+and *at most*
+\[
+O\left(\frac{\log n}{\log a}\right) \implies O(\log_a n)
+\]
+
+***** Searching and Key Operations
+Searching functions the same as any multi-way search tree.
+
+*Insertion* functions similar to a (2,4) tree, if we have an overflow of \(b+1\) node, we do the split operation.
+
+*Deletion* is the same, if we have an underflow of an \(a-1\) node, we either do a transfer or a fusion depending on the sibling node.
+
+***** B-Trees
+B-Trees are a special kind of \((a,b)\) tree structure, it is well known for maintaining a map of external memory.
+
+We say a *B-tree of order \(d\)* is an \((a,b)\) tree with \(a = \frac{d}{2}\) and \(b = d\).
+# Put an image of a B-tree here pls.
+
+**** Red-Black Trees
+If we compare the \((2,4)\) tree structure to the Red-Black tree structure, we notice it has the following key details:
+- The *same \(O(\log n)\) worst case complexity* for each operation; search, insert and removal.
+- A arguably simpler implementation
+- Fewer restructurings.
+  # elaborate on above perhaps?
+
+But what are they. They are a *binary* search tree that satisfy the following:
+- The root is black
+- Every leaf is black
+- Children of a red node are black
+- ... All leaves have the same black depth?
+
+Since this feels like a pain to represent, take this following diagram as a conversion between a \((2,4)\) tree structure and the equivalent Red-Black tree structure.
+[[./img/24-rb.png]]
+
+***** Insertion in RB Trees
+Standard insertion into a binary search tree. We colour the newly inserted node *red*, unless it is the root. This thus preserves the root, external and depth properties of the tree. Denote the node just inserted as \(x\), letting the parent of \(x\) denoted \(p\). If \(p\) is black, then it preserves the internal property as well (children of a red node is black). *Otherwise* if the parent is red, then we have a double red, which violates the interal property. So we need to reorganise the tree.
+
+****** Fixing Double Reds
+Let \(s\) be the sibling of of the parent node \(y\),
+- Case 1: If \(s\) is black, we perform a *tri-node restructuring*
+
+*Tri-Node Restructuring*: Label nodes \(x,y,z\) as \(a,b,c\) in left-right order (in order travesal), replacing \(z\) with whatever node is labelled as \(b\). Then we make nodes labelled \(a\) and \(c\) children of the node labelled \(b\).
+
+- Case 2: if \(s\) is red, then the double red corresponds to an *overflow* in a (2,4) tree, recolouring in this case is equivalent to performing a split.
+
+*Recolouring*: Parent \(y\) of \(x\) and its sibling become black, and grandparent of \(x\) (parent of \(y\)) becomes red unless it is the root. This is somehow equivalent to performing a split on a 5-node...
+
+****** Analysis of Insertion
+A RB Tree has height \(O(\log n)\), furthermore searching for the key \(k\), it takes \(O(\log n)\) time. Once we find \(k\), inserting the new entry takes \(O(1)\) time, each recolouring takes \(O(\log n)\) time (traversing through the tree), with each recolour taking \(O(1)\). There may be at most one restructuring, which takes \(O(1)\) time.
+
+Overall we have insertion takes \(O(\log n)\) time in a RB tree.
+***** Deletion in RB Trees
+Deletion in RB trees uses a binary search tree deletion algorithm. Letting \(q\) being the internal node that is being removed, \(r\) being the external node being removed and \(p\) being the sibling of \(r\).
+- If \(q\) was red, nothing more to do
+- If \(q\) was *black*, both children were either external, or \(q\) has one red child \(p\). If so, we recolour \(p\) to be black.
+- If \(q\) was black, with two external nodes, then we have a double black. This corresponds to an underflow in (2,4).
+
+****** Fixing Double Blacks
+Consider a double black node \(p\) whose sibling is denoted \(y\),
+- If \(y\) is black and has a red child \(x\), we perform a *restructuring* (equivalent to transfer)
+- If \(y\) is black and its children are both black, we perform a *recolouring* (equivalent to fusion)
+- If \(y\) is red, we perform an *adjustment*. After the adjustment is applied we see if either the former cases apply.
+
+Time complexity of deletion in RB trees takes \(O(\log n)\) time.
+
+** DAG's and Topological Orderings
+*** Directed Acrylic Graphs
+An ordering of nodes in a *direct graph* such that for each node in a path from \(A\) to \(B\), node \(A\) will be before node \(B\). The ordering is not unique.
+[[./img/Topological_Ordering.svg]]
+
+It follows that *not all graphs* have a topological ordering. For example, graphs with cycles. Only a *DAG* can have a topological ordering.
+
+**** Topological Sorting
+Algorithm for getting the topological order for a DAG with \(n\) nodes, set \(x = n\):
+1. Select a vertex \(v\) with no incoming edges
+2. Label \(v\) as vertex \(x\), and append \(v\) to the resulting topological order set
+3. Remove \(v\) and its outgoing edges and decrement \(x\).
+** Pattern Matching
+A string is simply a sequence of characters, thus it follows that the *alphabet* (denoted \(\Sigma\)) is the set of _all possible characters_ for a family of strings. Examples include
+- ASCII
+- Unicode
+- {0,1} (Binary)
+- {A,C,G,T} (DNA, RNA Sequences)
+
+Let \(S\) be a string of size \(m\), then we say a *substring* of \(S\) is some portion of \(S\) from position \(i\) to \(j\).
+
+A prefix is a substring that starts at position 0 (beginning of string), to some position \(i\). Similarly a suffix is a substring starting from position \(i\) to the end of the string (\(m-1\)).
+
+The problem arises, how can we find a substring \(T\) in \(S\) that matches some pattern \(P\)?
+*** Brute Force Pattern Matching
+Literally compare the pattern \(P\) with \(T\) for each possible character shift in \(T\).
+#+BEGIN_SRC ps
+Alg BruteForce(T,P)
+for i = 0 to n - m do:
+{ test shift at position i of the pattern }
+j = 0
+while j < m AND T[i + j] = P[j] do
+          j = j + 1
+          if j = m then
+          return i {we found a match at pos i}
+          else
+          break {keep going}
+          return -1 {no match found}
+#+END_SRC
+For a pattern with size \(n\) and text \(T\) with size \(m\). The runtime complexity with brute-force pattern searching is \(O(nm)\), an example of worse case would be the following \(T = aaaaaaaah\) and \(P = aaah\).
+[[./img/brute.png]]
+
+*** Boyer-Moore Pattern Matching Algorithm
+The Boyer-Moore pattern matching algorithm works as follows, shifting the pattern down the string \(S\), *if a mismatch occurs* at \(S[i] = \alpha\):
+- If \(\alpha \in P\), then we position \(P\) such that position \(P[\beta] = \alpha\) is aligned with \(S[i] = \alpha\).
+  [[./img/pcontc.png]]
+- Otherwise, we shift \(P\) such that the beginning of \(P\) (\(P[0]\)) is at \(S[i+1]\).
+  [[./img/pend.png]]
+
+Observe this very nice example (from COMP3506 lecture slides as most of these screenshots are).
+[[./img/b-m-example.png]]
+**** Last-Occurence Function
+The Boyer-Moore's algorithm preprocesses the pattern and the alphabet to generate the *last occurence function* \(L\).
+
+Defined \(L:\Sigma \to \mathbb{N}\) such that
+\[
+L(c) := \begin{cases}
+\text{ largest index of } i &\text{ such that } P[i] = c\\
+-1 & \text{ if no index exists }
+\end{cases}
+\]
+# Ah this is cursed.
+In processing we can represent it by some array that is indexed by the characters in some numerical format I dont know what this is trying to say tbh. Furthermore LOF is computed in \(O(m+s)\) time where \(m\) is the size of the pattern \(P\) and \(s\) is the size of the alphabet \(\Sigma\), and accessed in \(O(1)\) time.
+
+Overall, Boyer-Moore's algorithm runs in \(O(nm + s)\) time, with \(n\) being the size of \(T\), \(m\) the size of \(P\) and \(s\) the size of the alphabet. Regardless, Boyer-Moore's algorithm is significantly *faster* than brute-force.
+
+*** Knuth-Morris-Pratt Algorithm (KMP)
+The KMP algorithm compares the pattern to the text from left-to-right, however the methods and steps to shifting are more /intelligent/ than brute force. Particularly, we want to now how much we can shift to avoid redundant comparisons. In particular, this is represented by *the largest prefix of \(P[0, j-1]\) that is a suffix of \(P[1,j-1]\)*. You can observe this in the following, the suffix \(ab\) is equal to the largest prefix, thus we shift \(P\) to the index of the end of the largest prefix \(ab\). This avoids the unneccesary comparison.
+[[./img/comp.png]]
+
+In particular, the KMP algorithm will preprocess the pattern finding the largest prefix of substring \(P[0,j]\) that is also a suffix of \(P[1,j]\) for all \(j\), the size of the prefix is denoted as \(F(j)\), the *Failure Function* at \(j\). Thus when a mismatch occurs, we can set \(j\) (the shift position) to be \(F(j-1)\).
+**** Analysis of Algorithm
+For a pattern \(P\), with size \(m\), the Failure Function is represented by an array and takes \(O(m)\) time to be computed.
+#+BEGIN_SRC ps
+Algorithm KMPMatch(T, P)
+F = failureFunction(P)
+i = 0
+j = 0
+while i < length(T)
+          if T[i] = P[j] then
+          if j = length(P) - 1 then
+          return i - j { match }
+          else
+          i = i + 1
+          j = j + 1
+          else
+          if j > 0 then
+j = F[j - 1]
+else
+i = i + 1
+return -1 { no match }
+#+END_SRC
+Each iteration of the loop, we either increment \(i\) by one *or* the shift distance increments by one. This means that we can get no more than \(2n\) iterations of the while loop. So our KMP algorithm runs in \(O(m+n)\) time!
+
+** Tries (Re"trie"val trees)
+** Text Compression
+We are able to compress a string \(X\) into a smaller string \(Y\) using a *prefix code* for the characters of \(X\). The main purpose of this is to save space and memory.
+*** Prefix Codes
+Mapping each character of an alphabet to a binary code word, such that no code-word is a prefix of another.
+
+We can use an *encoding trie* to represent the prefix-codes. Each *external* node stores a character, and the code word is given by the path from the root to the external node of that character.
+
+We denote an edge to a left child 0, and edge to a right child 1.
+[[./img/test.png]]
+
+*** Huffman's Algorithm
+Given a string \(X\), we construct a prefix code that *minimises* the size of the encoding of \(X\). (Optimization of the encoding). Using an example string \(X = abracadabra\)
+1. Preprocess the frequency of each character in \(X\). Let \(f(k)\) be the frequency for each char \(k \in x\). For some reason the table isn't working in enumerations you'll just have to imagine it :)
+2. Create an empty priority queue, for each character in \(X\), we create a *single node* binary tree \(T\) storing \(k\), insert \(f(k)\) as the key and \(T\) as the value.
+3. *While the priority queue has more than one element* (=PQ.size() > 1=), we remove two items from the PQ and store them in \((f_1, T_1)\) and \((f_2, T_2)\) respectively. Create a *new* tree \(T'\) that has \(T_1\) as the left subtree and \(T_2\) as the right subtree. Insert a new item into the priority queue as the *sum of the frequencies* as the key and the *new* tree \(T'\) as the value (=PQ.insert(f1+f2,T)=).
+4. This repeats until the entire priority queue merges into a single item with all elements represented as a binary tree, thus there is only one item in the priority queue, we exit the loop.
+5. Remove the last element of the priority queue and return the tree \(T'\).
+In psuedocode, (I don't know how to reference but from COMP3506 Text Compression notes)
+#+BEGIN_EXAMPLE Huffman's Algorithm
+Algorithm Huffman(X):
+Input: string X of length n
+Output:optimal encoding tree for X
+Compute frequency f(c) of each character c of X
+PQ = new empty Priority Queue
+
+for each character c in alphabet of X do
+    T = single node binary tree storing c
+    PQ.insert(f(c), T)
+while PQ.size() > 1 do
+    (f1 , T1) = PQ.removeMin()
+    (f2 , T2) = PQ.removeMin()
+    T = a new binary tree T with left subtree T1 and right subtree T2
+    PQ.insert(f 1 + f 2 , T)
+(f, T) = PQ.removeMin()
+return T
+#+END_EXAMPLE
+
+# #+begin_export html
+# <style>
+# .my-table th,
+# .my-table td {
+#     padding: 20px;
+#     text-align: center;
+# }
+# </style>
+# #+caption: Table for frequencies of the string \(X = abracadabra\)
+# #+attr_html: :class my-table
+# | \(k\)    | \(a\) | \(b\) | \(c\) | \(d\) | \(r\) |
+# |----------+-------+-------+-------+-------+-------|
+# | \(f(k)\) |     5 |     2 |     1 |     1 |     2 |
+
+Under the assumption that
+- The size of the string \(X\) is \(n\)
+- \(d\) is the number of distinct chars of \(X\)
+- The Priority Queue is implemented with a heap
+
+Then we have that Huffman's Algorithm runs in \(O(n + d\cdot \log d)\) time. This is clear to see as the first for loop iterates throug each character in \(X\), which takes \(O(n)\) time. Each removal takes \(O(log d)\) time, which happens \(d\) times, so \(O(d\cdot \log d)\), thus as the loops happen consectively after each other, we sum them together and have \(O(n + d\cdot \log d)\) as the runtime.
+
+** Exam Preperation Notes
+Weakness noted on asymptomatic analysis of algorithms, differentiating between what might be a worst
+
+* Analysis
+** Intermediate Value Theorem
+*Thm*: Let \(f\) be a cts. function on a closed interval \([a,b]\). Let \(c \in \mathbb{R}\) be a number between \(f(a)\) and \(f(b)\). Then there exists an \(x \in [a,b]\) such that \(f(x) = c\).
+
+To prove IVT, it is sufficient to prove the following special case: \(f(a) < 0\), \(f(b) > 0\), then \(\exists x \in (a,b)\) such that \(f(x) = 0\). Suppose \(f\) is
+continuous on \([a,b]\) and \(f(a) < 0 < f(b)\), out goal is to show that there exists some \(\alpha \in (a,b)\) with \(f(\alpha) = 0\). Let
+
+\[
+A = \left \{x \in [a,b] \mid f \text{ is negative on the interval } [a,x] \right\}
+\]
+Note that \(a \in A \implies A \neq \phi\) (non-empty). Moreover \(A \subseteq [a,b] \implies\) that \(A\) is bounded. By the least upper bound property we then have \(\alpha = \text{sup}(A)\).
+
+*Claim*: \(\alpha \in (a,b)\) and \(f(\alpha) = 0\).
+
+To prove this, we recall a result obtained in a previous course (MATH1071)
+Let \(f\) be a cts. function at \(x\) and \(f(x) > 0\). Then \(\exists \delta > 0\) such that \(f(y) > 0\) forall \(y \in [x-\delta, x+\delta]\). Since \(f(a) < 0 \implies f(x) < 0\), on \([a, a+ \delta]\) for some \(\delta > 0\), then furthermore this means that \(\delta \geq a + \delta > \alpha\). Similarly, we can show that \(\alpha < b\). (Key thing being to show that \(f(\alpha) = 0\)).
+
+Suppose for the sake of contradiction, we have \(f(\alpha) < 0\). Then by the fact in the result above, \(f\) is negative on the interval \([\alpha - \delta, \alpha + \delta]\) for some \(\delta > 0\). But this implies that \(f\) is negative on
+\([a, \alpha + \delta] = [a, \alpha - \delta] \cup [\alpha - \delta, \alpha + \delta]\)
+And if \(f\) wasn't negative, then \([a,\alpha - \delta]\) would mean that \(\alpha - \delta \leq \alpha - \delta\), which is obviously a contradiction, as
+\(\alpha\) is the supremum among these numbers.
+
+*** Example Problem with IVT
+Let \(f:(0,1] \to [0,1]\) be a bijection, show that \(f\) is not continuous. (2019 Final Exam)
+
+Suppose \(f\) is continuous, then \(f\) is a monotone function as it is also bijective (injective). Let \(\zeta \in (0,1)\) such that \(\alpha \in (0,\zeta)\), then we have \(f(\alpha) \in (0,1)\). For the sake of the argument, lets denote \(c = f(\alpha)\), then by IVT, we have that, \(\exists p \in (\zeta, 1)\) such that \(f(p) = c = f(y)\), however as \(p \neq y\), \(f(p) \neq f(y)\) by injectivity, this is a contradiction. So \(f\) cannot be continuous.
+** Sequential Continuity Criteria
+** Metric Spaces and Balls
+*Definition*: Let \(x_0 \in X\) and \(r > 0\), then we define the *open ball* to be
+\[
+B_r(x_0) = \{x \in X \mid d(x,x_0) < r\}
+\]
+Similarly the *closed ball*
+\[
+\overline{B_r(x_0)} = \{x \in X \mid d(x, x_0) \leq r\}}
+\]
+
+*Definition:* Let \(E\) be a subset of a metric space \(X\), we say \(x \in E\) is in the _interior_ of \(E\) if \(\exists r > 0\) such that \(B_r(x) \subseteq E\). Similarly we say that \(x \in X - E\) is in the _exterior_ of \(E\) if \(B_r(x) \subseteq X - E\). If \(x\) is in neither of these, then we say \(x\) is in the boundary.
+
+Denoting them as follows
+\[\text{int}(E) = \overset{\circ}{E} \leftarrow \text{interior}\]
+\[\text{ext}(E)\leftarrow \text{exterior}\]
+\[\delta(E) \leftarrow \text{boundary}\]
+
+*Example*: \(X = (\mathbb{R}, | . |)\)
+Then we have the
+\[
+\text{int}(E) = (a,b)
+\]
+\[
+\text{ext}(E) = \mathbb{R} - [a,b] = (-\infty, a) \cup (b,\infty)
+\]
+\[
+\delta(E) = \{a,b\}
+\]
+
+Given \(E \subseteq X\), define the closure of \(E\), denoted by \(\overline{E}\), to be the set of all limit points of \(E\), Obviously \(E \subseteq \overline{E}\).
+
+*Exercise*: \(E\) is closed \(\iff\) \(E = \overline{E}\)
+
+\begin{center}
+\includegraphics{./img/tikz/pdf/city.pdf}
+\end{center}
+** Continuous Functions
+Recall that \(f:(X,d) \to (X',d')\) is continuous at \(x\) if \(\forall \varepsilon > 0\), \(\exist \delta > 0\) such that \(d(x,y) < \delta \implies d(f(x), f(y)) < \varepsilon\), we that \(f\) being continuous at \(x\) by this definition \(\iff\) \(x_n \to x \implies f(x_n) \to f(x)\), and also that \(f\) is continuous on \(X\) if and only if an inverse image of every open set is open. (Inverse image of nbhd is a nbhd). I proved this vaguely in Assignment 3 of MATH2401.
+
+** Uniform Convergence with Integration and Differentiation
+** Uniform Convergence of Function Series
+*** Weistrass M-Test
+*Thm*: Let \(\{f_n\}\) be a sequence on functions defined on \(A\) and suppose \(\{M_n\}\) is a sequence of numbers, such that
+\[ | f_n(x) | \leq M_n \]
+forall \(x \in A\) and forall \(n \in \mathbb{N}\), Suppose that \(\sum_{n=1}^{\infty} M_n\) converges, then for each \(x \in A\), then \(\sum_{n=0}^{\infty} f_n(x)\), converges (absolutely), and \(\sum_{n=0}^{\infty} f_n\) converges uniformly to \(f(x) = \sum_{n=0}^{\infty} f_n(x)
+\) on \(A\).
+
+/Proof:/
+For each \(x \in A\), the sum \(\sum_{n=0}^{\infty} \abs{f_n(x)}\), converges by comparison test, next for all \(x \in A\) we have
+
+\[\begin{aligned}
+& |f(x) - (f_0(x) + \dots + f_N(x))|\\
+&= |\sum_{n=N+1}^{\infty} f_n(x)|\\
+&\leq \sum_{n=N+1}^{\infty} |f_n(x)|\\
+&\leq \sum_{n=N+1}^{\infty} M_n < \varepsilon
+\end{aligned}\]
+As \(\sum_{n=0}^{\infty} M_n\) converges, given \(\varepsilon > 0\), we can choose \(N\) so that \(\sum_{n = N+1}^{\infty} M_n < \varepsilon\). Thus, \(\sum_{n=0}^{\infty} f_n\) converges uniformly to \(f\) on \(A\).
+
+** Generalisation of Multivariate Differentiation
+Recalling the definition from single variables we have
+\[
+f'(x_0) := \lim_{x\to x_0} \frac{f(x) - f(x_0)}{x- x_0}
+\]
+Now take \(f: \mathbb{R}^n \to \mathbb{R}^m\), then we obviously have a problem, as \(f'(x_0)\) could be in either \(\mathbb{R}^n\) or \(\mathbb{R}^m\),
+
+*Def*: A linear map \(L : \mathbb{R}^{n} \to \mathbb{R}^{m} \) is the derivitave of \(f : \mathbb{R}^{n} \to \mathbb{R}^{m}\) at \(x_0 \in \mathbb{R}^{n}\) if
+\[
+\lim_{x \to x_0} \frac{\|f(x) - f(x_0) + L(x-x_0)) \| }{\|(x-x_0)\|} = 0
+\]
+Such that \(\| \cdot \|\) denotes the standard Euclidean norm.
+
+We saw previously that the limit existing through each line is not enough to show that the multivariate limit exists. However for derivatives its not the case.
+
+If \(\frac{\partial{f}}{\partial{x}}, \frac{\partial{f}}{\partial{y}}\) exists, and are continuous, *then the derivative of \(f\) exists*.
+*** Jacobi Matrix (Matrix of Partial Derivatives)
+Let \(f:\mathbb{R}^{n} \to \mathbb{R}^{m}\) be a function. We can write \(f = (f_1, \dots, f_m)\) such that \(f_i : \mathbb{R}^{n} \to \mathbb{R}^{}\). For example,
+\[
+\begin{aligned}
+f &: \mathbb{R}^{2} - \{y = 0\} \to \mathbb{R}^{2}\\
+&(x,y) \mapsto \left(x^2 + y, \frac{x}{y}\right)
+\end{aligned}
+\]
+Then \(f_1(x,y) = x^2 + y\) and \(f_2(x,y) = \frac{x}{y}\), then
+\[
+\begin{aligned}
+\frac{\partial{f_1}}{\partial{x}} = 2x &\;\;\; \frac{\partial{f_1}}{\partial{y}} = 1\\
+\frac{\partial{f_2}}{\partial{x}} = \frac{1}{y} &\;\;\; \frac{\partial{f}}{\partial{y}} = -\frac{x}{y^2}
+\end{aligned}
+\]
+So the Jacobi Matrix is then
+\[
+Jf = \begin{bmatrix}
+\frac{\partial{f_1}}{\partial{x}} & \frac{\partial{f_1}}{\partial{y}}\\
+\frac{\partial{f_2}}{\partial{x}} & \frac{\partial{f_2}}{\partial{y}}
+\end{bmatrix} = \begin{bmatrix}
+2x & 1 \\ \frac{1}{y} & \frac{-x}{y^2}
+\end{bmatrix}
+\]
+
+*Definition*: The Jacobi Matrix of \(f: \mathbb{R}^{n} \to \mathbb{R}^{m}\) where \(f = (f_1, \dots, f_m)\) is defined by
+\[
+Jf = \begin{bmatrix}
+\frac{\partial{f_1}}{\partial{x_1}} & \cdots & \frac{\partial{f_1}}{\partial{x_n}}\\
+\vdots & & \vdots\\
+\frac{\partial{f_m}}{\partial{x_1}} & \cdots & \frac{\partial{f_m}}{\partial{x_n}}
+\end{bmatrix}_{m\times n}
+\]
+So \(Jf\) is a map \(\mathbb{R}^{n} \to m \times n\) matrix (of which the matrix is a linear map \(\mathbb{R}^{n} \to \mathbb{R}^{m}\))
+
+
+*Theorem*: If all partial derivatives exist, and are continuous at \(x_0\), then \(f\) is differentiable at \(x_0\) and
+\[
+f'(x_0) = (Jf)(x_0)
+\]
+That is, the derivative is equivalent to the Jacobi Matrix.
+
+** Inverse Function Theorem!
+*Thm (Inverse Function Theorem)*: Let \(f : \mathbb{R}^{n} \to \mathbb{R}^{m}\), be a function and suppose \(f'(x_0)\) is invertible (i.e \(\text{det}(f'(x_0)) \neq 0\)).
+
+Then \(f\) is locally invertible near \(x_0\) and
+
+\[
+(f^{-1})'(f(x_0)) = (f'(x_0))^{-1}
+\]
+
+Derivative of inverse = inverse of derivative.
+
+To prove the inverse function theorem, another major theorem is required, called the *Contraction mapping Theorem*.
+
+This can be formulated in a general matrix space not just \(\mathbb{R}^{n}\).
+
+Let \(f:(X_1, d_1) \to (X_2, d_2)\), \(f\) is called a contraction if \(\exists c \in (0,1)\) such that \(d_2(f(x), f(y)) < c d_1(x,y)\).
+
+*Thm (Contraction Mapping Theorem)*: Let \(f : (X,d) \to (X,d)\) be a contraction. Then \(f\) has exactly one fixed point, \(\exists ! x_0\) (exists a unique \(x_0 \)) such that \(f(x_0) = x_0\)
+
+
+Furthermore, another representation of the Inverse Function Theorem (just going by the notes I guess)
+
+*Theorem (Inverse Function Theorem)*: Let \(f: \mathbb{R}^{n} \to \mathbb{R}^{n}\). Suppose \(f\) is continuous differentiable (\(\iff\) all partials are continuous) and \(f'(x_0) = J_f(x_0)\) is invertible. Then there exists neighbourhoods \(U \ni x_0\) and \(V \ni f(x_0)\) such that \(f\) is a bijection from \(U\) to \(V\). Moreover then, the inverse function \(f^{-1}: V\to U\) is differentiable at \(y_0 = f(x_0)\) and
+\[
+(f^{-1}) (y_0) = (f'(x_0))^{-1}
+\]
+
+** Diffeomorphisms and Homeomorphisms
+Given \(U \subseteq \mathbb{R}^n\) and \(V \subseteq \mathbb{R}^m\), we say some \(U\) is a homeomorphic to \(V\) if there exists some continuous function \(f : U \to V\) such that it also has a continuous inverse.
+
+Similarly we say \(U\) is diffeomorphic to \(V\) if there exists some *continuous differentiable* function \(f:U \to V\) with a *continuous differentiable* inverse.
+
+Note by this definition, if \(f\) is a bijection, then it has an inverse, and vice versa (by definition of bijectivity). Furthermore if \(f\) is a homeomorphism, then it is a bijective (cts) \(f\) with a continuous inverse. They are slightly different but a connection can be made.
+
+This gives us a little neat relation of
+\[
+\text{Diffeom.} \subseteq \text{Homeo.} \subseteq \text{Bijection}
+\]
+
+For example, \((0,1)\) is homemorphic to \(\mathbb{R}\), suppose we define
+\[
+\begin{aligned}
+f : &(0,1) \to \mathbb{R}\\
+&x \mapsto \tan\left(\frac{\pi}{2} + x\pi\right)
+\end{aligned}
+\]
+(Exercise, show that this is also diffeomorphic).
+
+
+*Thm*: If \(n \neq m\), then \(\mathbb{R}^n\) is not diffeomorphic to \(R^m\) (even when \(\mathbb{R}^n\) and \(\mathbb{R}^m\) are in bijection??)
+
+/Proof/: Let \(f:\mathbb{R}^{n} \to \mathbb{R}^{m}\) be a diff. function with a diff. inverse \(g\). Then we have
+\[
+\begin{aligned}
+f' \circ g' &= Id_m\\
+g' \circ f' &= Id_n
+\end{aligned}
+\]
+The derivative matrix of \(f\) and \(g\) are inverses to each other. Taking a fact from linear algebra, for an \(m \times n\) matrix being invertible \(\implies\) \(m=n\). Box.
+
+Similarly, we have a theorem like it with homemorphism.
+
+*Thm*: If \(n \neq m\), then \(\mathbb{R}^{n}\) is not homeomorphi to \(\mathbb{R}^{m}\).
+
+This theorem is much harder to prove, and beyond the scope of the course.
+
+*Remark*: The inverse function theorem states that if \(f'(x_0)\) is invertible then \(f\) is locally a diffeomorphism near \(x_0\).
+** Hypersurfaces (sounds so cool)
+*Def*: Let \(f : \mathbb{R}^{} \to \mathbb{R}^{}\) be a function. Then the graph of \(f\) is
+
+\[
+G(f) = \{(x,f(x)) \mid x \in \mathbb{R}^{}\}
+\]
+
+Trivially (atleast I think it is), a graph of a function gives a curve in \(\mathbb{R}^{2}\). However, not every curve is a graph of some function. For example, consider the equation \(x^2 + y^2 = 1\), i.e the Unit Circle. \(S^1\) is not globally a graph of a function, but comprised of \(y = \sqrt{1-x}\) and \(y = -\sqrt{1-x}\). Locally however, we say it is a graph of some function near each point.
+
+*Def (Hypersurfaces)*: Let \(f: \mathbb{R}^{n} \to \mathbb{R}^{}\). Then the hypersurface associated with \(f\) is
+\[
+V(f) = \{x \in \mathbb{R}^{n} \mid f(x) = 0\} \subseteq \mathbb{R}^{n}\}
+\]
+Example being the unit circle above, \(f(x,y) = x^2 + y^2 - 1\), \(V(f) = S^1\)
+
+** Implicit Function Theorem
+*** Graphs
+We say for a function \(g\), the graph of \(g\), denoted \(G(g)\) is defined as
+\[
+G(g) := \{(x,g(x)) \mid x \in \mathbb{R}^{n-1}\} \subseteq \mathbb{R}^{n}
+\]
+An obvious fact to note is that \(G(g)\) is a hypersurface, so we can generalise the notion of a graph to be a special kind of hypersurface. Graphs \(\subseteq\) Hypersurfaces.
+
+Taking some Examples:
+- \(f(x,y) = x^2 - y^2\), then \(V(f) = y = \pm x\). We can see this by showing that
+  \[
+  \begin{aligned}
+  V(f) &= \{(x,y) \in \mathbb{R}^{2} \mid x^2 - y^2 = 0\}\\
+  &\to x^2 - y^2 = 0\\
+  &\iff x^2 = y^2\\
+  &\iff x = y \text{ or } x = -y
+  \end{aligned}
+  \]
+
+** Manifolds
+*Definition (rough)*: A manifold is a subset \(M \subseteq \mathbb{R}^{m }\) such that every point \(x \in M \) has an open neighbourhood \(U \in x\) such that \(U \cap M \) is diffeomorphic to an open subset of \(\mathbb{R}^{n}\) (for some \(r \leq m\)).
+
+In other words, for all points in the subset \(M\), we can find a point such that it is locally diffeomorphic to the a Euclidean space in \(n\)'th dimension. Some examples
+- \(\mathbb{R}^{0}\) (a point) is a manifold
+- Every line \(\mathbb{R}^{2}\) is a manifold.
+- A hyperbola \(M = \{(x,y) \in \mathbb{R}^{2}_{> 0} \mid xy = 1\}\) is a manifold.
+
+  *Claim*: \(M\) is a manifold
+  *Proof*: Define \(f: M \to \mathbb{R}_{>0}\), \((x,y) \mapsto x\), then \(g : \mathbb{R}_{> 0} \to M\) has \(x \mapsto (x, \frac{1}{x}\). Then \(g\) is an inverse of \(f\) and are both differential (a diffeomorphism).
+
+** Measure Theory
+
+** Hilbert Spaces
+* Discrete
+** Counting
+*** Selections
+Some \(n\)-set of \(n\) objects (distinct), there are four different ways we can select \(r\) objects from the set:
+- Ordered Selections without repetition
+- Ordered selections *with* repetition
+- Unordered selections without repetitions
+- Unordered selections *with* repetitions
+
+
+**** Ordered Selections without Repetition
+An *ordered selection without repetition* of \(r\) objects from an \(n\)-set is
+\[
+\frac{n!}{(n-r)!}
+\]
+**** Ordered Selection with Repetition
+Furthermore the number of ordered selections *with* repetition of \(r\) objects from an \(n\)-set is \(n^r\).
+**** Unordered Selection without Repetitions
+The number of unordered selections without repetitions of \(r\) objects from an \(n\)-set is given by binomial coefficient
+\[
+{n \choose r} = \frac{n!}{(n-r)!r!}
+\]
+
+**** Unordered Selection with Repetitions
+The number of unordered selections with repetition of \(r\) objects from an \(n\)-set is
+\[
+{n + r - 1 \choose r}
+\]
+
+*** Combinatorial Identities
+** Graph Theory
+*Definition*: A graph \(G\) consists of a set *vertices* and a set of *edges*. The vertex set is finite and non-empty, denoted \(V(G)\). The edge set is a (possibly empty) set of unordered pairs of vertices, and denoted \(E(G)\).
+*** Some general definitions
+- The number of vertices in a graph \(G\) is under its *order*, the number of edges in a graph is called its *size*.
+- Two graphs \(G_1\), \(G_2\) are *isomorphic*, denoted by \(G_1 \cong G_2\). If there is a bijection between vertices of \(G_1\) and \(G_2\) such that two vertices adjacent in \(G_1\) if and only if they are adjacent in \(G_2\).
+- Equivalence of two graphs are defined if both the edge set and vertex set are equal, i.e \(G_1\) is equal to \(G_2\) if \(V(G_1) = V(G_2)\) and \(E(G_1) = E(G_2)\).
+- A *complete graph* of order \(n\), \(n \geq 1\), denoted the \(K_n\), is a graph with \(n\) vertices and an edge between each pair of vertices.
+
+  In other words each node is connected by an edge. I believe that by definition it is a cycle.
+- For \(m \geq 1\), an \(m\)-*path* is a graph denoted \(P_m\) with distinct vertices and edges such that \(v_1v_2, v_2v_3, \dots, v_{m-1}v_m\)
+
+  # Put a tikz diagram here?
+
+  Then for \(m \geq 3\) an \(m\)-*cycle*, denoted \(C_m\) is a graph with distinct vertices and edges such that
+  \(v_1v_2, v_2v_3, \dots, v_{m-1}v_m, v_mv_1\)
+- A graph is *bipartite* if its vertices can be partitioned into two sets \(A\) and \(B\) such that every edge joins a vertex in \(A\) to a vertex in \(B\). Thus a bipartite has no edges in \(A\) going to \(A\), and vice-versa with \(B\).
+
+  *Note* that a graph is bipartite if and only if it contains no \(m\)-cycle with \(m\) odd.
+
+  Furthermore, a *complete bipartite graph*, denoted \(K_{m,n}\), (\(m+n \geq 1\)) is a bipartite graph, with vertex set \(A \cup B\), such that \(|V(A)| = m\) and \(|V(B) = n\), every vertex in \(A\) is joined to a vertex in \(B\), we call \(K_{1,n}\) to be a *star*.
+
+** Design Theory
+*** Latin Squares
+
+* Languages
+** Japanese
+*** Vocab Lists
+
+** Korean
+*** Vocab Lists
+| Hangul | Romanization  | English |
+|--------+---------------+---------|
+| 배심원 | bae sim oouhn | jury    |
+*** Hangul Writing System
+The Korean writing system is comprised of a neat combination of either at minimum 2 radicals and at most 3. Where in each character you must have at minimum one consanant and one vowel. Thus we have
+- 1 vowel, 1 consanant: 아 (pronounced "a", in this case ㅇ is the silent consanant and must be written with a vowel if we want to produce the single vowel sound, otherwise if it follows after a sound it will make a kind of 'ng' noise)
+- 2 vowels, 1 consanant: 안 (pronounced "an")
+- 1 vowel, 2 consanats
